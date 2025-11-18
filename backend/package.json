@@ -15,11 +15,12 @@
     "migrate:status": "knex migrate:status --knexfile knexfile.ts",
     "migrate:up": "knex migrate:up --knexfile knexfile.ts",
     "migrate:down": "knex migrate:down --knexfile knexfile.ts",
-    "seed": "ts-node src/database/seed.ts",
+    "seed": "knex seed:run --knexfile knexfile.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@lexsy/common": "^1.0.0",
+    "@types/morgan": "^1.9.10",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -28,6 +29,7 @@
     "jsonwebtoken": "^9.0.2",
     "knex": "^3.1.0",
     "mammoth": "^1.6.0",
+    "morgan": "^1.10.1",
     "multer": "^1.4.5-lts.1",
     "openai": "^4.24.1",
     "pg": "^8.11.3",

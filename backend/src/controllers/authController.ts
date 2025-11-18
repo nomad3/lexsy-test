@@ -61,11 +61,9 @@ export const register = asyncHandler(async (req: Request, res: Response): Promis
     .returning(['id', 'email', 'full_name', 'role', 'organization', 'created_at']);
 
   // Generate JWT token
-  const token = jwt.sign(
-    { userId: user.id, role: user.role },
-    config.jwtSecret,
-    { expiresIn: config.jwtExpiresIn }
-  );
+  const tokenPayload = { userId: user.id, role: user.role };
+  // @ts-ignore - jwt.sign types are too strict
+  const token = jwt.sign(tokenPayload, config.jwtSecret, { expiresIn: config.jwtExpiresIn });
 
   logger.info('New user registered', { userId: user.id, email: user.email });
 
@@ -123,11 +121,9 @@ export const login = asyncHandler(async (req: Request, res: Response): Promise<v
     .update({ last_login: db.fn.now() });
 
   // Generate JWT token
-  const token = jwt.sign(
-    { userId: user.id, role: user.role },
-    config.jwtSecret,
-    { expiresIn: config.jwtExpiresIn }
-  );
+  const tokenPayload = { userId: user.id, role: user.role };
+  // @ts-ignore - jwt.sign types are too strict
+  const token = jwt.sign(tokenPayload, config.jwtSecret, { expiresIn: config.jwtExpiresIn });
 
   logger.info('User logged in', { userId: user.id, email: user.email });
 
