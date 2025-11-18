@@ -10,6 +10,7 @@ module.exports = {
   ],
   coverageDirectory: 'coverage',
   verbose: true,
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
