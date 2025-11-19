@@ -38,12 +38,12 @@ export default function Landing() {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-gray-900 mb-6">
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-gray-900 mb-6 animate-fade-in">
               Legal documents,
               <br />
-              <span className="relative">
+              <span className="relative inline-block">
                 <span className="relative z-10">filled instantly</span>
-                <span className="absolute bottom-2 left-0 right-0 h-4 bg-yellow-200 -rotate-1"></span>
+                <span className="absolute bottom-2 left-0 right-0 h-4 bg-yellow-200 -rotate-1 animate-slide-in-left"></span>
               </span>
             </h1>
 
@@ -83,11 +83,11 @@ export default function Landing() {
                 </div>
               </div>
               {/* Floating elements */}
-              <div className="absolute -top-4 -right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-                95% Accurate
+              <div className="absolute -top-4 -right-4 bg-black text-white px-4 py-2 rounded-lg shadow-lg font-semibold text-sm animate-bounce-slow">
+                ✨ 95% Accurate
               </div>
-              <div className="absolute -bottom-4 -left-4 bg-purple-500 text-white px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-                10x Faster
+              <div className="absolute -bottom-4 -left-4 bg-black text-white px-4 py-2 rounded-lg shadow-lg font-semibold text-sm hover-scale">
+                ⚡ 10x Faster
               </div>
             </div>
           </div>
@@ -108,8 +108,8 @@ export default function Landing() {
 
           <div className="space-y-6">
             {/* Feature 1: Upload */}
-            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-gray-300 transition-colors">
-              <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center text-2xl font-bold">
+            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-black hover:shadow-lg transition-all animate-fade-in-delay-1 group">
+              <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center text-2xl font-bold group-hover:scale-110 transition-transform">
                 1
               </div>
               <div className="flex-1">
@@ -118,12 +118,12 @@ export default function Landing() {
                   Drag and drop your .docx files. SAFEs, NDAs, employment contracts—anything. Upload in seconds.
                 </p>
               </div>
-              <div className="hidden md:block text-4xl">📤</div>
+              <div className="hidden md:block text-5xl group-hover:scale-110 transition-transform">📤</div>
             </div>
 
             {/* Feature 2: AI Detection */}
-            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-gray-300 transition-colors">
-              <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center text-2xl font-bold">
+            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-black hover:shadow-lg transition-all group">
+              <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center text-2xl font-bold group-hover:scale-110 transition-transform">
                 2
               </div>
               <div className="flex-1">
@@ -132,11 +132,11 @@ export default function Landing() {
                   Our AI scans your document and identifies every fillable field—names, dates, amounts, addresses. No manual setup required.
                 </p>
               </div>
-              <div className="hidden md:block text-4xl">🤖</div>
+              <div className="hidden md:block text-5xl group-hover:scale-110 transition-transform">🤖</div>
             </div>
 
             {/* Feature 3: Conversational Fill */}
-            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-gray-300 transition-colors">
+            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-black hover:shadow-lg transition-all group">
               <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center text-2xl font-bold">
                 3
               </div>
@@ -146,11 +146,11 @@ export default function Landing() {
                   Chat with AI to complete your document. No forms. Just natural conversation. AI validates every answer as you go.
                 </p>
               </div>
-              <div className="hidden md:block text-4xl">💬</div>
+              <div className="hidden md:block text-5xl group-hover:scale-110 transition-transform">💬</div>
             </div>
 
             {/* Feature 4: Download */}
-            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-gray-300 transition-colors">
+            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-black hover:shadow-lg transition-all group">
               <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center text-2xl font-bold">
                 4
               </div>
@@ -160,11 +160,11 @@ export default function Landing() {
                   Get your completed document instantly. All fields filled, validated, and ready for signatures. Takes minutes, not hours.
                 </p>
               </div>
-              <div className="hidden md:block text-4xl">⬇️</div>
+              <div className="hidden md:block text-5xl group-hover:scale-110 transition-transform">⬇️</div>
             </div>
 
             {/* Feature 5: Data Room */}
-            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-gray-300 transition-colors">
+            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-black hover:shadow-lg transition-all group">
               <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center text-2xl font-bold">
                 5
               </div>
@@ -174,7 +174,7 @@ export default function Landing() {
                   Upload company documents once. AI remembers everything—names, amounts, dates. Future documents auto-populate from your data room.
                 </p>
               </div>
-              <div className="hidden md:block text-4xl">📚</div>
+              <div className="hidden md:block text-5xl group-hover:scale-110 transition-transform">📚</div>
             </div>
           </div>
         </div>
