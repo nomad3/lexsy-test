@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
+import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
@@ -14,6 +15,7 @@ function App() {
     <Router>
       <Routes>
         {/* Public routes */}
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={!token ? <Login /> : <Navigate to="/dashboard" />} />
         <Route path="/register" element={!token ? <Register /> : <Navigate to="/dashboard" />} />
 
@@ -24,9 +26,8 @@ function App() {
           <Route path="/documents/:id" element={<DocumentDetail />} />
         </Route>
 
-        {/* Default redirect */}
-        <Route path="/" element={<Navigate to={token ? "/dashboard" : "/login"} />} />
-        <Route path="*" element={<Navigate to={token ? "/dashboard" : "/login"} />} />
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   )
