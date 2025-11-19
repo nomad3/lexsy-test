@@ -5,17 +5,19 @@ import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 
 function Dashboard() {
-  const { data: stats, isLoading: statsLoading } = useQuery({
-    queryKey: ['stats'],
-    queryFn: analyticsAPI.getStats,
+  const { data: dashboardData, isLoading: statsLoading } = useQuery({
+    queryKey: ['dashboard'],
+    queryFn: analyticsAPI.getDashboardMetrics,
   })
 
-  const { data: documents, isLoading: docsLoading } = useQuery({
+  const { data: documentsData, isLoading: docsLoading } = useQuery({
     queryKey: ['documents'],
     queryFn: documentsAPI.getAll,
   })
 
-  const recentDocuments = documents?.slice(0, 5) || []
+  const stats = dashboardData?.data
+  const documents = Array.isArray(documentsData?.data) ? documentsData.data : []
+  const recentDocuments = documents.slice(0, 5)
 
   return (
     <div className="space-y-8">
@@ -138,9 +140,9 @@ function Dashboard() {
                         </svg>
                       </div>
                       <div>
-                        <h3 className="font-medium text-gray-900">{doc.originalName}</h3>
+                        <h3 className="font-medium text-gray-900">{doc.filename}</h3>
                         <p className="text-sm text-gray-500">
-                          {doc.documentType || 'Unknown type'} • {new Date(doc.createdAt).toLocaleDateString()}
+                          {doc.documentType || 'Unknown type'} • {new Date(doc.uploadDate).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
@@ -153,12 +155,10 @@ function Dashboard() {
                       }`}>
                         {doc.status.replace('_', ' ').toUpperCase()}
                       </span>
-                      {doc.healthScore !== undefined && (
-                        <div className="text-right">
-                          <p className="text-sm font-medium text-gray-900">{doc.healthScore}%</p>
-                          <p className="text-xs text-gray-500">Health</p>
-                        </div>
-                      )}
+                      <div className="text-right">
+                        <p className="text-sm font-medium text-gray-900">{doc.completionPercentage}%</p>
+                        <p className="text-xs text-gray-500">Complete</p>
+                      </div>
                     </div>
                   </div>
                 </Card>

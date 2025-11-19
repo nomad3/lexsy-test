@@ -50,20 +50,16 @@ export enum DocumentStatus {
 
 export interface Document {
   id: string
-  userId: string
+  userId?: string
   filename: string
-  originalName: string
   filePath: string
-  fileSize: number
-  mimeType: string
-  status: DocumentStatus
+  uploadDate: string
+  status: DocumentStatus | string
   documentType?: string
-  category?: string
-  healthScore?: number
-  createdAt: string
-  updatedAt: string
-  analyzedAt?: string
-  completedAt?: string
+  aiClassificationConfidence?: number
+  riskScore?: number
+  completionPercentage: number
+  metadata?: any
 }
 
 // Placeholder types
