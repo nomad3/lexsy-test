@@ -1,0 +1,58 @@
+SIMPLE AGREEMENT FOR FUTURE EQUITY
+
+THIS CERTIFIES THAT in exchange for the payment by [INVESTOR_NAME] (the "Investor") of $[INVESTMENT_AMOUNT] (the "Purchase Amount") on or about [INVESTMENT_DATE], [COMPANY_NAME], a [STATE] corporation (the "Company"), hereby issues to the Investor the right to certain shares of the Company's Capital Stock, subject to the terms set forth below.
+
+1. Events
+
+(a) Equity Financing. If there is an Equity Financing before the expiration or termination of this instrument, the Company will automatically issue to the Investor either:
+
+    (i) a number of shares of Standard Preferred Stock equal to the Purchase Amount divided by the price per share of the Standard Preferred Stock, if the pre-money valuation is less than or equal to the Valuation Cap; or
+
+    (ii) a number of shares of Safe Preferred Stock equal to the Purchase Amount divided by the Safe Price.
+
+2. Definitions
+
+"Valuation Cap" means $[VALUATION_CAP].
+
+"Discount Rate" means [DISCOUNT_RATE]%.
+
+"Company Capitalization" is all shares of Capital Stock as of immediately prior to the Equity Financing.
+
+3. Company Representations
+
+(a) The Company is a corporation duly organized, validly existing and in good standing under the laws of [STATE].
+
+(b) The Company has the power and authority to own, operate and lease its properties and conduct its business as presently conducted.
+
+4. Investor Representations
+
+(a) The Investor has full legal capacity, power and authority to execute and deliver this instrument.
+
+(b) This instrument constitutes legal, valid and binding obligation of the Investor.
+
+5. Miscellaneous
+
+(a) Any notices required or permitted by this instrument will be deemed effectively given: (i) when received, if delivered by hand; (ii) when received, if sent by a nationally recognized overnight courier; (iii) three (3) days after being deposited in the mail, postage prepaid, or (iv) one (1) day after being sent by email.
+
+Notice Address for Company:
+[COMPANY_NAME]
+[COMPANY_ADDRESS]
+Attention: [COMPANY_CONTACT_NAME]
+Email: [COMPANY_EMAIL]
+
+Notice Address for Investor:
+[INVESTOR_NAME]
+[INVESTOR_ADDRESS]
+Attention: [INVESTOR_CONTACT_NAME]
+Email: [INVESTOR_EMAIL]
+
+IN WITNESS WHEREOF, the undersigned have caused this Safe to be duly executed and delivered.
+
+COMPANY:                           INVESTOR:
+
+[COMPANY_NAME]                     [INVESTOR_NAME]
+
+By: ___________________            By: ___________________
+Name: [COMPANY_SIGNATORY]          Name: [INVESTOR_SIGNATORY]
+Title: [COMPANY_TITLE]             Title: [INVESTOR_TITLE]
+Date: [SIGNING_DATE]               Date: [SIGNING_DATE]
