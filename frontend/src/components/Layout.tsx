@@ -9,6 +9,7 @@ function Layout() {
   const navigation = [
     { name: 'Dashboard', path: '/dashboard' },
     { name: 'Documents', path: '/documents' },
+    { name: 'Data Room', path: '/dataroom' },
   ]
 
   const isActive = (path: string) => location.pathname === path

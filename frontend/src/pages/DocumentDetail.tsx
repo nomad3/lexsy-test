@@ -100,6 +100,48 @@ function DocumentDetail() {
   const totalPlaceholders = placeholders?.length || 0
   const completionPercentage = totalPlaceholders > 0 ? Math.round((completedPlaceholders / totalPlaceholders) * 100) : 0
 
+  const handleDownload = () => {
+    // Generate a simple text representation of the filled document
+    const filledFields = placeholders?.filter(p => p.value).map(p =>
+      `${p.fieldName}: ${p.value}`
+    ).join('\n') || 'No fields filled yet'
+
+    const unfilledFields = placeholders?.filter(p => !p.value).map(p =>
+      `${p.fieldName}: [NOT FILLED]`
+    ).join('\n') || ''
+
+    const content = `
+FILLED DOCUMENT: ${document?.originalName || document?.filename}
+Generated: ${new Date().toLocaleString()}
+Completion: ${completionPercentage}%
+
+==================== FILLED FIELDS ====================
+${filledFields}
+
+==================== UNFILLED FIELDS ====================
+${unfilledFields || 'All fields completed!'}
+
+===========================================================
+This is a simple text representation.
+Full DOCX generation coming soon!
+    `.trim()
+
+    // Create a blob and download it
+    const blob = new Blob([content], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${document?.originalName || 'document'}_filled.txt`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
+  const handleStartConversation = () => {
+    navigate(`/conversation/${id}`)
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -107,17 +149,35 @@ function DocumentDetail() {
         <Button variant="outline" onClick={() => navigate('/documents')}>
           ← Back to Documents
         </Button>
+        <div className="flex space-x-2">
+          {placeholders && placeholders.length > 0 && (
+            <>
+              <Button
+                variant="secondary"
+                onClick={handleStartConversation}
+              >
+                Fill with AI Chat
+              </Button>
+              <Button
+                variant="primary"
+                onClick={handleDownload}
+              >
+                Download Filled Document
+              </Button>
+            </>
+          )}
+        </div>
       </div>
 
       {/* Document Info */}
       <Card>
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <h1 className="text-2xl font-bold text-gray-900">{document.originalName}</h1>
+            <h1 className="text-2xl font-bold text-gray-900">{(document as any).originalName || document.filename}</h1>
             <div className="flex items-center space-x-4 mt-2 text-sm text-gray-600">
               <span>{document.documentType || 'Unknown type'}</span>
               <span>•</span>
-              <span>Uploaded {new Date(document.createdAt).toLocaleDateString()}</span>
+              <span>Uploaded {new Date((document as any).createdAt || document.uploadDate).toLocaleDateString()}</span>
               <span>•</span>
               <span className={`px-2 py-1 rounded text-xs font-medium ${
                 document.status === 'completed' ? 'bg-green-100 text-green-700' :
@@ -129,9 +189,9 @@ function DocumentDetail() {
               </span>
             </div>
           </div>
-          {document.healthScore !== undefined && (
+          {(document as any).healthScore !== undefined && (
             <div className="text-center">
-              <div className="text-4xl font-bold text-primary-600">{document.healthScore}%</div>
+              <div className="text-4xl font-bold text-primary-600">{(document as any).healthScore}%</div>
               <div className="text-sm text-gray-500">Health Score</div>
             </div>
           )}
