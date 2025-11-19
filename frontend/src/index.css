@@ -4,6 +4,28 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 8s ease infinite;
+  }
+
+  @keyframes gradient {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .bg-grid-gray-200 {
+    background-image: linear-gradient(to right, rgb(229 231 235 / 0.3) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(229 231 235 / 0.3) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
+
 @layer base {
   body {
     @apply bg-gray-50 text-gray-900 font-sans;
