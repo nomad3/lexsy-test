@@ -187,10 +187,25 @@ export const dataRoomAPI = {
 
 // Analytics API
 export const analyticsAPI = {
+  getDashboardMetrics: async () => {
+    const { data } = await api.get<ApiResponse<any>>('/analytics/dashboard')
+    return data
+  },
+
   getStats: async (): Promise<DocumentStats> => {
     const { data } = await api.get<ApiResponse<DocumentStats>>('/analytics/stats')
     if (!data.data) throw new Error('Failed to fetch stats')
     return data.data
+  },
+
+  getDocumentInsights: async (documentId: string) => {
+    const { data } = await api.get<ApiResponse<any>>(`/analytics/documents/${documentId}/insights`)
+    return data
+  },
+
+  getCompanyAnalytics: async (companyName: string) => {
+    const { data } = await api.get<ApiResponse<any>>(`/analytics/companies/${companyName}`)
+    return data
   },
 }
 
