@@ -15,28 +15,29 @@ function Layout() {
   const isActive = (path: string) => location.pathname === path
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header className="border-b border-gray-200 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <div className="flex items-center">
-              <Link to="/dashboard" className="text-2xl font-bold text-primary-600">
-                Lexsy
-              </Link>
-            </div>
+            <Link to="/dashboard" className="flex items-center space-x-2 group">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black transform group-hover:scale-105 transition-transform">
+                <span className="text-white font-bold text-sm">L</span>
+              </div>
+              <span className="text-xl font-bold text-gray-900">Lexsy</span>
+            </Link>
 
             {/* Navigation */}
-            <nav className="hidden md:flex space-x-8">
+            <nav className="hidden md:flex items-center space-x-1">
               {navigation.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     isActive(item.path)
-                      ? 'text-primary-600 bg-primary-50'
-                      : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50'
+                      ? 'bg-gray-900 text-white'
+                      : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
                   {item.name}
@@ -45,12 +46,12 @@ function Layout() {
             </nav>
 
             {/* User menu */}
-            <div className="flex items-center space-x-4">
-              <div className="text-sm">
+            <div className="flex items-center gap-4">
+              <div className="hidden sm:block text-sm text-right">
                 <p className="font-medium text-gray-900">{user?.fullName}</p>
-                <p className="text-gray-500 text-xs">{user?.email}</p>
+                <p className="text-gray-500 text-xs">{user?.role}</p>
               </div>
-              <Button variant="outline" size="sm" onClick={logout}>
+              <Button variant="outline" size="sm" onClick={logout} className="text-sm">
                 Logout
               </Button>
             </div>
@@ -59,7 +60,7 @@ function Layout() {
       </header>
 
       {/* Main content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-6 py-8 bg-gray-50 min-h-[calc(100vh-4rem)]">
         <Outlet />
       </main>
     </div>

@@ -22,13 +22,13 @@ function Dashboard() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-600 mt-1">Welcome back! Here's your document overview.</p>
+          <h1 className="text-4xl font-bold text-gray-900">Dashboard</h1>
+          <p className="text-gray-600 mt-2 text-lg">Your document automation workspace</p>
         </div>
         <Link to="/documents">
-          <Button variant="primary">Upload Document</Button>
+          <Button className="bg-black hover:bg-gray-800 text-white">Upload Document</Button>
         </Link>
       </div>
 
@@ -42,8 +42,8 @@ function Dashboard() {
                 {statsLoading ? '...' : stats?.totalDocuments || 0}
               </p>
             </div>
-            <div className="p-3 bg-primary-100 rounded-full">
-              <svg className="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="p-3 bg-gray-100 rounded-lg">
+              <svg className="w-8 h-8 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
@@ -86,7 +86,7 @@ function Dashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Avg Health Score</p>
-              <p className="text-3xl font-bold text-primary-600 mt-2">
+              <p className="text-3xl font-bold text-gray-900 mt-2">
                 {statsLoading ? '...' : stats?.averageHealthScore?.toFixed(0) || 'N/A'}
               </p>
             </div>
@@ -103,7 +103,7 @@ function Dashboard() {
       <div>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold text-gray-900">Recent Documents</h2>
-          <Link to="/documents" className="text-sm text-primary-600 hover:text-primary-700 font-medium">
+          <Link to="/documents" className="text-sm text-gray-900 hover:text-gray-700 font-medium underline">
             View all →
           </Link>
         </div>
