@@ -159,3 +159,33 @@ export const extractPlaceholders = asyncHandler(async (req: Request, res: Respon
     throw error;
   }
 });
+
+/**
+ * Get placeholders for a document
+ * GET /api/documents/:id/placeholders
+ */
+export const getPlaceholders = asyncHandler(async (req: Request, res: Response): Promise<void> => {
+  if (!req.user) {
+    throw createError('User not authenticated', 401, 'NOT_AUTHENTICATED');
+  }
+
+  const { id } = req.params;
+
+  if (!id) {
+    throw createError('Document ID is required', 400, 'MISSING_ID');
+  }
+
+  try {
+    const placeholders = await documentService.getPlaceholders(id, req.user.id);
+
+    res.status(200).json({
+      success: true,
+      data: placeholders,
+    });
+  } catch (error) {
+    if (error instanceof Error && error.message === 'Document not found') {
+      throw createError('Document not found', 404, 'DOCUMENT_NOT_FOUND');
+    }
+    throw error;
+  }
+});

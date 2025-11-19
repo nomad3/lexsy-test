@@ -152,6 +152,30 @@ export class DocumentService {
   }
 
   /**
+   * Get placeholders for a document
+   * @param documentId - ID of the document
+   * @param userId - ID of the user requesting placeholders
+   * @returns Promise<Placeholder[]> - Array of placeholders
+   */
+  async getPlaceholders(documentId: string, userId: string): Promise<Placeholder[]> {
+    // Verify document ownership
+    const dbDocument = await db('documents')
+      .where({ id: documentId, user_id: userId })
+      .first();
+
+    if (!dbDocument) {
+      throw new Error('Document not found');
+    }
+
+    // Get placeholders from database
+    const dbPlaceholders = await db('placeholders')
+      .where({ document_id: documentId })
+      .orderBy('position', 'asc');
+
+    return dbPlaceholders;
+  }
+
+  /**
    * Get a single document by ID
    * @param documentId - ID of the document to retrieve
    * @param userId - ID of the user requesting the document

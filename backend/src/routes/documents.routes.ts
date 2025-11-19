@@ -1,15 +1,16 @@
 import { Router } from 'express';
 import multer from 'multer';
 import path from 'path';
-import { authenticate } from '../middleware/authenticate';
+import { config } from '../config/app';
 import {
-  uploadDocument,
-  getDocuments,
-  getDocument,
   analyzeDocument,
   extractPlaceholders,
+  getDocument,
+  getDocuments,
+  getPlaceholders,
+  uploadDocument
 } from '../controllers/documentController';
-import { config } from '../config/app';
+import { authenticate } from '../middleware/authenticate';
 
 const router = Router();
 
@@ -68,6 +69,12 @@ router.get('/:id', authenticate, getDocument);
  * Trigger document analysis (authenticated)
  */
 router.post('/:id/analyze', authenticate, analyzeDocument);
+
+/**
+ * GET /api/documents/:id/placeholders
+ * Get placeholders for a document (authenticated)
+ */
+router.get('/:id/placeholders', authenticate, getPlaceholders);
 
 /**
  * POST /api/documents/:id/placeholders
