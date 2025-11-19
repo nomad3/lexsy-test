@@ -48,11 +48,11 @@ function Documents() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Documents</h1>
-          <p className="text-gray-600 mt-1">Manage and fill your legal documents</p>
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900">Documents</h1>
+          <p className="text-gray-600 mt-2 text-lg">Manage and fill your legal documents</p>
         </div>
         <Button
-          variant="primary"
+          className="bg-black hover:bg-gray-800 text-white"
           onClick={() => setShowUpload(!showUpload)}
         >
           {showUpload ? 'Cancel' : 'Upload Document'}
@@ -92,7 +92,7 @@ function Documents() {
               <h3 className="mt-2 text-sm font-medium text-gray-900">No documents</h3>
               <p className="mt-1 text-sm text-gray-500">Get started by uploading a document.</p>
               <div className="mt-6">
-                <Button variant="primary" onClick={() => setShowUpload(true)}>
+                <Button className="bg-black hover:bg-gray-800 text-white" onClick={() => setShowUpload(true)}>
                   Upload Your First Document
                 </Button>
               </div>

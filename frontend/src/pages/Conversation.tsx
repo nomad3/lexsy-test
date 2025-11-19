@@ -117,14 +117,14 @@ function Conversation() {
             <p className="text-gray-600 mt-1">{document.filename}</p>
           </div>
           <div className="text-right">
-            <div className="text-3xl font-bold text-primary-600">{completionPercentage}%</div>
+            <div className="text-3xl font-bold text-gray-900">{completionPercentage}%</div>
             <div className="text-sm text-gray-500">Complete</div>
           </div>
         </div>
         <div className="mt-4">
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
-              className="bg-primary-600 h-2 rounded-full transition-all"
+              className="bg-gray-900 h-2 rounded-full transition-all"
               style={{ width: `${completionPercentage}%` }}
             />
           </div>
@@ -150,7 +150,7 @@ function Conversation() {
               ))}
               {sendMessageMutation.isPending && (
                 <div className="flex justify-end">
-                  <div className="bg-primary-600 text-white rounded-lg px-4 py-3 max-w-[80%]">
+                  <div className="bg-gray-900 text-white rounded-lg px-4 py-3 max-w-[80%]">
                     <div className="flex items-center space-x-2">
                       <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -188,7 +188,7 @@ function Conversation() {
             />
             <Button
               type="submit"
-              variant="primary"
+              className="bg-black hover:bg-gray-800 text-white disabled:bg-gray-400"
               disabled={!message.trim() || !conversationId}
               isLoading={sendMessageMutation.isPending}
             >
@@ -198,9 +198,8 @@ function Conversation() {
           {completionPercentage === 100 && (
             <div className="mt-3 flex justify-center">
               <Button
-                variant="primary"
+                className="w-full bg-black hover:bg-gray-800 text-white"
                 onClick={handleCompleteConversation}
-                className="w-full"
               >
                 Complete & View Document
               </Button>

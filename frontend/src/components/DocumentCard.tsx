@@ -10,16 +10,16 @@ function DocumentCard({ document }: DocumentCardProps) {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'bg-green-100 text-green-700'
+        return 'bg-gray-200 text-gray-900 font-medium'
       case 'ready':
       case 'analyzed':
-        return 'bg-blue-100 text-blue-700'
+        return 'bg-gray-200 text-gray-900'
       case 'in_progress':
       case 'analyzing':
       case 'extracting':
-        return 'bg-yellow-100 text-yellow-700'
+        return 'bg-gray-200 text-gray-900'
       case 'error':
-        return 'bg-red-100 text-red-700'
+        return 'bg-gray-200 text-gray-900'
       default:
         return 'bg-gray-100 text-gray-700'
     }
@@ -36,8 +36,8 @@ function DocumentCard({ document }: DocumentCardProps) {
       <Card hover>
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4 flex-1 min-w-0">
-            <div className="flex-shrink-0 p-3 bg-primary-100 rounded-lg">
-              <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex-shrink-0 p-3 bg-gray-100 rounded-lg">
+              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>

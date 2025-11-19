@@ -153,13 +153,13 @@ Full DOCX generation coming soon!
           {placeholders && placeholders.length > 0 && (
             <>
               <Button
-                variant="secondary"
+                className="bg-gray-100 hover:bg-gray-200 text-gray-900"
                 onClick={handleStartConversation}
               >
                 Fill with AI Chat
               </Button>
               <Button
-                variant="primary"
+                className="bg-black hover:bg-gray-800 text-white"
                 onClick={handleDownload}
               >
                 Download Filled Document
@@ -180,9 +180,9 @@ Full DOCX generation coming soon!
               <span>Uploaded {new Date((document as any).createdAt || document.uploadDate).toLocaleDateString()}</span>
               <span>•</span>
               <span className={`px-2 py-1 rounded text-xs font-medium ${
-                document.status === 'completed' ? 'bg-green-100 text-green-700' :
-                document.status === 'ready' ? 'bg-blue-100 text-blue-700' :
-                document.status === 'in_progress' ? 'bg-yellow-100 text-yellow-700' :
+                document.status === 'completed' ? 'bg-gray-200 text-gray-900' :
+                document.status === 'ready' ? 'bg-gray-200 text-gray-900' :
+                document.status === 'in_progress' ? 'bg-gray-200 text-gray-900' :
                 'bg-gray-100 text-gray-700'
               }`}>
                 {document.status.replace('_', ' ').toUpperCase()}
@@ -191,7 +191,7 @@ Full DOCX generation coming soon!
           </div>
           {(document as any).healthScore !== undefined && (
             <div className="text-center">
-              <div className="text-4xl font-bold text-primary-600">{(document as any).healthScore}%</div>
+              <div className="text-4xl font-bold text-gray-900">{(document as any).healthScore}%</div>
               <div className="text-sm text-gray-500">Health Score</div>
             </div>
           )}
@@ -207,7 +207,7 @@ Full DOCX generation coming soon!
               Use AI to automatically extract all placeholders from this document
             </p>
             <Button
-              variant="primary"
+              className="bg-black hover:bg-gray-800 text-white"
               onClick={handleExtractPlaceholders}
               isLoading={extractMutation.isPending}
             >
@@ -233,7 +233,7 @@ Full DOCX generation coming soon!
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div
-                className="bg-primary-600 h-2 rounded-full transition-all"
+                className="bg-gray-900 h-2 rounded-full transition-all"
                 style={{ width: `${completionPercentage}%` }}
               />
             </div>
@@ -250,12 +250,12 @@ Full DOCX generation coming soon!
                         {placeholder.fieldType}
                       </span>
                       {placeholder.isRequired && (
-                        <span className="text-xs px-2 py-1 bg-red-100 text-red-600 rounded">
+                        <span className="text-xs px-2 py-1 bg-gray-200 text-gray-700 rounded">
                           Required
                         </span>
                       )}
                       {placeholder.isCompleted && (
-                        <span className="text-xs px-2 py-1 bg-green-100 text-green-600 rounded">
+                        <span className="text-xs px-2 py-1 bg-gray-200 text-gray-900 rounded font-medium">
                           Completed
                         </span>
                       )}
@@ -264,7 +264,7 @@ Full DOCX generation coming soon!
                       <p className="text-sm text-gray-600 mt-1">{placeholder.description}</p>
                     )}
                     {placeholder.suggestedValue && (
-                      <p className="text-sm text-primary-600 mt-1">
+                      <p className="text-sm text-gray-700 font-medium mt-1">
                         Suggested: {placeholder.suggestedValue}
                       </p>
                     )}
@@ -285,14 +285,14 @@ Full DOCX generation coming soon!
                         placeholder={`Enter ${placeholder.fieldName.toLowerCase()}`}
                       />
                       <Button
-                        variant="primary"
+                        className="bg-black hover:bg-gray-800 text-white"
                         onClick={() => handleUpdatePlaceholder(placeholder.id)}
                         isLoading={updateMutation.isPending}
                       >
                         Save
                       </Button>
                       <Button
-                        variant="outline"
+                        className="bg-gray-100 hover:bg-gray-200 text-gray-900"
                         onClick={() => setEditingPlaceholder(null)}
                       >
                         Cancel
@@ -304,7 +304,7 @@ Full DOCX generation coming soon!
                         {placeholder.value || <span className="text-gray-400 italic">Not filled</span>}
                       </p>
                       <Button
-                        variant="outline"
+                        className="bg-gray-100 hover:bg-gray-200 text-gray-900"
                         size="sm"
                         onClick={() => handleEditPlaceholder(placeholder.id, placeholder.value)}
                       >

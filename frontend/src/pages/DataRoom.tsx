@@ -83,8 +83,8 @@ function DataRoom() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Data Room</h1>
-        <p className="text-gray-600 mt-1">
+        <h1 className="text-5xl md:text-6xl font-bold text-gray-900">Data Room</h1>
+        <p className="text-gray-600 mt-2 text-lg">
           Upload company documents to build your knowledge graph for intelligent auto-suggestions
         </p>
       </div>
@@ -141,7 +141,7 @@ function DataRoom() {
 
           <div>
             <Button
-              variant="primary"
+              className="bg-black hover:bg-gray-800 text-white disabled:bg-gray-400"
               onClick={handleUpload}
               disabled={!selectedFile}
               isLoading={uploadMutation.isPending}
@@ -151,14 +151,14 @@ function DataRoom() {
           </div>
         </div>
 
-        <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg">
           <div className="flex items-start space-x-3">
-            <svg className="w-5 h-5 text-blue-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-gray-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <div>
-              <h3 className="text-sm font-medium text-blue-900">What happens after upload?</h3>
-              <p className="text-sm text-blue-700 mt-1">
+              <h3 className="text-sm font-medium text-gray-900">What happens after upload?</h3>
+              <p className="text-sm text-gray-700 mt-1">
                 Our AI will analyze your document to extract company information, entities, and relationships.
                 This data will be added to your knowledge graph and used to provide intelligent suggestions
                 when filling out legal documents.
@@ -194,8 +194,8 @@ function DataRoom() {
               <Card key={doc.id} hover>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4 flex-1">
-                    <div className="p-3 bg-purple-100 rounded-lg">
-                      <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="p-3 bg-gray-100 rounded-lg">
+                      <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                       </svg>
                     </div>
@@ -218,7 +218,7 @@ function DataRoom() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Button
-                      variant="danger"
+                      className="bg-gray-200 hover:bg-gray-300 text-gray-900"
                       size="sm"
                       onClick={() => handleDelete(doc.id, doc.originalName)}
                       isLoading={deleteMutation.isPending}
@@ -237,8 +237,8 @@ function DataRoom() {
       {documents && documents.length > 0 && (
         <Card>
           <div className="flex items-start space-x-4">
-            <div className="p-3 bg-green-100 rounded-lg">
-              <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="p-3 bg-gray-100 rounded-lg">
+              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
@@ -250,16 +250,16 @@ function DataRoom() {
                 when you fill out legal documents.
               </p>
               <div className="mt-4 grid grid-cols-3 gap-4">
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <div className="text-2xl font-bold text-primary-600">{documents.length}</div>
+                <div className="bg-gray-100 rounded-lg p-3">
+                  <div className="text-2xl font-bold text-gray-900">{documents.length}</div>
                   <div className="text-sm text-gray-600">Documents</div>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <div className="text-2xl font-bold text-primary-600">-</div>
+                <div className="bg-gray-100 rounded-lg p-3">
+                  <div className="text-2xl font-bold text-gray-900">-</div>
                   <div className="text-sm text-gray-600">Entities Extracted</div>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <div className="text-2xl font-bold text-primary-600">-</div>
+                <div className="bg-gray-100 rounded-lg p-3">
+                  <div className="text-2xl font-bold text-gray-900">-</div>
                   <div className="text-sm text-gray-600">Suggestions Made</div>
                 </div>
               </div>
