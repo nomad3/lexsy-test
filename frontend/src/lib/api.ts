@@ -1,16 +1,16 @@
 import axios, { AxiosError } from 'axios'
 import type {
-  AuthResponse,
-  LoginRequest,
-  RegisterRequest,
-  Document,
-  Placeholder,
-  Conversation,
-  Message,
-  DataRoomDocument,
-  DocumentStats,
-  ApiResponse,
   ApiError,
+  ApiResponse,
+  AuthResponse,
+  Conversation,
+  DataRoomDocument,
+  Document,
+  DocumentStats,
+  LoginRequest,
+  Message,
+  Placeholder,
+  RegisterRequest,
 } from './types'
 
 // Create axios instance with base configuration
@@ -83,8 +83,8 @@ export const authAPI = {
 // Documents API
 export const documentsAPI = {
   getAll: async (): Promise<Document[]> => {
-    const { data } = await api.get<ApiResponse<Document[]>>('/documents')
-    return data.data || []
+    const { data } = await api.get<ApiResponse<{ documents: Document[] }>>('/documents')
+    return data.data?.documents || []
   },
 
   getById: async (id: string): Promise<Document> => {

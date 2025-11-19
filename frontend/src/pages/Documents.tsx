@@ -1,16 +1,16 @@
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { documentsAPI, handleApiError } from '../lib/api'
 import DocumentCard from '../components/DocumentCard'
 import FileUpload from '../components/FileUpload'
-import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
+import Card from '../components/ui/Card'
+import { documentsAPI, handleApiError } from '../lib/api'
 
 function Documents() {
   const [showUpload, setShowUpload] = useState(false)
   const queryClient = useQueryClient()
 
-  const { data: documentsData, isLoading } = useQuery({
+  const { data: documentsData, isLoading, error } = useQuery({
     queryKey: ['documents'],
     queryFn: documentsAPI.getAll,
   })
@@ -19,17 +19,21 @@ function Documents() {
 
   const uploadMutation = useMutation({
     mutationFn: documentsAPI.upload,
+    onMutate: () => {
+      // Mutation started
+    },
     onSuccess: async (newDoc) => {
       queryClient.invalidateQueries({ queryKey: ['documents'] })
       setShowUpload(false)
 
-      // Automatically trigger analysis after upload if document has an ID
+      // Automatically trigger full flow: Analyze -> Extract Placeholders
       if (newDoc && newDoc.id) {
         try {
           await documentsAPI.analyze(newDoc.id)
+          await documentsAPI.extractPlaceholders(newDoc.id)
           queryClient.invalidateQueries({ queryKey: ['documents'] })
         } catch (error) {
-          console.error('Analysis failed:', error)
+          console.error('Full flow failed:', error)
         }
       }
     },
@@ -41,6 +45,18 @@ function Documents() {
 
   const handleFileSelect = (file: File) => {
     uploadMutation.mutate(file)
+  }
+
+  if (error) {
+    return (
+      <div className="p-8 text-center">
+        <div className="bg-red-50 text-red-700 p-4 rounded-lg inline-block">
+          <h3 className="font-bold">Error loading documents</h3>
+          <p>{error.message}</p>
+          <pre className="text-xs mt-2 text-left">{JSON.stringify(error, null, 2)}</pre>
+        </div>
+      </div>
+    )
   }
 
   return (

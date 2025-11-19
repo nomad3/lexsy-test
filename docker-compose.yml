@@ -51,6 +51,26 @@ services:
     command: sh -c "npm run migrate:latest && npm start"
     restart: unless-stopped
 
+  # Frontend Development Server
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: lexsy-frontend
+    environment:
+      - VITE_API_URL=http://localhost:5000/api
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - lexsy-network
+    command: npm run dev -- --host 0.0.0.0
+    restart: unless-stopped
+
 volumes:
   postgres_data:
     driver: local

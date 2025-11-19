@@ -1,18 +1,18 @@
-import express, { Request, Response } from 'express';
 import cors from 'cors';
+import express, { Request, Response } from 'express';
+import fs from 'fs';
 import morgan from 'morgan';
 import path from 'path';
-import fs from 'fs';
 import { config } from './config/app';
-import { logger } from './utils/logger';
 import { errorHandler } from './middleware/errorHandler';
+import { logger } from './utils/logger';
 
 // Import routes
+import analyticsRoutes from './routes/analytics.routes';
 import authRoutes from './routes/auth.routes';
-import documentRoutes from './routes/documents.routes';
 import conversationRoutes from './routes/conversations.routes';
 import dataroomRoutes from './routes/dataroom.routes';
-import analyticsRoutes from './routes/analytics.routes';
+import documentRoutes from './routes/documents.routes';
 
 // Initialize Express app
 const app = express();

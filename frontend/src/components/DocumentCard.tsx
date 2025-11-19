@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import Card from './ui/Card'
 import type { Document } from '../lib/types'
+import Card from './ui/Card'
 
 interface DocumentCardProps {
   document: Document
@@ -25,11 +25,24 @@ function DocumentCard({ document }: DocumentCardProps) {
     }
   }
 
-  const formatFileSize = (bytes: number) => {
+  const formatFileSize = (bytes?: number) => {
+    if (!bytes || isNaN(bytes)) return 'Unknown size'
     if (bytes < 1024) return bytes + ' B'
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB'
     return (bytes / (1024 * 1024)).toFixed(1) + ' MB'
   }
+
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return 'Unknown date'
+    const date = new Date(dateString)
+    if (isNaN(date.getTime())) return 'Unknown date'
+    return date.toLocaleDateString()
+  }
+
+  const displayName = document.originalName || document.filename || 'Untitled Document'
+  const displayType = document.documentType || 'Unknown type'
+  const displayDate = formatDate(document.createdAt || document.uploadDate)
+  const displaySize = formatFileSize(document.fileSize)
 
   return (
     <Link to={`/documents/${document.id}`}>
@@ -42,25 +55,25 @@ function DocumentCard({ document }: DocumentCardProps) {
               </svg>
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="font-medium text-gray-900 truncate">{document.originalName}</h3>
+              <h3 className="font-medium text-gray-900 truncate">{displayName}</h3>
               <div className="flex items-center space-x-4 mt-1">
                 <p className="text-sm text-gray-500">
-                  {document.documentType || 'Unknown type'}
+                  {displayType}
                 </p>
                 <span className="text-gray-300">•</span>
                 <p className="text-sm text-gray-500">
-                  {formatFileSize(document.fileSize)}
+                  {displaySize}
                 </p>
                 <span className="text-gray-300">•</span>
                 <p className="text-sm text-gray-500">
-                  {new Date(document.createdAt).toLocaleDateString()}
+                  {displayDate}
                 </p>
               </div>
             </div>
           </div>
           <div className="flex items-center space-x-4 flex-shrink-0 ml-4">
             <span className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${getStatusColor(document.status)}`}>
-              {document.status.replace('_', ' ').toUpperCase()}
+              {document.status?.replace('_', ' ').toUpperCase() || 'UNKNOWN'}
             </span>
             {document.healthScore !== undefined && (
               <div className="text-right">

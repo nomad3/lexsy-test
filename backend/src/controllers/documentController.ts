@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
+import { asyncHandler, createError } from '../middleware/errorHandler';
 import { DocumentService } from '../services/DocumentService';
 import { logger } from '../utils/logger';
-import { asyncHandler, createError } from '../middleware/errorHandler';
 
 const documentService = new DocumentService();
 

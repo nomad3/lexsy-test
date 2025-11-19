@@ -52,13 +52,17 @@ export interface Document {
   id: string
   userId?: string
   filename: string
+  originalName?: string  // Added: original filename before upload
   filePath: string
   uploadDate: string
+  createdAt?: string  // Added: creation timestamp
   status: DocumentStatus | string
   documentType?: string
   aiClassificationConfidence?: number
   riskScore?: number
   completionPercentage: number
+  fileSize?: number  // Added: file size in bytes
+  healthScore?: number  // Added: document health score
   metadata?: any
 }
 

@@ -1,10 +1,10 @@
-import { useParams, useNavigate } from 'react-router-dom'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { documentsAPI, handleApiError } from '../lib/api'
-import Card from '../components/ui/Card'
-import Button from '../components/ui/Button'
-import Input from '../components/ui/Input'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import Button from '../components/ui/Button'
+import Card from '../components/ui/Card'
+import Input from '../components/ui/Input'
+import { documentsAPI, handleApiError } from '../lib/api'
 
 function DocumentDetail() {
   const { id } = useParams<{ id: string }>()
@@ -182,13 +182,12 @@ Full DOCX generation coming soon!
               <span>•</span>
               <span>Uploaded {new Date((document as any).createdAt || document.uploadDate).toLocaleDateString()}</span>
               <span>•</span>
-              <span className={`px-2 py-1 rounded text-xs font-medium ${
-                document.status === 'completed' ? 'bg-gray-200 text-gray-900' :
-                document.status === 'ready' ? 'bg-gray-200 text-gray-900' :
-                document.status === 'in_progress' ? 'bg-gray-200 text-gray-900' :
-                'bg-gray-100 text-gray-700'
-              }`}>
-                {document.status.replace('_', ' ').toUpperCase()}
+              <span className={`px-2 py-1 rounded text-xs font-medium ${document.status === 'completed' ? 'bg-gray-200 text-gray-900' :
+                  document.status === 'ready' ? 'bg-gray-200 text-gray-900' :
+                    document.status === 'in_progress' ? 'bg-gray-200 text-gray-900' :
+                      'bg-gray-100 text-gray-700'
+                }`}>
+                {document.status?.replace('_', ' ').toUpperCase() || 'UNKNOWN'}
               </span>
             </div>
           </div>

@@ -1,8 +1,8 @@
-import { db } from '../config/knex';
-import { AIAgentService } from './AIAgentService';
-import { parseDocx } from '../utils/docxParser';
-import { Document, DocumentStatus, Placeholder, ValidationStatus, PlaceholderFieldType } from '@lexsy/common';
+import { Document, DocumentStatus, Placeholder, PlaceholderFieldType, ValidationStatus } from '@lexsy/common';
 import { v4 as uuidv4 } from 'uuid';
+import { db } from '../config/knex';
+import { parseDocx } from '../utils/docxParser';
+import { AIAgentService } from './AIAgentService';
 
 export interface DocumentAnalysis {
   documentType: string;
@@ -190,8 +190,10 @@ export class DocumentService {
       id: dbDoc.id,
       userId: dbDoc.user_id,
       filename: dbDoc.filename,
+      originalName: dbDoc.filename,  // Use filename as originalName
       filePath: dbDoc.file_path,
       uploadDate: new Date(dbDoc.upload_date),
+      createdAt: dbDoc.upload_date,  // Use upload_date as createdAt
       status: dbDoc.status as DocumentStatus,
       documentType: dbDoc.document_type || '',
       aiClassificationConfidence: dbDoc.ai_classification_confidence,
