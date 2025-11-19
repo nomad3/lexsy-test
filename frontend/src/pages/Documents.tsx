@@ -23,12 +23,14 @@ function Documents() {
       queryClient.invalidateQueries({ queryKey: ['documents'] })
       setShowUpload(false)
 
-      // Automatically trigger analysis after upload
-      try {
-        await documentsAPI.analyze(newDoc.id)
-        queryClient.invalidateQueries({ queryKey: ['documents'] })
-      } catch (error) {
-        console.error('Analysis failed:', error)
+      // Automatically trigger analysis after upload if document has an ID
+      if (newDoc && newDoc.id) {
+        try {
+          await documentsAPI.analyze(newDoc.id)
+          queryClient.invalidateQueries({ queryKey: ['documents'] })
+        } catch (error) {
+          console.error('Analysis failed:', error)
+        }
       }
     },
     onError: (error) => {
