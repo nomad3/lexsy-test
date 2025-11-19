@@ -24,8 +24,8 @@ services:
   # Backend API Server
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
     container_name: lexsy-backend
     environment:
       NODE_ENV: production
@@ -48,7 +48,7 @@ services:
         condition: service_healthy
     networks:
       - lexsy-network
-    command: sh -c "npm run migrate:latest && npm start"
+    command: sh -c "npm run migrate:prod && npm run seed && npm start"
     restart: unless-stopped
 
   # Frontend Development Server

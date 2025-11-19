@@ -3,19 +3,28 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
-COPY ../common/package*.json ../common/
+# Copy common package first
+COPY common ./common
+WORKDIR /app/common
+RUN npm install && npm run build
+
+# Copy backend package files
+WORKDIR /app/backend
+COPY backend/package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy source code
-COPY . .
-COPY ../common ../common
+# Copy backend source code
+COPY backend/src ./src
+COPY backend/tsconfig.json ./
+COPY backend/knexfile.ts ./
 
-# Build TypeScript
+# Build TypeScript (this will compile both src and knexfile.ts)
 RUN npm run build
+
+# Compile knexfile.ts separately to ensure it's in dist
+RUN npx tsc knexfile.ts --outDir dist --module commonjs --esModuleInterop
 
 # Production stage
 FROM node:20-alpine
@@ -23,14 +32,15 @@ FROM node:20-alpine
 WORKDIR /app
 
 # Copy package files
-COPY package*.json ./
+COPY backend/package*.json ./
 
 # Install production dependencies only
 RUN npm install --production
 
 # Copy built files from builder
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/knexfile.ts ./
+COPY --from=builder /app/backend/dist ./dist
+COPY --from=builder /app/backend/dist/knexfile.js ./knexfile.js
+COPY --from=builder /app/common /app/common
 
 # Create necessary directories
 RUN mkdir -p /app/uploads /app/logs

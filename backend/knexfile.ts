@@ -1,5 +1,5 @@
-import type { Knex } from 'knex';
 import dotenv from 'dotenv';
+import type { Knex } from 'knex';
 import path from 'path';
 
 // Load environment variables
@@ -61,11 +61,12 @@ const config: { [key: string]: Knex.Config } = {
     },
     migrations: {
       tableName: 'knex_migrations',
-      directory: path.join(__dirname, 'src/database/migrations'),
-      extension: 'ts',
+      directory: path.join(__dirname, 'dist/database/migrations'),
+      extension: 'js',
     },
     seeds: {
-      directory: path.join(__dirname, 'src/database/seeds'),
+      directory: path.join(__dirname, 'dist/database/seeds'),
+      extension: 'js',
     },
   },
 };
