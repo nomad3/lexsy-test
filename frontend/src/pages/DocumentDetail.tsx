@@ -145,7 +145,7 @@ Full DOCX generation coming soon!
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between animate-fade-in">
         <Button variant="outline" onClick={() => navigate('/documents')}>
           ← Back to Documents
         </Button>
@@ -153,16 +153,16 @@ Full DOCX generation coming soon!
           {placeholders && placeholders.length > 0 && (
             <>
               <Button
-                className="bg-gray-100 hover:bg-gray-200 text-gray-900"
+                className="bg-gray-100 hover:bg-gray-200 text-gray-900 hover-scale"
                 onClick={handleStartConversation}
               >
-                Fill with AI Chat
+                <span>💬</span> Fill with AI Chat
               </Button>
               <Button
-                className="bg-black hover:bg-gray-800 text-white"
+                className="bg-black hover:bg-gray-800 text-white hover-scale"
                 onClick={handleDownload}
               >
-                Download Filled Document
+                <span>⬇️</span> Download Filled Document
               </Button>
             </>
           )}
@@ -170,10 +170,13 @@ Full DOCX generation coming soon!
       </div>
 
       {/* Document Info */}
-      <Card>
+      <Card className="animate-fade-in-delay-1">
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <h1 className="text-2xl font-bold text-gray-900">{(document as any).originalName || document.filename}</h1>
+            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+              <span className="text-3xl">📄</span>
+              {(document as any).originalName || document.filename}
+            </h1>
             <div className="flex items-center space-x-4 mt-2 text-sm text-gray-600">
               <span>{document.documentType || 'Unknown type'}</span>
               <span>•</span>
@@ -200,14 +203,17 @@ Full DOCX generation coming soon!
 
       {/* Actions */}
       {(document.status === 'analyzed' || document.status === 'uploaded') && !placeholders?.length && (
-        <Card>
+        <Card className="animate-fade-in-delay-2">
           <div className="text-center py-8">
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Extract Placeholders</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-2 flex items-center justify-center gap-2">
+              <span className="text-2xl">🔍</span>
+              Extract Placeholders
+            </h3>
             <p className="text-gray-600 mb-4">
               Use AI to automatically extract all placeholders from this document
             </p>
             <Button
-              className="bg-black hover:bg-gray-800 text-white"
+              className="bg-black hover:bg-gray-800 text-white hover-scale"
               onClick={handleExtractPlaceholders}
               isLoading={extractMutation.isPending}
             >
@@ -223,25 +229,28 @@ Full DOCX generation coming soon!
           <p className="text-gray-500 text-center py-8">Loading placeholders...</p>
         </Card>
       ) : placeholders && placeholders.length > 0 ? (
-        <Card>
+        <Card className="animate-fade-in-delay-3">
           <div className="mb-6">
             <div className="flex items-center justify-between mb-2">
-              <h2 className="text-xl font-bold text-gray-900">Document Fields</h2>
+              <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <span className="text-2xl">✏️</span>
+                Document Fields
+              </h2>
               <span className="text-sm text-gray-600">
                 {completedPlaceholders} of {totalPlaceholders} completed ({completionPercentage}%)
               </span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
               <div
-                className="bg-gray-900 h-2 rounded-full transition-all"
+                className="bg-gray-900 h-2 rounded-full transition-all duration-500"
                 style={{ width: `${completionPercentage}%` }}
               />
             </div>
           </div>
 
           <div className="space-y-4">
-            {placeholders.map((placeholder) => (
-              <div key={placeholder.id} className="border border-gray-200 rounded-lg p-4">
+            {placeholders.map((placeholder, index) => (
+              <div key={placeholder.id} className={`border border-gray-200 rounded-lg p-4 animate-fade-in-delay-${Math.min(index + 1, 5)}`}>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center space-x-2">

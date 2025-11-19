@@ -82,16 +82,22 @@ function DataRoom() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div>
-        <h1 className="text-5xl md:text-6xl font-bold text-gray-900">Data Room</h1>
+      <div className="animate-fade-in">
+        <h1 className="text-5xl md:text-6xl font-bold text-gray-900 flex items-center gap-3">
+          <span className="text-6xl">🗄️</span>
+          Data Room
+        </h1>
         <p className="text-gray-600 mt-2 text-lg">
           Upload company documents to build your knowledge graph for intelligent auto-suggestions
         </p>
       </div>
 
       {/* Upload Section */}
-      <Card>
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Upload Company Document</h2>
+      <Card className="animate-fade-in-delay-1">
+        <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <span className="text-2xl">📂</span>
+          Upload Company Document
+        </h2>
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -141,12 +147,12 @@ function DataRoom() {
 
           <div>
             <Button
-              className="bg-black hover:bg-gray-800 text-white disabled:bg-gray-400"
+              className="bg-black hover:bg-gray-800 text-white disabled:bg-gray-400 hover-scale"
               onClick={handleUpload}
               disabled={!selectedFile}
               isLoading={uploadMutation.isPending}
             >
-              Upload & Process Document
+              <span>⬆️</span> Upload & Process Document
             </Button>
           </div>
         </div>
@@ -169,8 +175,11 @@ function DataRoom() {
       </Card>
 
       {/* Documents List */}
-      <div>
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Your Data Room Documents</h2>
+      <div className="animate-fade-in-delay-2">
+        <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <span className="text-2xl">📚</span>
+          Your Data Room Documents
+        </h2>
 
         {isLoading ? (
           <Card>
@@ -178,10 +187,8 @@ function DataRoom() {
           </Card>
         ) : !documents || documents.length === 0 ? (
           <Card>
-            <div className="text-center py-12">
-              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-              </svg>
+            <div className="text-center py-12 animate-bounce-slow">
+              <span className="text-6xl block mb-4">📭</span>
               <h3 className="mt-2 text-sm font-medium text-gray-900">No documents yet</h3>
               <p className="mt-1 text-sm text-gray-500">
                 Upload your first company document to start building your knowledge graph.
@@ -190,14 +197,12 @@ function DataRoom() {
           </Card>
         ) : (
           <div className="grid gap-4">
-            {documents.map((doc) => (
-              <Card key={doc.id} hover>
+            {documents.map((doc, index) => (
+              <Card key={doc.id} hover className={`animate-fade-in-delay-${Math.min(index + 1, 5)} hover-scale transition-transform`}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4 flex-1">
-                    <div className="p-3 bg-gray-100 rounded-lg">
-                      <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                      </svg>
+                    <div className="p-3 bg-gray-100 rounded-lg text-xl">
+                      📄
                     </div>
                     <div className="flex-1">
                       <h3 className="font-medium text-gray-900">{doc.originalName}</h3>
@@ -218,12 +223,12 @@ function DataRoom() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Button
-                      className="bg-gray-200 hover:bg-gray-300 text-gray-900"
+                      className="bg-gray-200 hover:bg-gray-300 text-gray-900 hover-scale"
                       size="sm"
                       onClick={() => handleDelete(doc.id, doc.originalName)}
                       isLoading={deleteMutation.isPending}
                     >
-                      Delete
+                      <span>🗑️</span> Delete
                     </Button>
                   </div>
                 </div>
@@ -235,15 +240,16 @@ function DataRoom() {
 
       {/* Knowledge Graph Info */}
       {documents && documents.length > 0 && (
-        <Card>
+        <Card className="animate-fade-in-delay-3">
           <div className="flex items-start space-x-4">
-            <div className="p-3 bg-gray-100 rounded-lg">
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+            <div className="p-3 bg-gray-100 rounded-lg text-2xl">
+              🧠
             </div>
             <div className="flex-1">
-              <h3 className="text-lg font-medium text-gray-900">Knowledge Graph Active</h3>
+              <h3 className="text-lg font-medium text-gray-900 flex items-center gap-2">
+                <span className="text-xl">✨</span>
+                Knowledge Graph Active
+              </h3>
               <p className="text-gray-600 mt-1">
                 Your data room contains {documents.length} document{documents.length !== 1 ? 's' : ''}.
                 Entities extracted from these documents will be used to provide intelligent auto-suggestions

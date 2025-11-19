@@ -23,18 +23,23 @@ function Dashboard() {
     <div className="space-y-8">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
-        <div>
-          <h1 className="text-4xl font-bold text-gray-900">Dashboard</h1>
+        <div className="animate-fade-in">
+          <h1 className="text-4xl font-bold text-gray-900 flex items-center gap-3">
+            <span className="text-5xl">📊</span>
+            Dashboard
+          </h1>
           <p className="text-gray-600 mt-2 text-lg">Your document automation workspace</p>
         </div>
         <Link to="/documents">
-          <Button className="bg-black hover:bg-gray-800 text-white">Upload Document</Button>
+          <Button className="bg-black hover:bg-gray-800 text-white hover-scale">
+            <span>📤</span> Upload Document
+          </Button>
         </Link>
       </div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
+        <Card className="animate-fade-in-delay-1 hover-scale">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Total Documents</p>
@@ -42,15 +47,13 @@ function Dashboard() {
                 {statsLoading ? '...' : stats?.totalDocuments || 0}
               </p>
             </div>
-            <div className="p-3 bg-gray-100 rounded-lg">
-              <svg className="w-8 h-8 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
+            <div className="p-3 bg-gray-100 rounded-lg text-2xl">
+              📄
             </div>
           </div>
         </Card>
 
-        <Card>
+        <Card className="animate-fade-in-delay-2 hover-scale">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Completed</p>
@@ -58,15 +61,13 @@ function Dashboard() {
                 {statsLoading ? '...' : stats?.completedDocuments || 0}
               </p>
             </div>
-            <div className="p-3 bg-green-100 rounded-full">
-              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+            <div className="p-3 bg-green-100 rounded-full text-2xl">
+              ✅
             </div>
           </div>
         </Card>
 
-        <Card>
+        <Card className="animate-fade-in-delay-3 hover-scale">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">In Progress</p>
@@ -74,15 +75,13 @@ function Dashboard() {
                 {statsLoading ? '...' : stats?.inProgressDocuments || 0}
               </p>
             </div>
-            <div className="p-3 bg-yellow-100 rounded-full">
-              <svg className="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+            <div className="p-3 bg-yellow-100 rounded-full text-2xl animate-bounce-slow">
+              ⏳
             </div>
           </div>
         </Card>
 
-        <Card>
+        <Card className="animate-fade-in-delay-4 hover-scale">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Avg Health Score</p>
@@ -90,19 +89,20 @@ function Dashboard() {
                 {statsLoading ? '...' : stats?.averageHealthScore?.toFixed(0) || 'N/A'}
               </p>
             </div>
-            <div className="p-3 bg-primary-100 rounded-full">
-              <svg className="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-              </svg>
+            <div className="p-3 bg-primary-100 rounded-full text-2xl">
+              💚
             </div>
           </div>
         </Card>
       </div>
 
       {/* Recent Documents */}
-      <div>
+      <div className="animate-fade-in-delay-5">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-gray-900">Recent Documents</h2>
+          <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+            <span className="text-2xl">📋</span>
+            Recent Documents
+          </h2>
           <Link to="/documents" className="text-sm text-gray-900 hover:text-gray-700 font-medium underline">
             View all →
           </Link>
@@ -114,10 +114,8 @@ function Dashboard() {
           </Card>
         ) : recentDocuments.length === 0 ? (
           <Card>
-            <div className="text-center py-12">
-              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
+            <div className="text-center py-12 animate-bounce-slow">
+              <span className="text-6xl block mb-4">📭</span>
               <h3 className="mt-2 text-sm font-medium text-gray-900">No documents</h3>
               <p className="mt-1 text-sm text-gray-500">Get started by uploading a document.</p>
               <div className="mt-6">
@@ -129,15 +127,13 @@ function Dashboard() {
           </Card>
         ) : (
           <div className="grid gap-4">
-            {recentDocuments.map((doc) => (
+            {recentDocuments.map((doc, index) => (
               <Link key={doc.id} to={`/documents/${doc.id}`}>
-                <Card hover>
+                <Card hover className={`animate-fade-in-delay-${Math.min(index + 1, 5)} hover-scale transition-transform`}>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
-                      <div className="p-2 bg-primary-100 rounded-lg">
-                        <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
+                      <div className="p-2 bg-primary-100 rounded-lg text-xl">
+                        📄
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900">{doc.filename}</h3>

@@ -103,17 +103,20 @@ function Conversation() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between animate-fade-in">
         <Button variant="outline" onClick={() => navigate(`/documents/${documentId}`)}>
           ← Back to Document
         </Button>
       </div>
 
       {/* Document Info Card */}
-      <Card>
+      <Card className="animate-fade-in-delay-1">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Fill Document with AI Assistant</h1>
+            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+              <span className="text-3xl">💬</span>
+              Fill Document with AI Assistant
+            </h1>
             <p className="text-gray-600 mt-1">{document.filename}</p>
           </div>
           <div className="text-right">
@@ -132,7 +135,7 @@ function Conversation() {
       </Card>
 
       {/* Chat Interface */}
-      <Card className="flex flex-col h-[600px]">
+      <Card className="flex flex-col h-[600px] animate-fade-in-delay-2">
         {/* Messages Area */}
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
           {startConversationMutation.isPending ? (
@@ -145,18 +148,17 @@ function Conversation() {
             </div>
           ) : messages && messages.length > 0 ? (
             <>
-              {messages.map((msg) => (
-                <MessageBubble key={msg.id} message={msg} />
+              {messages.map((msg, index) => (
+                <div key={msg.id} className={`animate-fade-in-delay-${Math.min(index + 1, 5)}`}>
+                  <MessageBubble message={msg} />
+                </div>
               ))}
               {sendMessageMutation.isPending && (
-                <div className="flex justify-end">
+                <div className="flex justify-end animate-fade-in">
                   <div className="bg-gray-900 text-white rounded-lg px-4 py-3 max-w-[80%]">
                     <div className="flex items-center space-x-2">
-                      <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      <span className="text-sm">Sending...</span>
+                      <span className="text-sm">🤖 AI is thinking</span>
+                      <span className="animate-bounce-slow">...</span>
                     </div>
                   </div>
                 </div>
@@ -164,10 +166,8 @@ function Conversation() {
               <div ref={messagesEndRef} />
             </>
           ) : (
-            <div className="text-center py-12">
-              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
+            <div className="text-center py-12 animate-bounce-slow">
+              <span className="text-6xl block mb-4">💬</span>
               <h3 className="mt-2 text-sm font-medium text-gray-900">Start the conversation</h3>
               <p className="mt-1 text-sm text-gray-500">
                 The AI assistant will help you fill out this document by asking questions.
@@ -188,20 +188,20 @@ function Conversation() {
             />
             <Button
               type="submit"
-              className="bg-black hover:bg-gray-800 text-white disabled:bg-gray-400"
+              className="bg-black hover:bg-gray-800 text-white disabled:bg-gray-400 hover-scale"
               disabled={!message.trim() || !conversationId}
               isLoading={sendMessageMutation.isPending}
             >
-              Send
+              <span>✉️</span> Send
             </Button>
           </form>
           {completionPercentage === 100 && (
-            <div className="mt-3 flex justify-center">
+            <div className="mt-3 flex justify-center animate-fade-in">
               <Button
-                className="w-full bg-black hover:bg-gray-800 text-white"
+                className="w-full bg-black hover:bg-gray-800 text-white hover-scale"
                 onClick={handleCompleteConversation}
               >
-                Complete & View Document
+                <span>✅</span> Complete & View Document
               </Button>
             </div>
           )}
