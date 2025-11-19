@@ -10,6 +10,9 @@ import { errorHandler } from './middleware/errorHandler';
 // Import routes
 import authRoutes from './routes/auth.routes';
 import documentRoutes from './routes/documents.routes';
+import conversationRoutes from './routes/conversations.routes';
+import dataroomRoutes from './routes/dataroom.routes';
+import analyticsRoutes from './routes/analytics.routes';
 
 // Initialize Express app
 const app = express();
@@ -52,6 +55,9 @@ app.get('/health', (req: Request, res: Response) => {
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/documents', documentRoutes);
+app.use('/api/conversations', conversationRoutes);
+app.use('/api/dataroom', dataroomRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {
