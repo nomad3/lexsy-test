@@ -109,7 +109,7 @@ export class AnalyticsService {
         .avg('completion_percentage as average');
 
       // Get placeholder counts
-      const [placeholderStats] = await db('placeholders')
+      const placeholderStats = await db('placeholders')
         .select(
           db.raw('COUNT(*) as total'),
           db.raw('COUNT(filled_value) as filled')
@@ -119,7 +119,7 @@ export class AnalyticsService {
         .first();
 
       // Get average health score
-      const [avgHealth] = await db('health_checks')
+      const avgHealth = await db('health_checks')
         .select(db.raw('AVG(overall_score) as average'))
         .join('documents', 'health_checks.document_id', 'documents.id')
         .where({ 'documents.user_id': userId })
