@@ -10,10 +10,12 @@ function Documents() {
   const [showUpload, setShowUpload] = useState(false)
   const queryClient = useQueryClient()
 
-  const { data: documents, isLoading } = useQuery({
+  const { data: documentsData, isLoading } = useQuery({
     queryKey: ['documents'],
     queryFn: documentsAPI.getAll,
   })
+
+  const documents = Array.isArray(documentsData) ? documentsData : []
 
   const uploadMutation = useMutation({
     mutationFn: documentsAPI.upload,
