@@ -1,6 +1,6 @@
 // backend/src/services/ConversationService.ts
-import { db } from '../config/knex';
 import { v4 as uuidv4 } from 'uuid';
+import { db } from '../config/knex';
 import { logger } from '../utils/logger';
 
 export interface ConversationMessage {
@@ -91,17 +91,20 @@ export class ConversationService {
           `, [JSON.stringify(conversation)])
         });
 
-      // Generate initial message
+      // Generate initial message with examples
+      const firstPlaceholder = placeholders[0];
+      const exampleText = this.getExampleForField(firstPlaceholder.field_name, firstPlaceholder.field_type);
+
       const initialMessage: ConversationMessage = {
         id: uuidv4(),
         conversationId,
         role: 'assistant',
-        content: `Hi! I'll help you fill out this ${document.document_type || 'document'}. I found ${placeholders.length} fields to complete. Let's start with the first one: ${placeholders[0].field_name}. What value should we use?`,
+        content: `Hi! I'll help you fill out this ${document.document_type || 'document'}. I found ${placeholders.length} field${placeholders.length > 1 ? 's' : ''} to complete.\n\nLet's start with: **${firstPlaceholder.field_name}**\n${exampleText}\n\nWhat value should we use?`,
         timestamp: new Date(),
         metadata: {
-          placeholderId: placeholders[0].id,
-          fieldName: placeholders[0].field_name,
-          fieldType: placeholders[0].field_type,
+          placeholderId: firstPlaceholder.id,
+          fieldName: firstPlaceholder.field_name,
+          fieldType: firstPlaceholder.field_type,
         },
       };
 
@@ -170,7 +173,8 @@ export class ConversationService {
 
       if (nextPlaceholder) {
         // Move to next placeholder
-        responseContent = `Great! I've recorded "${message}" for ${currentPlaceholder.field_name}. Now, let's fill in ${nextPlaceholder.field_name}. What value should we use?`;
+        const exampleText = this.getExampleForField(nextPlaceholder.field_name, nextPlaceholder.field_type);
+        responseContent = `Great! I've recorded "**${message}**" for **${currentPlaceholder.field_name}**.\n\nNow, let's fill in: **${nextPlaceholder.field_name}**\n${exampleText}\n\nWhat value should we use?`;
 
         updatedConversation = {
           ...conversation,
@@ -377,5 +381,56 @@ export class ConversationService {
       logger.error('Error completing conversation', { error, conversationId, userId });
       throw error;
     }
+  }
+
+  /**
+   * Get example text for a field based on its name and type
+   * @private
+   */
+  private getExampleForField(fieldName: string, fieldType: string): string {
+    const lowerFieldName = fieldName.toLowerCase();
+
+    // Provide contextual examples based on field name patterns
+    if (lowerFieldName.includes('name') || lowerFieldName.includes('party')) {
+      if (lowerFieldName.includes('company') || lowerFieldName.includes('organization')) {
+        return '_Examples: "Acme Corporation", "TechStart Inc.", "Global Solutions Ltd"_';
+      }
+      return '_Examples: "John Smith", "Jane Doe", "Robert Johnson"_';
+    }
+
+    if (lowerFieldName.includes('date') || lowerFieldName.includes('effective')) {
+      return '_Examples: "2025-01-15", "December 31, 2025", "01/15/2025"_';
+    }
+
+    if (lowerFieldName.includes('email')) {
+      return '_Examples: "john.smith@company.com", "contact@acmecorp.com"_';
+    }
+
+    if (lowerFieldName.includes('phone') || lowerFieldName.includes('telephone')) {
+      return '_Examples: "+1 (555) 123-4567", "555-1234"_';
+    }
+
+    if (lowerFieldName.includes('address')) {
+      return '_Examples: "123 Main Street, New York, NY 10001", "456 Oak Avenue, Suite 200"_';
+    }
+
+    if (lowerFieldName.includes('amount') || lowerFieldName.includes('price') || lowerFieldName.includes('fee')) {
+      return '_Examples: "$10,000", "5000 USD", "$2,500.00"_';
+    }
+
+    if (lowerFieldName.includes('percentage') || lowerFieldName.includes('rate')) {
+      return '_Examples: "5%", "10.5%", "2.75%"_';
+    }
+
+    // Default based on field type
+    if (fieldType === 'date') {
+      return '_Examples: "2025-01-15", "December 31, 2025"_';
+    }
+
+    if (fieldType === 'number') {
+      return '_Examples: "100", "1000", "5.5"_';
+    }
+
+    return '_Please provide the appropriate value for this field._';
   }
 }

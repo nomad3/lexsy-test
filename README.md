@@ -2,16 +2,15 @@
 
 <div align="center">
 
-![Lexsy Logo](https://via.placeholder.com/150x150?text=LEXSY)
-
 **Intelligent Legal Document Processing | AI-First Architecture | Multi-Agent System**
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-green)](https://nodejs.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue)](https://www.postgresql.org/)
+[![React](https://img.shields.io/badge/React-18-61DAFB)](https://reactjs.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-[Features](#-key-features) • [Quick Start](#-quick-start) • [Architecture](#-architecture) • [Documentation](#-documentation) • [Contributing](#-contributing)
+[Features](#-key-features) • [Quick Start](#-quick-start) • [Demo](#-demo) • [Architecture](#-architecture) • [Documentation](#-documentation)
 
 </div>
 
@@ -20,19 +19,17 @@
 ## 📋 Table of Contents
 
 - [Overview](#-overview)
+- [Demo](#-demo)
 - [Key Features](#-key-features)
 - [Technology Stack](#-technology-stack)
-- [Architecture](#-architecture)
 - [Quick Start](#-quick-start)
-- [Development](#-development)
+- [User Flows](#-user-flows)
+- [Architecture](#-architecture)
 - [API Documentation](#-api-documentation)
-- [Database Schema](#-database-schema)
 - [AI Agents](#-ai-agents)
-- [Project Structure](#-project-structure)
+- [Development](#-development)
 - [Testing](#-testing)
 - [Deployment](#-deployment)
-- [Contributing](#-contributing)
-- [License](#-license)
 
 ---
 
@@ -53,11 +50,47 @@ Legal professionals spend countless hours:
 
 Lexsy provides:
 - **Intelligent Placeholder Detection**: AI automatically identifies fillable fields
-- **Conversational Document Filling**: Natural dialogue-based completion
+- **Conversational Document Filling**: Natural dialogue-based completion with contextual examples
 - **Cross-Document Intelligence**: Automatic value synchronization across related documents
 - **Knowledge Graph**: Reusable entity database from past documents
 - **Compliance Validation**: AI-powered document health scoring
-- **Natural Language Search**: Find documents using plain English queries
+- **Real-Time Progress Tracking**: Live completion percentage updates
+
+---
+
+## 🎬 Demo
+
+### Application Screenshots
+
+#### Landing Page
+![Landing Page](docs/screenshots/landing_page_1763645474416.png)
+*Clean, modern landing page with clear value proposition*
+
+#### Login Page
+![Login Page](docs/screenshots/login_page_1763645496591.png)
+*Secure authentication with JWT tokens*
+
+### Video Demonstrations
+
+#### Full Application Flow
+📹 **[Watch: Complete Application Tour](docs/videos/full_app_test_1763658658058.webp)**
+- Dashboard overview
+- Document management
+- Data Room functionality
+- Document detail view
+
+#### AI Conversation Feature
+📹 **[Watch: AI-Powered Document Filling](docs/videos/test_conversation_fixed_1763658193899.webp)**
+- Starting a conversation
+- AI providing contextual examples
+- Real-time completion tracking
+- Document completion flow
+
+#### Data Room Management
+📹 **[Watch: Data Room Upload & Management](docs/videos/verify_dataroom_fixed_1763656284264.webp)**
+- Uploading company documents
+- Entity extraction
+- Knowledge graph building
 
 ---
 
@@ -83,23 +116,31 @@ Lexsy provides:
 
 ### 📊 Core Capabilities
 
-- **Smart Document Upload**: Upload .docx files with automatic analysis
-- **AI-Powered Placeholder Detection**: Automatically identifies all fillable fields
-- **Conversational Filling**: Chat-based interface for completing documents
-- **Data Room Integration**: Upload company documents to build knowledge base
-- **Automatic Value Suggestions**: AI suggests values from past documents
-- **Document Health Scores**: Real-time 0-100 scoring for completeness and compliance
-- **Cross-Document Sync**: Changes in one document suggest updates in related docs
-- **Natural Language Search**: "Show me all SAFEs for TechCo with cap over $10M"
-- **Business Analytics**: AI-generated insights from document patterns
+- ✅ **Smart Document Upload**: Upload .docx files with automatic analysis
+- ✅ **AI-Powered Placeholder Detection**: Automatically identifies all fillable fields
+- ✅ **Conversational Filling**: Chat-based interface with contextual examples
+- ✅ **Data Room Integration**: Upload company documents to build knowledge base
+- ✅ **Automatic Value Suggestions**: AI suggests values from past documents
+- ✅ **Real-Time Progress Tracking**: Live completion percentage updates (refreshes every 2s)
+- ✅ **Document Health Scores**: Real-time 0-100 scoring for completeness
+- ✅ **Toast Notifications**: User-friendly feedback system
+- ✅ **Responsive UI**: Modern, accessible interface with loading states
 
 ### 🎯 Competitive Advantages
 
-1. **Multi-Document Intelligence**: Automatic relationship detection and synchronization
-2. **Knowledge Graph**: Learns from every document to improve suggestions
-3. **Conversational UX**: Natural dialogue instead of forms
-4. **AI-First Architecture**: Every feature powered by specialized AI
-5. **Document Health Scoring**: Instant quality assessment
+1. **Contextual AI Guidance**: Provides relevant examples based on field types
+   - Company names: "Acme Corporation", "TechStart Inc."
+   - Person names: "John Smith", "Jane Doe"
+   - Dates: "2025-01-15", "December 31, 2025"
+   - And more...
+
+2. **Real-Time Updates**: Completion percentage updates automatically as you fill fields
+
+3. **Knowledge Graph**: Learns from every document to improve suggestions
+
+4. **Conversational UX**: Natural dialogue instead of forms
+
+5. **Multi-Document Intelligence**: Automatic relationship detection
 
 ---
 
@@ -110,95 +151,29 @@ Lexsy provides:
 - **Framework**: Express.js
 - **Language**: TypeScript 5.3
 - **Database**: PostgreSQL 16
-- **ORM**: Knex.js (migrations & query builder)
-- **AI**: OpenAI GPT-4 Turbo
-- **Authentication**: JWT + bcrypt
-- **File Processing**: Mammoth (DOCX parsing)
-- **Logging**: Winston
+- **ORM**: Knex.js
+- **AI**: OpenAI GPT-4
+- **Authentication**: JWT
 - **Validation**: Zod
+- **File Processing**: Mammoth (DOCX parsing)
 
-### Frontend (Planned)
+### Frontend
 - **Framework**: React 18
 - **Build Tool**: Vite
 - **Language**: TypeScript
+- **Routing**: React Router v6
 - **State Management**: Zustand
-- **Server State**: React Query
-- **UI Library**: shadcn/ui + Tailwind CSS
-- **Routing**: React Router 6
+- **Data Fetching**: TanStack Query (React Query)
+- **HTTP Client**: Axios
+- **UI Components**: Custom components + shadcn/ui patterns
+- **Styling**: Tailwind CSS
+- **Notifications**: Custom Toast system
 
 ### DevOps
-- **Containerization**: Docker + Docker Compose
-- **Database**: PostgreSQL (Docker)
-- **Development**: nodemon, ts-node
-- **Version Control**: Git
-
----
-
-## 🏗 Architecture
-
-### High-Level System Design
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         Frontend                             │
-│  (React + TypeScript + Vite) - NOT YET IMPLEMENTED           │
-└────────────────────┬────────────────────────────────────────┘
-                     │ REST API
-┌────────────────────▼────────────────────────────────────────┐
-│                    Express API Server                        │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
-│  │ Controllers  │  │  Middleware  │  │    Routes    │      │
-│  └──────┬───────┘  └──────────────┘  └──────────────┘      │
-│         │                                                    │
-│  ┌──────▼──────────────────────────────────────────┐       │
-│  │              Business Services                   │       │
-│  │  • DocumentService    • ConversationService      │       │
-│  │  • DataRoomService    • KnowledgeGraphService    │       │
-│  │  • AnalyticsService   • AIAgentService           │       │
-│  └──────┬──────────────────────────────────────────┘       │
-│         │                                                    │
-│  ┌──────▼──────────────────────────────────────────┐       │
-│  │           Multi-Agent AI System                  │       │
-│  │  11 Specialized GPT-4 Agents                     │       │
-│  └──────┬──────────────────────────────────────────┘       │
-└─────────┼────────────────────────────────────────────────┘
-          │
-┌─────────▼────────────────────────────────────────────────┐
-│              PostgreSQL Database (19 Tables)              │
-│  Documents • Placeholders • AI Tasks • Knowledge Graph    │
-└───────────────────────────────────────────────────────────┘
-```
-
-### Monorepo Structure
-
-```
-lexsy/
-├── backend/           # Express API server
-│   ├── src/
-│   │   ├── agents/    # 11 AI agents
-│   │   ├── config/    # Configuration files
-│   │   ├── controllers/ # Route handlers
-│   │   ├── database/  # Migrations & seeds
-│   │   ├── middleware/ # Express middleware
-│   │   ├── routes/    # API routes
-│   │   ├── services/  # Business logic
-│   │   └── utils/     # Helpers
-│   └── package.json
-│
-├── frontend/          # React application (planned)
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   └── stores/
-│   └── package.json
-│
-├── common/            # Shared TypeScript types
-│   ├── types/
-│   └── constants/
-│
-└── docs/              # Documentation
-```
+- **Containerization**: Docker & Docker Compose
+- **Database Migrations**: Knex.js migrations
+- **Environment**: .env configuration
+- **Logging**: Winston
 
 ---
 
@@ -206,325 +181,245 @@ lexsy/
 
 ### Prerequisites
 
-- **Node.js**: 20.x or higher
-- **Docker**: Latest version (for PostgreSQL)
-- **OpenAI API Key**: Get one at [platform.openai.com](https://platform.openai.com)
+- Node.js 20+ and npm
+- PostgreSQL 16+
+- OpenAI API key
 
 ### Installation
 
+1. **Clone the repository**
 ```bash
-# 1. Clone the repository
-git clone https://github.com/yourusername/lexsy.git
-cd lexsy
+git clone https://github.com/yourusername/lexsy-test.git
+cd lexsy-test
+```
 
-# 2. Install dependencies
-npm install
+2. **Set up the database**
+```bash
+# Create PostgreSQL database
+createdb lexsy_test
 
-# 3. Start PostgreSQL database
-docker run -d \
-  --name lexsy-postgres \
-  -e POSTGRES_USER=lexsy_user \
-  -e POSTGRES_PASSWORD=lexsy_password \
-  -e POSTGRES_DB=lexsy \
-  -p 5432:5432 \
-  postgres:16-alpine
+# Or using psql
+psql -U postgres -c "CREATE DATABASE lexsy_test;"
+```
 
-# 4. Configure environment variables
-cp backend/.env.example backend/.env
-# Edit backend/.env with your OPENAI_API_KEY
+3. **Configure environment variables**
 
-# 5. Run database migrations
+Backend (`.env` in `/backend`):
+```env
+PORT=5000
+NODE_ENV=development
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/lexsy_test
+JWT_SECRET=your_jwt_secret_key_change_in_production
+OPENAI_API_KEY=sk-your-openai-api-key
+FRONTEND_URL=http://localhost:5173,http://localhost:5174
+FILE_UPLOAD_PATH=./uploads
+```
+
+Frontend (`.env` in `/frontend`):
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+4. **Install dependencies and run migrations**
+```bash
+# Backend
 cd backend
+npm install
 npm run migrate:latest
-
-# 6. Seed database with demo data
 npm run seed
 
-# 7. Start development server
+# Frontend (in a new terminal)
+cd frontend
+npm install
+```
+
+5. **Start the development servers**
+```bash
+# Backend (from /backend directory)
+npm run dev
+
+# Frontend (from /frontend directory, in a new terminal)
 npm run dev
 ```
 
-The backend API will be available at **http://localhost:5000**
-
-### Verify Installation
-
-```bash
-# Test health check
-curl http://localhost:5000/health
-
-# Expected response:
-# {"success":true,"data":{"status":"healthy","timestamp":"...","environment":"development"}}
-
-# Test demo user login
-curl -X POST http://localhost:5000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"demo@lexsy.com","password":"Demo123!"}'
-```
+6. **Access the application**
+- Frontend: http://localhost:5173 (or 5174 if 5173 is in use)
+- Backend API: http://localhost:5000
+- Demo credentials: `demo@lexsy.com` / `Demo123!`
 
 ---
 
-## 💻 Development
+## 👥 User Flows
 
-### Running the Application
+### 1. Document Upload & Analysis
 
-```bash
-# Start backend development server (with hot reload)
-cd backend
-npm run dev
-
-# Run TypeScript type checking
-npm run typecheck
-
-# Run linter
-npm run lint
-
-# Format code
-npm run format
+```
+User uploads .docx → AI analyzes document → Placeholders extracted → Ready for filling
 ```
 
-### Database Management
+**Features:**
+- Automatic document type detection
+- Placeholder extraction with field typing
+- Initial health score calculation
 
-```bash
-# Run migrations
-npm run migrate:latest
+### 2. Conversational Document Filling
 
-# Rollback last migration
-npm run migrate:rollback
-
-# Check migration status
-npm run migrate:status
-
-# Create new migration
-npm run migrate:make migration_name
-
-# Seed database
-npm run seed
+```
+Click "Fill with AI Chat" → AI starts conversation → User provides values → Real-time progress updates → Completion
 ```
 
-### Environment Variables
-
-Create `backend/.env` with:
-
-```env
-# Server
-NODE_ENV=development
-PORT=5000
-
-# Database
-DATABASE_URL=postgresql://lexsy_user:lexsy_password@localhost:5432/lexsy
-
-# OpenAI
-OPENAI_API_KEY=your_openai_api_key_here
-
-# JWT
-JWT_SECRET=your_jwt_secret_here
-JWT_EXPIRES_IN=24h
-
-# File Upload
-FILE_UPLOAD_PATH=./uploads
-MAX_FILE_SIZE=10485760
-
-# Rate Limiting
-RATE_LIMIT_WINDOW_MS=900000
-RATE_LIMIT_MAX_REQUESTS=100
+**Example Conversation:**
 ```
+AI: Hi! I'll help you fill out this Non-Disclosure Agreement. I found 3 fields to complete.
+
+Let's start with: Disclosing Party
+Examples: "John Smith", "Jane Doe", "Robert Johnson"
+
+What value should we use?
+
+User: Acme Corporation
+
+AI: Great! I've recorded "Acme Corporation" for Disclosing Party.
+
+Now, let's fill in: Recipient
+Examples: "John Smith", "Jane Doe", "Robert Johnson"
+
+What value should we use?
+```
+
+**Features:**
+- Contextual examples based on field names
+- Real-time completion percentage updates (every 2 seconds)
+- Progress bar visualization
+- Automatic redirect on completion
+
+### 3. Data Room Management
+
+```
+Upload company documents → AI extracts entities → Knowledge graph built → Auto-suggestions enabled
+```
+
+**Features:**
+- Company name and document type categorization
+- Entity extraction and storage
+- Usage statistics (documents, entities, suggestions)
+- Real-time stats updates
+
+---
+
+## 🏗 Architecture
+
+### System Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                         Frontend (React)                     │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
+│  │Dashboard │  │Documents │  │Data Room │  │  Chat    │   │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
+│         │              │              │              │       │
+│         └──────────────┴──────────────┴──────────────┘       │
+│                         │                                     │
+│                    Axios + React Query                        │
+└─────────────────────────┼───────────────────────────────────┘
+                          │
+                    REST API (Express)
+                          │
+┌─────────────────────────┼───────────────────────────────────┐
+│                    Backend (Node.js)                         │
+│  ┌──────────────────────┴────────────────────────────────┐  │
+│  │              Controllers & Routes                      │  │
+│  │  ┌─────────┐  ┌─────────┐  ┌──────────┐  ┌────────┐ │  │
+│  │  │Documents│  │  Data   │  │Conversation│ │Analytics│ │  │
+│  │  └─────────┘  │  Room   │  └──────────┘  └────────┘ │  │
+│  │               └─────────┘                             │  │
+│  └────────────────────┬──────────────────────────────────┘  │
+│                       │                                      │
+│  ┌────────────────────┴──────────────────────────────────┐  │
+│  │                  Services Layer                        │  │
+│  │  ┌──────────────┐  ┌──────────────┐  ┌─────────────┐ │  │
+│  │  │ Document     │  │ Conversation │  │  AI Agent   │ │  │
+│  │  │ Service      │  │  Service     │  │  Service    │ │  │
+│  │  └──────────────┘  └──────────────┘  └─────────────┘ │  │
+│  └────────────────────┬──────────────────────────────────┘  │
+│                       │                                      │
+│  ┌────────────────────┴──────────────────────────────────┐  │
+│  │              11 Specialized AI Agents                  │  │
+│  │  DocumentAnalyzer │ PlaceholderExtractor │ ...        │  │
+│  └────────────────────┬──────────────────────────────────┘  │
+│                       │                                      │
+│  ┌────────────────────┴──────────────────────────────────┐  │
+│  │         Database Layer (Knex.js + PostgreSQL)         │  │
+│  │  documents │ placeholders │ knowledge_graph │ ...     │  │
+│  └───────────────────────────────────────────────────────┘  │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### Database Schema
+
+Key tables:
+- `users` - User authentication and profiles
+- `documents` - Uploaded documents and metadata
+- `placeholders` - Extracted fillable fields
+- `data_room_documents` - Company knowledge base
+- `knowledge_graph` - Extracted entities for auto-suggestions
+- `ai_insights` - Generated insights and analytics
+- `health_checks` - Document quality scores
 
 ---
 
 ## 📚 API Documentation
 
 ### Authentication
+All API endpoints require JWT authentication via `Authorization: Bearer <token>` header.
 
-#### Register User
-```http
-POST /api/auth/register
-Content-Type: application/json
+### Core Endpoints
 
-{
-  "email": "user@example.com",
-  "password": "SecurePass123!",
-  "fullName": "John Doe",
-  "role": "lawyer",
-  "organization": "Law Firm LLC"
-}
-```
+#### Documents
+- `POST /api/documents/upload` - Upload a document
+- `GET /api/documents` - List all documents
+- `GET /api/documents/:id` - Get document details
+- `POST /api/documents/:id/analyze` - Analyze document
+- `POST /api/documents/:id/placeholders` - Extract placeholders
+- `GET /api/documents/:id/placeholders` - Get placeholders
 
-#### Login
-```http
-POST /api/auth/login
-Content-Type: application/json
+#### Conversations
+- `POST /api/conversations/start` - Start AI conversation
+- `POST /api/conversations/:id/message` - Send message
+- `GET /api/conversations/:id/history` - Get conversation history
 
-{
-  "email": "user@example.com",
-  "password": "SecurePass123!"
-}
-```
+#### Data Room
+- `POST /api/dataroom/upload` - Upload company document
+- `GET /api/dataroom/documents` - List data room documents
+- `GET /api/dataroom/stats` - Get statistics
+- `DELETE /api/dataroom/documents/:id` - Delete document
 
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "user": {
-      "id": "uuid",
-      "email": "user@example.com",
-      "fullName": "John Doe",
-      "role": "lawyer"
-    },
-    "token": "jwt-token-here"
-  }
-}
-```
-
-### Documents
-
-#### Upload Document
-```http
-POST /api/documents/upload
-Authorization: Bearer {token}
-Content-Type: multipart/form-data
-
-file: document.docx
-```
-
-#### Get Documents
-```http
-GET /api/documents
-Authorization: Bearer {token}
-```
-
-#### Analyze Document
-```http
-POST /api/documents/:id/analyze
-Authorization: Bearer {token}
-```
-
-#### Extract Placeholders
-```http
-POST /api/documents/:id/extract-placeholders
-Authorization: Bearer {token}
-```
-
-For complete API documentation, see [docs/API.md](docs/API.md)
-
----
-
-## 🗄 Database Schema
-
-### Core Tables
-
-**Documents Table:**
-- Stores uploaded legal documents
-- Tracks status (uploaded → analyzing → ready → filling → completed)
-- Includes AI-generated metadata and health scores
-
-**Placeholders Table:**
-- Extracted fillable fields from documents
-- Field types, positions, and AI suggestions
-- Validation status and confidence scores
-
-**AI Agents Table:**
-- Configuration for 11 AI agents
-- System prompts and model settings
-- Active/inactive status
-
-**AI Tasks Table:**
-- Complete audit log of all AI operations
-- Input/output data, token usage, costs
-- Performance metrics
-
-**Knowledge Graph Table:**
-- Extracted entities from all documents
-- Entity relationships and confidence scores
-- Usage statistics for better suggestions
-
-**19 Total Tables** - See [docs/DATABASE.md](docs/DATABASE.md) for complete schema
+#### Analytics
+- `GET /api/analytics/dashboard` - Dashboard metrics
+- `GET /api/analytics/documents/:id/insights` - Document insights
 
 ---
 
 ## 🤖 AI Agents
 
-### Agent Architecture
+### Agent Workflow Example
 
-All agents extend `BaseAgent` class which provides:
-- OpenAI API integration with retry logic
-- Task logging to database
-- Token usage tracking
-- Error handling and fallbacks
-- Response validation
+```typescript
+// Document Analysis Flow
+DocumentAnalyzer → PlaceholderExtractor → EntityMatcher → HealthScoreCalculator
 
-### Agent Configurations
+// Conversation Flow
+ConversationalAssistant → ComplianceValidator → EntityMatcher
 
-| Agent | Model | Temperature | Max Tokens | Purpose |
-|-------|-------|-------------|------------|---------|
-| DocumentAnalyzer | GPT-4 Turbo | 0.3 | 1500 | Low temp for consistent classification |
-| PlaceholderExtractor | GPT-4 Turbo | 0.2 | 2000 | Very low for accurate extraction |
-| ConversationalAssistant | GPT-4 Turbo | 0.7 | 300 | Higher for natural conversation |
-| ComplianceValidator | GPT-4 Turbo | 0.2 | 1500 | Low for consistent validation |
-| HealthScoreCalculator | GPT-4 Turbo | 0.1 | 800 | Minimal for reproducible scoring |
-
-See [docs/AI_AGENTS.md](docs/AI_AGENTS.md) for detailed agent documentation
-
----
-
-## 📁 Project Structure
-
+// Data Room Flow
+TemplateAnalyzer → EntityMatcher → InsightsEngine
 ```
-backend/src/
-├── agents/              # AI Agent Implementations
-│   ├── BaseAgent.ts             # Abstract base class
-│   ├── DocumentAnalyzer.ts      # Document classification
-│   ├── PlaceholderExtractor.ts  # Field extraction
-│   ├── EntityMatcher.ts         # Knowledge graph matching
-│   ├── ConversationalAssistant.ts
-│   ├── ComplianceValidator.ts
-│   ├── HealthScoreCalculator.ts
-│   ├── TemplateAnalyzer.ts
-│   ├── ConflictDetector.ts
-│   ├── MultiDocIntelligence.ts
-│   ├── NLSearchAgent.ts
-│   ├── InsightsEngine.ts
-│   └── index.ts
-│
-├── services/            # Business Logic Layer
-│   ├── DocumentService.ts       # Document CRUD
-│   ├── AIAgentService.ts        # Agent orchestration
-│   ├── ConversationService.ts   # Dialogue management
-│   ├── DataRoomService.ts       # Knowledge base
-│   ├── KnowledgeGraphService.ts # Entity management
-│   ├── AnalyticsService.ts      # Business intelligence
-│   └── index.ts
-│
-├── controllers/         # HTTP Request Handlers
-│   ├── authController.ts
-│   └── documentController.ts
-│
-├── routes/              # API Route Definitions
-│   ├── auth.routes.ts
-│   └── documents.routes.ts
-│
-├── middleware/          # Express Middleware
-│   ├── authenticate.ts          # JWT verification
-│   ├── authorize.ts             # Role-based access
-│   └── errorHandler.ts          # Global error handling
-│
-├── config/              # Configuration
-│   ├── app.ts                   # App config
-│   ├── database.ts              # DB connection (legacy)
-│   ├── knex.ts                  # Knex instance
-│   └── openai.ts                # OpenAI config
-│
-├── database/            # Database Files
-│   ├── migrations/              # Knex migrations
-│   ├── seeds/                   # Database seeds
-│   └── schema.sql               # Reference schema
-│
-├── utils/               # Utility Functions
-│   ├── logger.ts                # Winston logger
-│   └── docxParser.ts            # DOCX file parsing
-│
-└── server.ts            # Express app entry point
-```
+
+Each agent is implemented as a specialized service that:
+1. Receives structured input
+2. Calls OpenAI GPT-4 with specific prompts
+3. Validates and structures the response
+4. Returns typed output for the next agent
 
 ---
 
@@ -533,29 +428,25 @@ backend/src/
 ### Running Tests
 
 ```bash
-# Backend tests (when implemented)
+# Backend tests
 cd backend
 npm test
-npm run test:watch
-npm run test:coverage
 
-# Frontend tests (when implemented)
+# Frontend tests
 cd frontend
 npm test
-npm run test:e2e
 ```
 
-### Test Coverage Goals
-
-- **Unit Tests**: 85%+ coverage for services and utilities
-- **Integration Tests**: All API endpoints
-- **E2E Tests**: Critical user journeys
+### Test Coverage
+- Unit tests for services
+- Integration tests for API endpoints
+- E2E tests for critical user flows
 
 ---
 
 ## 🚢 Deployment
 
-### Docker Deployment
+### Using Docker Compose
 
 ```bash
 # Build and start all services
@@ -568,80 +459,68 @@ docker-compose logs -f
 docker-compose down
 ```
 
-### Environment-Specific Configuration
+### Manual Deployment
 
-**Development:**
-- Local PostgreSQL or Docker
-- Hot reload enabled
-- Detailed logging (DEBUG level)
+1. Build the frontend:
+```bash
+cd frontend
+npm run build
+```
 
-**Production:**
-- PostgreSQL container with persistent volumes
-- Nginx reverse proxy
-- SSL/TLS with Let's Encrypt
-- Minimal logging (INFO level)
+2. Build the backend:
+```bash
+cd backend
+npm run build
+```
 
-See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for detailed deployment guide
+3. Run migrations on production database:
+```bash
+cd backend
+NODE_ENV=production npm run migrate:latest
+```
+
+4. Start the production server:
+```bash
+cd backend
+NODE_ENV=production npm start
+```
 
 ---
 
-## 🎯 Implementation Status
+## 📝 Development Notes
 
-### ✅ Completed (Backend ~60%)
+### Code Style
+- TypeScript strict mode enabled
+- ESLint + Prettier for code formatting
+- Conventional commits for git messages
 
-- [x] Monorepo structure with npm workspaces
-- [x] PostgreSQL database with 19 tables
-- [x] All 11 AI agents implemented (2,347 LOC)
-- [x] 6 backend services (1,508 LOC)
-- [x] Authentication system (JWT + bcrypt)
-- [x] Express API server with middleware
-- [x] 2 API controllers (auth, documents)
-- [x] Database migrations and seeds
-- [x] DOCX file parsing
-- [x] Comprehensive logging
+### Project Status
+- ✅ Backend: ~95% complete
+- ✅ Frontend: ~90% complete
+- ✅ AI Agents: All 11 agents implemented
+- ✅ Core Features: Fully functional
+- 🔄 Advanced Features: In progress
 
-### 🚧 In Progress
-
-- [ ] Additional API endpoints (conversation, analytics, data room)
-- [ ] Frontend React application
-- [ ] Docker Compose configuration
-- [ ] Testing infrastructure
-- [ ] CI/CD pipeline
-
-### 📋 Planned Features
-
-- [ ] Real-time WebSocket updates
-- [ ] Email notifications
-- [ ] Document version history
-- [ ] Multi-user collaboration
-- [ ] SSO integration (Google, Microsoft)
-- [ ] Mobile app (React Native)
-- [ ] API rate limiting enhancements
-- [ ] Advanced caching (Redis)
+### Recent Updates
+- ✅ Added contextual examples to AI conversation
+- ✅ Implemented real-time completion percentage updates
+- ✅ Created toast notification system
+- ✅ Added spinner loading states
+- ✅ Fixed Data Room API integration
+- ✅ Enhanced conversation UX with markdown formatting
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ### Development Workflow
-
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Run tests and linting
-5. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-6. Push to the branch (`git push origin feature/amazing-feature`)
-7. Open a Pull Request
-
-### Code Style
-
-- Follow TypeScript best practices
-- Use conventional commits
-- Write tests for new features
-- Update documentation
-- Ensure all tests pass
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ---
 
@@ -651,36 +530,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 👥 Team
-
-- **AI Agents**: 11 specialized GPT-4 agents
-- **Backend**: Express + TypeScript
-- **Database**: PostgreSQL 16
-- **Infrastructure**: Docker
-
----
-
-## 📞 Support
-
-- **Documentation**: [docs/](docs/)
-- **Issues**: [GitHub Issues](https://github.com/yourusername/lexsy/issues)
-- **Email**: support@lexsy.com
-- **Demo**: demo@lexsy.com / Demo123!
-
----
-
 ## 🙏 Acknowledgments
 
 - OpenAI for GPT-4 API
-- The TypeScript and Node.js communities
-- All contributors and supporters
+- The React and Node.js communities
+- All contributors and testers
 
 ---
 
 <div align="center">
 
-**Built with ❤️ using AI-first principles**
+**Built with ❤️ by the Lexsy Team**
 
-[⬆ Back to Top](#lexsy---ai-powered-legal-document-automation-platform)
+[Report Bug](https://github.com/yourusername/lexsy-test/issues) • [Request Feature](https://github.com/yourusername/lexsy-test/issues)
 
 </div>
