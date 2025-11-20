@@ -73,8 +73,8 @@ Lexsy provides:
 ### Video Demonstrations
 
 #### Landing Page Redesign
-![Landing Page Redesign](docs/videos/landing_page_value_focus.webp)
-*Value-driven landing page focusing on service and outcomes*
+![Landing Page Redesign](docs/videos/landing_page_features_showcase.webp)
+*Value-driven landing page with embedded feature demos*
 
 #### Full Application Flow
 ![Full Application Tour](docs/videos/full_app_test_1763658658058.webp)

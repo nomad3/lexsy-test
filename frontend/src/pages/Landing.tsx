@@ -140,48 +140,140 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Features Grid */}
+      {/* Video Showcase Section */}
       <section className="py-32 relative z-10">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="text-center mb-20">
+          <div className="text-center mb-24">
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-                Designed for efficiency
+                See Lexsy in Action
               </span>
             </h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              We handle the tedious parts of legal work so you can focus on your clients.
+              Powerful features designed to save you time and eliminate errors.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: "⚡",
-                title: "Instant Analysis",
-                desc: "Upload any document and get a clear summary of what needs to be filled. No more manual scanning."
-              },
-              {
-                icon: "✨",
-                title: "Guided Completion",
-                desc: "A simple, step-by-step process ensures you never miss a field or make a mistake."
-              },
-              {
-                icon: "📚",
-                title: "Smart Knowledge Base",
-                desc: "Your data is securely stored and reused. Never type the same company address twice."
-              }
-            ].map((feature, i) => (
-              <div key={i} className="group p-8 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm">
-                <div className="h-12 w-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                  {feature.icon}
+          <div className="space-y-32">
+            {/* Feature 1: Conversational Filling */}
+            <div className="flex flex-col lg:flex-row items-center gap-16">
+              <div className="flex-1 space-y-8">
+                <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-sm text-indigo-300">
+                  <span className="text-xl">💬</span> Guided Completion
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">{feature.title}</h3>
-                <p className="text-slate-400 leading-relaxed">
-                  {feature.desc}
+                <h3 className="text-3xl md:text-4xl font-bold text-white">
+                  Fill documents like you're <br />
+                  <span className="text-indigo-400">chatting with a colleague.</span>
+                </h3>
+                <p className="text-slate-400 text-lg leading-relaxed">
+                  Forget complex forms. Lexsy's AI guides you through every field with natural questions. It provides contextual examples and validates your answers in real-time, ensuring 100% accuracy.
                 </p>
+                <ul className="space-y-4 text-slate-300">
+                  <li className="flex items-center gap-3">
+                    <div className="h-6 w-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">✓</div>
+                    Contextual examples for every field
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="h-6 w-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">✓</div>
+                    Real-time progress tracking
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="h-6 w-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">✓</div>
+                    Instant error detection
+                  </li>
+                </ul>
               </div>
-            ))}
+              <div className="flex-1 w-full">
+                <div className="relative rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-xl shadow-2xl overflow-hidden group hover:border-indigo-500/30 transition-colors">
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-blue-500/10 pointer-events-none" />
+                  <img
+                    src="/videos/conversation.webp"
+                    alt="AI Conversation Demo"
+                    className="w-full h-auto rounded-xl shadow-lg transform transition-transform duration-700 group-hover:scale-[1.02]"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Feature 2: Data Room */}
+            <div className="flex flex-col lg:flex-row-reverse items-center gap-16">
+              <div className="flex-1 space-y-8">
+                <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 text-sm text-purple-300">
+                  <span className="text-xl">📚</span> Smart Knowledge Base
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-white">
+                  Never type the same <br />
+                  <span className="text-purple-400">client details twice.</span>
+                </h3>
+                <p className="text-slate-400 text-lg leading-relaxed">
+                  Upload your past documents to the Data Room. Lexsy automatically extracts entities like company names, addresses, and dates, building a secure knowledge graph for future use.
+                </p>
+                <ul className="space-y-4 text-slate-300">
+                  <li className="flex items-center gap-3">
+                    <div className="h-6 w-6 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">✓</div>
+                    Automatic entity extraction
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="h-6 w-6 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">✓</div>
+                    Secure document storage
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="h-6 w-6 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">✓</div>
+                    Smart auto-suggestions
+                  </li>
+                </ul>
+              </div>
+              <div className="flex-1 w-full">
+                <div className="relative rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-xl shadow-2xl overflow-hidden group hover:border-purple-500/30 transition-colors">
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-pink-500/10 pointer-events-none" />
+                  <img
+                    src="/videos/dataroom.webp"
+                    alt="Data Room Demo"
+                    className="w-full h-auto rounded-xl shadow-lg transform transition-transform duration-700 group-hover:scale-[1.02]"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Feature 3: Dashboard */}
+            <div className="flex flex-col lg:flex-row items-center gap-16">
+              <div className="flex-1 space-y-8">
+                <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-sm text-blue-300">
+                  <span className="text-xl">📊</span> Complete Oversight
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-white">
+                  Manage your entire <br />
+                  <span className="text-blue-400">workflow in one place.</span>
+                </h3>
+                <p className="text-slate-400 text-lg leading-relaxed">
+                  Track the status of every document, see what needs attention, and manage your team's workload from a single, intuitive dashboard.
+                </p>
+                <ul className="space-y-4 text-slate-300">
+                  <li className="flex items-center gap-3">
+                    <div className="h-6 w-6 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">✓</div>
+                    Visual status tracking
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="h-6 w-6 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">✓</div>
+                    Recent activity feed
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="h-6 w-6 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">✓</div>
+                    One-click document access
+                  </li>
+                </ul>
+              </div>
+              <div className="flex-1 w-full">
+                <div className="relative rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-xl shadow-2xl overflow-hidden group hover:border-blue-500/30 transition-colors">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-cyan-500/10 pointer-events-none" />
+                  <img
+                    src="/videos/dashboard.webp"
+                    alt="Dashboard Demo"
+                    className="w-full h-auto rounded-xl shadow-lg transform transition-transform duration-700 group-hover:scale-[1.02]"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

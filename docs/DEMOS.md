@@ -5,12 +5,12 @@ This directory contains recordings and screenshots of the Lexsy application in a
 ## 📹 Video Demonstrations
 
 ### 1. Landing Page Redesign
-**File**: `landing_page_value_focus.webp`
-**Duration**: ~15 seconds
+**File**: `landing_page_features_showcase.webp`
+**Duration**: ~20 seconds
 **Shows**:
 - Value-driven copy ("Done in Minutes")
-- Focus on service outcomes over technology
-- Modern dark theme with professional tone
+- Zig-zag layout with embedded feature demos
+- Focus on core features: Guided Completion, Knowledge Base, Dashboard
 
 ### 2. Full Application Tour
 **File**: `full_app_test_1763658658058.webp`
