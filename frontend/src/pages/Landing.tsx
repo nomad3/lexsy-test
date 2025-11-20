@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import NeuralNetworkBackground from '../components/NeuralNetworkBackground'
 import { Button } from '../components/ui/Button'
 
 export default function Landing() {
@@ -45,8 +46,9 @@ export default function Landing() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-32 px-6 z-10">
-        <div className="container mx-auto max-w-7xl">
+      <section className="relative pt-40 pb-32 px-6 z-10 overflow-hidden">
+        <NeuralNetworkBackground />
+        <div className="container mx-auto max-w-7xl relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             {/* Text Content */}
             <div className="flex-1 text-center lg:text-left">

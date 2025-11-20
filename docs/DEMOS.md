@@ -12,6 +12,14 @@ This directory contains recordings and screenshots of the Lexsy application in a
 - Zig-zag layout with embedded feature demos
 - Focus on core features: Guided Completion, Knowledge Base, Dashboard
 
+### 2. Hero Section Interactive Effect
+**File**: `hero_neural_effect.webp`
+**Duration**: ~10 seconds
+**Shows**:
+- Interactive neural network background
+- Particles reacting to mouse movement
+- Modern, tech-forward aesthetic
+
 ### 2. Full Application Tour
 **File**: `full_app_test_1763658658058.webp`
 **Duration**: ~2 minutes
