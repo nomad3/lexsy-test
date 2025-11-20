@@ -4,7 +4,16 @@ This directory contains recordings and screenshots of the Lexsy application in a
 
 ## 📹 Video Demonstrations
 
-### 1. Full Application Tour
+### 1. Landing Page Redesign
+**File**: `landing_page_redesign.webp`
+**Duration**: ~15 seconds
+**Shows**:
+- New dark theme design
+- Hero section with gradients and animations
+- Glassmorphism feature cards
+- Stats section with "wow" effects
+
+### 2. Full Application Tour
 **File**: `full_app_test_1763658658058.webp`
 **Duration**: ~2 minutes
 **Shows**:

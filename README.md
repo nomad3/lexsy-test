@@ -72,6 +72,10 @@ Lexsy provides:
 
 ### Video Demonstrations
 
+#### Landing Page Redesign
+![Landing Page Redesign](docs/videos/landing_page_redesign.webp)
+*Modern, dark-themed landing page with glassmorphism and animations*
+
 #### Full Application Flow
 ![Full Application Tour](docs/videos/full_app_test_1763658658058.webp)
 *Complete tour of the dashboard, document management, and data room features*
@@ -177,7 +181,33 @@ Lexsy provides:
 - PostgreSQL 16+
 - OpenAI API key
 
-### Installation
+### 🐳 Quick Start with Docker (Recommended)
+
+The easiest way to run Lexsy is using Docker Compose:
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/lexsy-test.git
+   cd lexsy-test
+   ```
+
+2. **Configure environment**
+   Create a `.env` file in the root directory (or use the provided example):
+   ```env
+   OPENAI_API_KEY=sk-your-openai-api-key
+   JWT_SECRET=your_jwt_secret
+   ```
+
+3. **Run with Docker Compose**
+   ```bash
+   docker-compose up -d
+   ```
+
+4. **Access the application**
+   - Frontend: http://localhost:5175
+   - Backend API: http://localhost:5001
+
+### 🛠️ Manual Installation
 
 1. **Clone the repository**
 ```bash

@@ -1,267 +1,244 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '../components/ui/Button'
 
 export default function Landing() {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-slate-950 text-white overflow-x-hidden selection:bg-indigo-500 selection:text-white">
+      {/* Background Gradients */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-900/20 blur-[120px] animate-pulse-slow" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-900/20 blur-[120px] animate-pulse-slow delay-1000" />
+        <div className="absolute top-[40%] left-[50%] transform -translate-x-1/2 w-[30%] h-[30%] rounded-full bg-violet-900/10 blur-[100px]" />
+      </div>
+
       {/* Header */}
-      <header className="absolute top-0 left-0 right-0 z-50">
-        <div className="container mx-auto flex items-center justify-between px-6 py-6">
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/80 backdrop-blur-md border-b border-white/10 py-4' : 'bg-transparent py-6'}`}>
+        <div className="container mx-auto flex items-center justify-between px-6">
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-black transform group-hover:scale-105 transition-transform">
-              <span className="text-white font-bold text-lg">L</span>
+            <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-all duration-300">
+              <span className="text-white font-bold text-xl">L</span>
             </div>
-            <span className="text-2xl font-bold text-gray-900">Lexsy</span>
+            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">Lexsy</span>
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <Link to="/login">
-              <Button variant="outline" size="sm" className="text-sm">Sign In</Button>
+              <Button variant="ghost" className="text-slate-300 hover:text-white hover:bg-white/5">Sign In</Button>
             </Link>
             <Link to="/register">
-              <Button size="sm" className="bg-black hover:bg-gray-800 text-sm">Get Started</Button>
+              <Button className="bg-white text-slate-950 hover:bg-slate-200 shadow-lg shadow-white/10 transition-all hover:scale-105">
+                Get Started
+              </Button>
             </Link>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-6">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-4 py-1.5 text-sm mb-8">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              <span className="text-gray-700">11 AI Agents • Live Now</span>
-            </div>
+      <section className="relative pt-40 pb-32 px-6 z-10">
+        <div className="container mx-auto max-w-7xl">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            {/* Text Content */}
+            <div className="flex-1 text-center lg:text-left">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-sm mb-8 backdrop-blur-sm animate-fade-in">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                </span>
+                <span className="text-indigo-200 font-medium">Powered by 11 AI Agents</span>
+              </div>
 
-            {/* Main Headline */}
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-gray-900 mb-6 animate-fade-in">
-              Legal documents,
-              <br />
-              <span className="relative inline-block">
-                <span className="relative z-10">filled instantly</span>
-                <span className="absolute bottom-2 left-0 right-0 h-4 bg-yellow-200 -rotate-1 animate-slide-in-left"></span>
-              </span>
-            </h1>
+              <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight mb-8 animate-fade-in-delay-1">
+                Legal Intelligence, <br />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-blue-400">
+                  Reimagined.
+                </span>
+              </h1>
 
-            {/* Subheadline */}
-            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-10 leading-relaxed">
-              Stop wasting hours on document templates. Let AI fill your SAFEs, NDAs, and contracts in minutes—with perfect accuracy.
-            </p>
+              <p className="text-xl text-slate-400 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed animate-fade-in-delay-2">
+                Transform static documents into intelligent data. Lexsy combines advanced AI with legal precision to automate your workflow instantly.
+              </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-              <Link to="/register">
-                <Button size="lg" className="bg-black hover:bg-gray-800 text-white px-8 py-4 text-lg font-medium">
-                  Start for Free →
-                </Button>
-              </Link>
-              <Link to="/login">
-                <Button size="lg" variant="outline" className="px-8 py-4 text-lg">
-                  Try Demo
-                </Button>
-              </Link>
-            </div>
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-fade-in-delay-3">
+                <Link to="/register" className="w-full sm:w-auto">
+                  <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white px-8 py-6 text-lg font-semibold shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all hover:scale-105 border-0">
+                    Start Automating →
+                  </Button>
+                </Link>
+                <Link to="/login" className="w-full sm:w-auto">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-slate-700 text-slate-300 hover:bg-white/5 hover:text-white px-8 py-6 text-lg backdrop-blur-sm">
+                    View Demo
+                  </Button>
+                </Link>
+              </div>
 
-            {/* Social Proof */}
-            <p className="text-sm text-gray-500 mb-16">
-              No credit card • 2-minute setup • <span className="font-mono bg-gray-100 px-2 py-0.5 rounded">demo@lexsy.com</span>
-            </p>
-
-            {/* Product Screenshot Placeholder */}
-            <div className="relative max-w-5xl mx-auto">
-              <div className="rounded-xl border-2 border-gray-200 bg-gradient-to-br from-gray-50 to-white p-4 shadow-2xl">
-                <div className="aspect-video rounded-lg bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <div className="text-6xl mb-4">📄</div>
-                    <p className="text-gray-600 font-medium">Document Processing Interface</p>
-                    <p className="text-sm text-gray-500 mt-2">Upload → Analyze → Fill → Download</p>
-                  </div>
+              <div className="mt-10 flex items-center justify-center lg:justify-start gap-6 text-sm text-slate-500 animate-fade-in-delay-3">
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                  <span>SOC2 Compliant</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                  <span>99.9% Accuracy</span>
                 </div>
               </div>
-              {/* Floating elements */}
-              <div className="absolute -top-4 -right-4 bg-black text-white px-4 py-2 rounded-lg shadow-lg font-semibold text-sm animate-bounce-slow">
-                ✨ 95% Accurate
-              </div>
-              <div className="absolute -bottom-4 -left-4 bg-black text-white px-4 py-2 rounded-lg shadow-lg font-semibold text-sm hover-scale">
-                ⚡ 10x Faster
+            </div>
+
+            {/* Visual/Graphic */}
+            <div className="flex-1 relative w-full max-w-lg lg:max-w-none animate-fade-in-delay-2">
+              <div className="relative aspect-square md:aspect-[4/3] rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-xl shadow-2xl overflow-hidden group">
+                {/* Abstract UI Elements */}
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-blue-500/5" />
+
+                {/* Floating Cards */}
+                <div className="absolute top-1/4 left-1/4 right-8 p-6 rounded-xl border border-white/10 bg-slate-800/80 backdrop-blur-md shadow-xl transform transition-transform duration-500 group-hover:-translate-y-2">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="h-10 w-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">🤖</div>
+                    <div>
+                      <div className="h-2 w-24 bg-slate-600 rounded mb-2"></div>
+                      <div className="h-2 w-16 bg-slate-700 rounded"></div>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="h-2 w-full bg-slate-700/50 rounded"></div>
+                    <div className="h-2 w-5/6 bg-slate-700/50 rounded"></div>
+                    <div className="h-2 w-4/6 bg-slate-700/50 rounded"></div>
+                  </div>
+                  <div className="mt-6 flex gap-2">
+                    <div className="h-8 w-20 bg-indigo-600/20 rounded border border-indigo-500/30"></div>
+                  </div>
+                </div>
+
+                {/* Chat Bubble */}
+                <div className="absolute bottom-1/4 left-8 right-1/4 p-4 rounded-xl border border-white/10 bg-slate-800/90 backdrop-blur-md shadow-xl transform transition-transform duration-500 delay-100 group-hover:translate-y-2">
+                  <div className="flex gap-3">
+                    <div className="flex-1">
+                      <p className="text-sm text-slate-300">I found 3 missing clauses in the NDA. Shall I add them?</p>
+                    </div>
+                    <div className="h-6 w-6 rounded-full bg-green-500/20 flex items-center justify-center">
+                      <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Glow Effects */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-500/20 blur-[80px] rounded-full pointer-events-none"></div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Core Features - Focused on Must-Haves */}
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Everything you need. Nothing you don't.
+      {/* Features Grid */}
+      <section className="py-32 relative z-10">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+                Intelligence at every step
+              </span>
             </h2>
-            <p className="text-xl text-gray-600">
-              Five core features that save hours every day
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Our multi-agent system handles the complexity, so you can focus on the strategy.
             </p>
           </div>
 
-          <div className="space-y-6">
-            {/* Feature 1: Upload */}
-            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-black hover:shadow-lg transition-all animate-fade-in-delay-1 group">
-              <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center text-2xl font-bold group-hover:scale-110 transition-transform">
-                1
-              </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Upload Any Legal Document</h3>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  Drag and drop your .docx files. SAFEs, NDAs, employment contracts—anything. Upload in seconds.
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: "🧠",
+                title: "Neural Analysis",
+                desc: "Advanced NLP models understand the context, intent, and nuances of every legal document you upload."
+              },
+              {
+                icon: "💬",
+                title: "Conversational Filling",
+                desc: "Forget static forms. Interact with your documents naturally. AI guides you through every placeholder."
+              },
+              {
+                icon: "🔐",
+                title: "Secure Data Room",
+                desc: "Enterprise-grade security for your sensitive data. Build a knowledge graph that gets smarter with every upload."
+              }
+            ].map((feature, i) => (
+              <div key={i} className="group p-8 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm">
+                <div className="h-12 w-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4">{feature.title}</h3>
+                <p className="text-slate-400 leading-relaxed">
+                  {feature.desc}
                 </p>
               </div>
-              <div className="hidden md:block text-5xl group-hover:scale-110 transition-transform">📤</div>
-            </div>
-
-            {/* Feature 2: AI Detection */}
-            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-black hover:shadow-lg transition-all group">
-              <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center text-2xl font-bold group-hover:scale-110 transition-transform">
-                2
-              </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">AI Finds Every Blank</h3>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  Our AI scans your document and identifies every fillable field—names, dates, amounts, addresses. No manual setup required.
-                </p>
-              </div>
-              <div className="hidden md:block text-5xl group-hover:scale-110 transition-transform">🤖</div>
-            </div>
-
-            {/* Feature 3: Conversational Fill */}
-            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-black hover:shadow-lg transition-all group">
-              <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center text-2xl font-bold">
-                3
-              </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Fill Through Conversation</h3>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  Chat with AI to complete your document. No forms. Just natural conversation. AI validates every answer as you go.
-                </p>
-              </div>
-              <div className="hidden md:block text-5xl group-hover:scale-110 transition-transform">💬</div>
-            </div>
-
-            {/* Feature 4: Download */}
-            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-black hover:shadow-lg transition-all group">
-              <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center text-2xl font-bold">
-                4
-              </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Download Ready-to-Sign</h3>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  Get your completed document instantly. All fields filled, validated, and ready for signatures. Takes minutes, not hours.
-                </p>
-              </div>
-              <div className="hidden md:block text-5xl group-hover:scale-110 transition-transform">⬇️</div>
-            </div>
-
-            {/* Feature 5: Data Room */}
-            <div className="flex items-start gap-6 bg-white rounded-xl p-8 border border-gray-200 hover:border-black hover:shadow-lg transition-all group">
-              <div className="flex-shrink-0 w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center text-2xl font-bold">
-                5
-              </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Build Your Knowledge Base</h3>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  Upload company documents once. AI remembers everything—names, amounts, dates. Future documents auto-populate from your data room.
-                </p>
-              </div>
-              <div className="hidden md:block text-5xl group-hover:scale-110 transition-transform">📚</div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-20 border-y border-gray-200">
-        <div className="container mx-auto px-6 max-w-4xl text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            From template to signed document in 3 minutes
-          </h2>
-          <p className="text-lg text-gray-600 mb-12">
-            The fastest way to fill legal documents. Period.
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-8 text-left">
-            <div>
-              <div className="text-3xl font-bold text-gray-900 mb-2">1.</div>
-              <h3 className="font-bold text-gray-900 mb-1">Upload</h3>
-              <p className="text-gray-600">Drop your .docx template</p>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-gray-900 mb-2">2.</div>
-              <h3 className="font-bold text-gray-900 mb-1">Chat</h3>
-              <p className="text-gray-600">AI asks questions, you answer</p>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-gray-900 mb-2">3.</div>
-              <h3 className="font-bold text-gray-900 mb-1">Download</h3>
-              <p className="text-gray-600">Get your completed document</p>
-            </div>
+      {/* Stats Section */}
+      <section className="py-20 border-y border-white/5 bg-white/5 backdrop-blur-sm">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+            {[
+              { label: "Documents Processed", value: "10k+" },
+              { label: "Time Saved", value: "85%" },
+              { label: "Accuracy Rate", value: "99.9%" },
+              { label: "AI Agents", value: "11" }
+            ].map((stat, i) => (
+              <div key={i}>
+                <div className="text-4xl md:text-5xl font-bold text-white mb-2 bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-500">
+                  {stat.value}
+                </div>
+                <div className="text-slate-400 font-medium">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-black text-white">
-        <div className="container mx-auto px-6 text-center max-w-4xl">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Stop filling documents manually
+      <section className="py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 to-indigo-950/30 pointer-events-none" />
+        <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
+          <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">
+            Ready to modernize your practice?
           </h2>
-          <p className="text-xl text-gray-300 mb-10 leading-relaxed">
-            Join law firms saving 10+ hours per week with AI automation
+          <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
+            Join the next generation of legal professionals using Lexsy to automate their workflow.
           </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <Link to="/register">
-              <Button size="lg" className="bg-white text-black hover:bg-gray-100 px-10 py-4 text-lg font-semibold">
-                Get Started Free
-              </Button>
-            </Link>
-            <Link to="/login">
-              <Button size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-10 py-4 text-lg">
-                Try Demo
+              <Button size="lg" className="bg-white text-slate-950 hover:bg-slate-200 px-12 py-6 text-lg font-bold shadow-xl shadow-white/10 hover:scale-105 transition-all">
+                Get Started Now
               </Button>
             </Link>
           </div>
-
-          <p className="text-gray-400 text-sm mt-8">
-            No credit card required
-          </p>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white py-12">
+      <footer className="border-t border-white/10 bg-slate-950 py-12">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            {/* Brand */}
             <div className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black text-white font-bold">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 text-white font-bold">
                 L
               </div>
-              <span className="text-xl font-bold text-gray-900">Lexsy</span>
+              <span className="text-xl font-bold text-slate-200">Lexsy</span>
             </div>
-
-            {/* Links */}
-            <div className="flex items-center gap-8 text-sm text-gray-600">
-              <Link to="/register" className="hover:text-gray-900 transition-colors font-medium">Get Started</Link>
-              <Link to="/login" className="hover:text-gray-900 transition-colors font-medium">Sign In</Link>
-              <span className="text-gray-400">•</span>
-              <span className="text-gray-500">Powered by 11 AI Agents</span>
-            </div>
-
-            {/* Copyright */}
-            <div className="text-sm text-gray-500">
-              © 2025 Lexsy
+            <div className="text-slate-500 text-sm">
+              © 2025 Lexsy. All rights reserved.
             </div>
           </div>
         </div>
