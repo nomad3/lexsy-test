@@ -62,11 +62,11 @@ const config: { [key: string]: Knex.Config } = {
     migrations: {
       tableName: 'knex_migrations',
       directory: path.join(process.cwd(), 'dist/src/database/migrations'),
-      extension: 'cjs',
+      extension: 'js',
     },
     seeds: {
       directory: path.join(process.cwd(), 'dist/src/database/seeds'),
-      extension: 'cjs',
+      extension: 'js',
     },
   },
 };

@@ -172,7 +172,7 @@ export class DocumentService {
       .where({ document_id: documentId })
       .orderBy('position', 'asc');
 
-    return dbPlaceholders;
+    return dbPlaceholders.map(dbPlaceholder => this.mapDbPlaceholderToPlaceholder(dbPlaceholder));
   }
 
   /**

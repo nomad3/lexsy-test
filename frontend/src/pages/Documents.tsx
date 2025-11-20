@@ -4,6 +4,8 @@ import DocumentCard from '../components/DocumentCard'
 import FileUpload from '../components/FileUpload'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
+import Spinner from '../components/ui/Spinner'
+import { toast } from '../components/ui/Toast'
 import { documentsAPI, handleApiError } from '../lib/api'
 
 function Documents() {
@@ -25,6 +27,7 @@ function Documents() {
     onSuccess: async (newDoc) => {
       queryClient.invalidateQueries({ queryKey: ['documents'] })
       setShowUpload(false)
+      toast.success('Document uploaded successfully!')
 
       // Automatically trigger full flow: Analyze -> Extract Placeholders
       if (newDoc && newDoc.id) {
@@ -32,14 +35,16 @@ function Documents() {
           await documentsAPI.analyze(newDoc.id)
           await documentsAPI.extractPlaceholders(newDoc.id)
           queryClient.invalidateQueries({ queryKey: ['documents'] })
+          toast.success('Document analyzed and ready!')
         } catch (error) {
           console.error('Full flow failed:', error)
+          toast.error('Document uploaded but analysis failed')
         }
       }
     },
     onError: (error) => {
       const apiError = handleApiError(error)
-      alert(`Upload failed: ${apiError.message}`)
+      toast.error(`Upload failed: ${apiError.message}`)
     },
   })
 
@@ -50,7 +55,8 @@ function Documents() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64 flex-col">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mb-4"></div>
+        <Spinner size="lg" />
+        <p className="mt-4 text-gray-600">Loading documents...</p>
       </div>
     );
   }
