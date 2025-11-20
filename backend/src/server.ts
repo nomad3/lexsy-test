@@ -19,12 +19,20 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000'],
+  origin: process.env.FRONTEND_URL ?
+    process.env.FRONTEND_URL.split(',') :
+    ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:3000'],
   credentials: true,
 }));
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Log all requests immediately
+app.use((req, res, next) => {
+  logger.info(`Incoming request: ${req.method} ${req.url}`);
+  next();
+});
 
 // HTTP request logger
 if (config.env === 'development') {
@@ -76,7 +84,7 @@ app.use(errorHandler);
 // Start server
 const PORT = config.port;
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   logger.info(`Server started`, {
     port: PORT,
     environment: config.env,

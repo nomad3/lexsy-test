@@ -134,7 +134,7 @@ export const documentsAPI = {
 // Conversations API
 export const conversationsAPI = {
   start: async (documentId: string): Promise<Conversation> => {
-    const { data } = await api.post<ApiResponse<Conversation>>('/conversations', { documentId })
+    const { data } = await api.post<ApiResponse<Conversation>>('/conversations/start', { documentId })
     if (!data.data) throw new Error('Failed to start conversation')
     return data.data
   },
@@ -146,7 +146,7 @@ export const conversationsAPI = {
   },
 
   sendMessage: async (conversationId: string, content: string): Promise<Message> => {
-    const { data } = await api.post<ApiResponse<Message>>(`/conversations/${conversationId}/messages`, {
+    const { data } = await api.post<ApiResponse<Message>>(`/conversations/${conversationId}/message`, {
       content,
     })
     if (!data.data) throw new Error('Failed to send message')
@@ -154,7 +154,7 @@ export const conversationsAPI = {
   },
 
   getMessages: async (conversationId: string): Promise<Message[]> => {
-    const { data } = await api.get<ApiResponse<Message[]>>(`/conversations/${conversationId}/messages`)
+    const { data } = await api.get<ApiResponse<Message[]>>(`/conversations/${conversationId}/history`)
     return data.data || []
   },
 }
@@ -176,8 +176,8 @@ export const dataRoomAPI = {
   },
 
   getAll: async (): Promise<DataRoomDocument[]> => {
-    const { data } = await api.get<ApiResponse<DataRoomDocument[]>>('/dataroom')
-    return data.data || []
+    const { data } = await api.get<ApiResponse<{ documents: DataRoomDocument[] }>>('/dataroom')
+    return data.data?.documents || []
   },
 
   delete: async (id: string): Promise<void> => {

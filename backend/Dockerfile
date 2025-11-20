@@ -34,13 +34,23 @@ WORKDIR /app
 # Copy package files
 COPY backend/package*.json ./
 
+# Copy common package (needed for npm install)
+COPY --from=builder /app/common /common
+
 # Install production dependencies only
 RUN npm install --production
 
 # Copy built files from builder
 COPY --from=builder /app/backend/dist ./dist
-COPY --from=builder /app/backend/dist/knexfile.js ./knexfile.js
-COPY --from=builder /app/common /app/common
+COPY --from=builder /app/backend/dist/knexfile.js ./knexfile.cjs
+
+# Rename migration and seed files to .cjs to force CommonJS
+RUN find dist/src/database/migrations -name "*.js" -exec sh -c 'mv "$1" "${1%.js}.cjs"' _ {} \;
+RUN find dist/src/database/seeds -name "*.js" -exec sh -c 'mv "$1" "${1%.js}.cjs"' _ {} \;
+
+# Remove .d.ts and .map files to prevent confusion
+RUN find dist/src/database -name "*.d.ts" -delete
+RUN find dist/src/database -name "*.map" -delete
 
 # Create necessary directories
 RUN mkdir -p /app/uploads /app/logs

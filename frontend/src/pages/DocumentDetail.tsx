@@ -13,7 +13,7 @@ function DocumentDetail() {
   const [editingPlaceholder, setEditingPlaceholder] = useState<string | null>(null)
   const [placeholderValues, setPlaceholderValues] = useState<Record<string, string>>({})
 
-  const { data: document, isLoading: docLoading } = useQuery({
+  const { data: docData, isLoading: docLoading } = useQuery({
     queryKey: ['document', id],
     queryFn: () => documentsAPI.getById(id!),
     enabled: !!id,
@@ -59,9 +59,26 @@ function DocumentDetail() {
     },
   })
 
+  const analyzeMutation = useMutation({
+    mutationFn: (documentId: string) => documentsAPI.analyze(documentId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['document', id] })
+    },
+    onError: (error) => {
+      const apiError = handleApiError(error)
+      alert(`Analysis failed: ${apiError.message}`)
+    },
+  })
+
   const handleExtractPlaceholders = () => {
     if (id) {
       extractMutation.mutate(id)
+    }
+  }
+
+  const handleAnalyze = () => {
+    if (id) {
+      analyzeMutation.mutate(id)
     }
   }
 
@@ -85,7 +102,7 @@ function DocumentDetail() {
     )
   }
 
-  if (!document) {
+  if (!docData) {
     return (
       <div className="text-center py-12">
         <p className="text-gray-500">Document not found</p>
@@ -111,7 +128,7 @@ function DocumentDetail() {
     ).join('\n') || ''
 
     const content = `
-FILLED DOCUMENT: ${document?.originalName || document?.filename}
+FILLED DOCUMENT: ${docData?.originalName || docData?.filename}
 Generated: ${new Date().toLocaleString()}
 Completion: ${completionPercentage}%
 
@@ -131,7 +148,7 @@ Full DOCX generation coming soon!
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `${document?.originalName || 'document'}_filled.txt`
+    a.download = `${docData?.originalName || 'document'}_filled.txt`
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -175,25 +192,25 @@ Full DOCX generation coming soon!
           <div className="flex-1">
             <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
               <span className="text-3xl">📄</span>
-              {(document as any).originalName || document.filename}
+              {(docData as any).originalName || docData.filename}
             </h1>
             <div className="flex items-center space-x-4 mt-2 text-sm text-gray-600">
-              <span>{document.documentType || 'Unknown type'}</span>
+              <span>{docData.documentType || 'Unknown type'}</span>
               <span>•</span>
-              <span>Uploaded {new Date((document as any).createdAt || document.uploadDate).toLocaleDateString()}</span>
+              <span>Uploaded {new Date((docData as any).createdAt || docData.uploadDate).toLocaleDateString()}</span>
               <span>•</span>
-              <span className={`px-2 py-1 rounded text-xs font-medium ${document.status === 'completed' ? 'bg-gray-200 text-gray-900' :
-                  document.status === 'ready' ? 'bg-gray-200 text-gray-900' :
-                    document.status === 'in_progress' ? 'bg-gray-200 text-gray-900' :
-                      'bg-gray-100 text-gray-700'
+              <span className={`px-2 py-1 rounded text-xs font-medium ${docData.status === 'completed' ? 'bg-gray-200 text-gray-900' :
+                docData.status === 'ready' ? 'bg-gray-200 text-gray-900' :
+                  docData.status === 'in_progress' ? 'bg-gray-200 text-gray-900' :
+                    'bg-gray-100 text-gray-700'
                 }`}>
-                {document.status?.replace('_', ' ').toUpperCase() || 'UNKNOWN'}
+                {docData.status?.replace('_', ' ').toUpperCase() || 'UNKNOWN'}
               </span>
             </div>
           </div>
-          {(document as any).healthScore !== undefined && (
+          {(docData as any).healthScore !== undefined && (
             <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900">{(document as any).healthScore}%</div>
+              <div className="text-4xl font-bold text-gray-900">{(docData as any).healthScore}%</div>
               <div className="text-sm text-gray-500">Health Score</div>
             </div>
           )}
@@ -201,7 +218,29 @@ Full DOCX generation coming soon!
       </Card>
 
       {/* Actions */}
-      {(document.status === 'analyzed' || document.status === 'uploaded') && !placeholders?.length && (
+      {/* Actions */}
+      {docData.status === 'uploaded' && (
+        <Card className="animate-fade-in-delay-2">
+          <div className="text-center py-8">
+            <h3 className="text-lg font-medium text-gray-900 mb-2 flex items-center justify-center gap-2">
+              <span className="text-2xl">🤖</span>
+              Analyze Document
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Classify document type and extract metadata using AI
+            </p>
+            <Button
+              className="bg-black hover:bg-gray-800 text-white hover-scale"
+              onClick={handleAnalyze}
+              isLoading={analyzeMutation.isPending}
+            >
+              Analyze Document
+            </Button>
+          </div>
+        </Card>
+      )}
+
+      {(docData.status === 'ready' || docData.status === 'analyzed') && !placeholders?.length && (
         <Card className="animate-fade-in-delay-2">
           <div className="text-center py-8">
             <h3 className="text-lg font-medium text-gray-900 mb-2 flex items-center justify-center gap-2">
@@ -290,7 +329,7 @@ Full DOCX generation coming soon!
                             [placeholder.id]: e.target.value,
                           })
                         }
-                        placeholder={`Enter ${placeholder.fieldName.toLowerCase()}`}
+                        placeholder={`Enter ${(placeholder.fieldName || '').toLowerCase()}`}
                       />
                       <Button
                         className="bg-black hover:bg-gray-800 text-white"

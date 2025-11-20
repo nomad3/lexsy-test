@@ -61,14 +61,14 @@ const config: { [key: string]: Knex.Config } = {
     },
     migrations: {
       tableName: 'knex_migrations',
-      directory: path.join(__dirname, 'dist/database/migrations'),
-      extension: 'js',
+      directory: path.join(process.cwd(), 'dist/src/database/migrations'),
+      extension: 'cjs',
     },
     seeds: {
-      directory: path.join(__dirname, 'dist/database/seeds'),
-      extension: 'js',
+      directory: path.join(process.cwd(), 'dist/src/database/seeds'),
+      extension: 'cjs',
     },
   },
 };
 
-export default config;
+export = config;
