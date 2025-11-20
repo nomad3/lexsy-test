@@ -1,9 +1,9 @@
 // backend/src/services/DataRoomService.ts
+import { v4 as uuidv4 } from 'uuid';
 import { db } from '../config/knex';
-import { AIAgentService } from './AIAgentService';
 import { parseDocx } from '../utils/docxParser';
 import { logger } from '../utils/logger';
-import { v4 as uuidv4 } from 'uuid';
+import { AIAgentService } from './AIAgentService';
 
 export interface DataRoomDocument {
   id: string;
@@ -170,6 +170,42 @@ export class DataRoomService {
         .where({ id: documentId })
         .update({ processing_status: 'failed' });
 
+      throw error;
+    }
+  }
+
+  /**
+   * Get data room statistics for a user
+   * @param userId - ID of the user
+   * @returns Promise<{ totalDocuments: number; entitiesExtracted: number; suggestionsMade: number }>
+   */
+  async getStats(userId: string): Promise<{ totalDocuments: number; entitiesExtracted: number; suggestionsMade: number }> {
+    try {
+      logger.info('Fetching data room stats', { userId });
+
+      // Get total documents
+      const [totalDocs] = await db('data_room_documents')
+        .where({ user_id: userId })
+        .count('* as count');
+
+      // Get total entities extracted
+      const [entities] = await db('data_room_documents')
+        .where({ user_id: userId })
+        .sum('key_entities_count as total');
+
+      // Get total suggestions made (usage count of entities from user's documents)
+      const [suggestions] = await db('knowledge_graph')
+        .join('data_room_documents', 'knowledge_graph.source_document_id', 'data_room_documents.id')
+        .where({ 'data_room_documents.user_id': userId })
+        .sum('knowledge_graph.usage_count as total');
+
+      return {
+        totalDocuments: parseInt(totalDocs.count as string),
+        entitiesExtracted: parseInt(entities.total as string || '0'),
+        suggestionsMade: parseInt(suggestions.total as string || '0'),
+      };
+    } catch (error) {
+      logger.error('Error fetching data room stats', { error, userId });
       throw error;
     }
   }

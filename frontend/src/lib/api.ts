@@ -133,10 +133,13 @@ export const documentsAPI = {
 
 // Conversations API
 export const conversationsAPI = {
-  start: async (documentId: string): Promise<Conversation> => {
-    const { data } = await api.post<ApiResponse<Conversation>>('/conversations/start', { documentId })
+  start: async (documentId: string): Promise<{ id: string; initialMessage: Message }> => {
+    const { data } = await api.post<ApiResponse<{ conversation: Conversation; initialMessage: Message }>>('/conversations/start', { documentId })
     if (!data.data) throw new Error('Failed to start conversation')
-    return data.data
+    return {
+      id: data.data.conversation.id,
+      initialMessage: data.data.initialMessage
+    }
   },
 
   getById: async (id: string): Promise<Conversation> => {
@@ -146,25 +149,28 @@ export const conversationsAPI = {
   },
 
   sendMessage: async (conversationId: string, content: string): Promise<Message> => {
-    const { data } = await api.post<ApiResponse<Message>>(`/conversations/${conversationId}/message`, {
-      content,
+    const { data } = await api.post<ApiResponse<{ response: Message }>>(`/conversations/${conversationId}/message`, {
+      message: content,
     })
-    if (!data.data) throw new Error('Failed to send message')
-    return data.data
+    if (!data.data?.response) throw new Error('Failed to send message')
+    return data.data.response
   },
 
   getMessages: async (conversationId: string): Promise<Message[]> => {
-    const { data } = await api.get<ApiResponse<Message[]>>(`/conversations/${conversationId}/history`)
-    return data.data || []
+    await api.get<ApiResponse<{ history: Conversation }>>(`/conversations/${conversationId}/history`)
+    // Since messages aren't stored separately, we return an empty array
+    // Messages will be managed in component state
+    return []
   },
 }
 
 // Data Room API
 export const dataRoomAPI = {
-  upload: async (file: File, category?: string): Promise<DataRoomDocument> => {
+  upload: async (file: File, companyName: string, documentType: string): Promise<DataRoomDocument> => {
     const formData = new FormData()
     formData.append('document', file)
-    if (category) formData.append('category', category)
+    formData.append('companyName', companyName)
+    formData.append('documentType', documentType)
 
     const { data } = await api.post<ApiResponse<DataRoomDocument>>('/dataroom/upload', formData, {
       headers: {
@@ -176,12 +182,17 @@ export const dataRoomAPI = {
   },
 
   getAll: async (): Promise<DataRoomDocument[]> => {
-    const { data } = await api.get<ApiResponse<{ documents: DataRoomDocument[] }>>('/dataroom')
+    const { data } = await api.get<ApiResponse<{ documents: DataRoomDocument[] }>>('/dataroom/documents')
     return data.data?.documents || []
   },
 
+  getStats: async (): Promise<{ totalDocuments: number; entitiesExtracted: number; suggestionsMade: number }> => {
+    const { data } = await api.get<ApiResponse<{ totalDocuments: number; entitiesExtracted: number; suggestionsMade: number }>>('/dataroom/stats')
+    return data.data || { totalDocuments: 0, entitiesExtracted: 0, suggestionsMade: 0 }
+  },
+
   delete: async (id: string): Promise<void> => {
-    await api.delete(`/dataroom/${id}`)
+    await api.delete(`/dataroom/documents/${id}`)
   },
 }
 

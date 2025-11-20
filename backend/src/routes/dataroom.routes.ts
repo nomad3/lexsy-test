@@ -1,14 +1,15 @@
 import { Router } from 'express';
 import multer from 'multer';
 import path from 'path';
-import { authenticate } from '../middleware/authenticate';
-import {
-  uploadDocument,
-  getDocuments,
-  processDocument,
-  deleteDocument,
-} from '../controllers/dataroomController';
 import { config } from '../config/app';
+import {
+  deleteDocument,
+  getDocuments,
+  getStats,
+  processDocument,
+  uploadDocument,
+} from '../controllers/dataroomController';
+import { authenticate } from '../middleware/authenticate';
 
 const router = Router();
 
@@ -21,7 +22,7 @@ const storage = multer.diskStorage({
     // Generate unique filename with timestamp and original extension
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
     const ext = path.extname(file.originalname);
-    cb(null, `dataroom-${uniqueSuffix}${ext}`);
+    cb(null, `dataroom - ${uniqueSuffix}${ext} `);
   },
 });
 
@@ -55,6 +56,12 @@ router.post('/upload', authenticate, upload.single('document'), uploadDocument);
  * Get all data room documents for authenticated user
  */
 router.get('/documents', authenticate, getDocuments);
+
+/**
+ * GET /api/dataroom/stats
+ * Get data room statistics (authenticated)
+ */
+router.get('/stats', authenticate, getStats);
 
 /**
  * POST /api/dataroom/documents/:id/process

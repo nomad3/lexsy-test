@@ -120,12 +120,14 @@ export interface Conversation {
 export interface DataRoomDocument {
   id: string
   userId: string
-  filename: string
-  originalName: string
+  companyName: string
+  documentType: string
   filePath: string
-  fileSize: number
-  category?: string
-  uploadedAt: string
+  uploadDate: string
+  processingStatus: 'uploaded' | 'extracting' | 'indexed' | 'failed'
+  aiSummary?: string
+  keyEntitiesCount: number
+  qualityScore?: number
 }
 
 // Analytics types

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
+import { asyncHandler, createError } from '../middleware/errorHandler';
 import { DataRoomService } from '../services/DataRoomService';
 import { logger } from '../utils/logger';
-import { asyncHandler, createError } from '../middleware/errorHandler';
 
 const dataRoomService = new DataRoomService();
 
@@ -71,6 +71,23 @@ export const getDocuments = asyncHandler(async (req: Request, res: Response): Pr
   res.status(200).json({
     success: true,
     data: { documents },
+  });
+});
+
+/**
+ * Get data room statistics
+ * GET /api/dataroom/stats
+ */
+export const getStats = asyncHandler(async (req: Request, res: Response): Promise<void> => {
+  if (!req.user) {
+    throw createError('User not authenticated', 401, 'NOT_AUTHENTICATED');
+  }
+
+  const stats = await dataRoomService.getStats(req.user.id);
+
+  res.status(200).json({
+    success: true,
+    data: stats,
   });
 });
 

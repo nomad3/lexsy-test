@@ -1,11 +1,14 @@
-import { useParams, useNavigate } from 'react-router-dom'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useState, useRef, useEffect } from 'react'
-import { conversationsAPI, documentsAPI, handleApiError } from '../lib/api'
-import Card from '../components/ui/Card'
-import Button from '../components/ui/Button'
-import Input from '../components/ui/Input'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import MessageBubble from '../components/conversation/MessageBubble'
+import Button from '../components/ui/Button'
+import Card from '../components/ui/Card'
+import Input from '../components/ui/Input'
+import Spinner from '../components/ui/Spinner'
+import { toast } from '../components/ui/Toast'
+import { conversationsAPI, documentsAPI, handleApiError } from '../lib/api'
+import { Message } from '../lib/types'
 
 function Conversation() {
   const { documentId } = useParams<{ documentId: string }>()
@@ -13,13 +16,15 @@ function Conversation() {
   const queryClient = useQueryClient()
   const [message, setMessage] = useState('')
   const [conversationId, setConversationId] = useState<string | null>(null)
+  const [messages, setMessages] = useState<Message[]>([])
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   // Get document details
-  const { data: document, isLoading: docLoading } = useQuery({
+  const { data: document, isLoading: docLoading, refetch: refetchDocument } = useQuery({
     queryKey: ['document', documentId],
     queryFn: () => documentsAPI.getById(documentId!),
     enabled: !!documentId,
+    refetchInterval: 2000, // Refetch every 2 seconds to update completion percentage
   })
 
   // Start or get existing conversation
@@ -27,32 +32,37 @@ function Conversation() {
     mutationFn: (docId: string) => conversationsAPI.start(docId),
     onSuccess: (data) => {
       setConversationId(data.id)
+      // Add the initial message from the AI
+      setMessages([data.initialMessage])
     },
     onError: (error) => {
       const apiError = handleApiError(error)
-      alert(`Failed to start conversation: ${apiError.message}`)
+      toast.error(`Failed to start conversation: ${apiError.message}`)
     },
-  })
-
-  // Get messages
-  const { data: messages, isLoading: messagesLoading } = useQuery({
-    queryKey: ['messages', conversationId],
-    queryFn: () => conversationsAPI.getMessages(conversationId!),
-    enabled: !!conversationId,
-    refetchInterval: 3000, // Poll for new messages every 3 seconds
   })
 
   // Send message
   const sendMessageMutation = useMutation({
     mutationFn: (content: string) => conversationsAPI.sendMessage(conversationId!, content),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['messages', conversationId] })
+    onSuccess: (response) => {
+      // Add user message and AI response to messages
+      setMessages(prev => [
+        ...prev,
+        {
+          id: Date.now().toString(),
+          conversationId: conversationId!,
+          role: 'user',
+          content: message,
+          createdAt: new Date().toISOString(),
+        },
+        response
+      ])
       queryClient.invalidateQueries({ queryKey: ['document', documentId] })
       setMessage('')
     },
     onError: (error) => {
       const apiError = handleApiError(error)
-      alert(`Failed to send message: ${apiError.message}`)
+      toast.error(`Failed to send message: ${apiError.message}`)
     },
   })
 
@@ -81,8 +91,11 @@ function Conversation() {
 
   if (docLoading) {
     return (
-      <div className="text-center py-12">
-        <p className="text-gray-500">Loading document...</p>
+      <div className="flex justify-center items-center min-h-[400px]">
+        <div className="text-center">
+          <Spinner size="lg" className="mb-4" />
+          <p className="text-gray-500">Loading document...</p>
+        </div>
       </div>
     )
   }
@@ -139,12 +152,11 @@ function Conversation() {
         {/* Messages Area */}
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
           {startConversationMutation.isPending ? (
-            <div className="text-center py-12">
-              <p className="text-gray-500">Starting conversation...</p>
-            </div>
-          ) : messagesLoading ? (
-            <div className="text-center py-12">
-              <p className="text-gray-500">Loading messages...</p>
+            <div className="flex justify-center items-center h-full">
+              <div className="text-center">
+                <Spinner size="md" className="mb-2" />
+                <p className="text-gray-500">Starting conversation...</p>
+              </div>
             </div>
           ) : messages && messages.length > 0 ? (
             <>

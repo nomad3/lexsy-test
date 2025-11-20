@@ -1,13 +1,16 @@
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { dataRoomAPI, handleApiError } from '../lib/api'
-import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
+import Card from '../components/ui/Card'
+import Spinner from '../components/ui/Spinner'
+import { toast } from '../components/ui/Toast'
+import { dataRoomAPI, handleApiError } from '../lib/api'
 
 function DataRoom() {
   const queryClient = useQueryClient()
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [uploadCategory, setUploadCategory] = useState('')
+  const [companyName, setCompanyName] = useState('')
+  const [documentType, setDocumentType] = useState('')
 
   // Get all data room documents
   const { data: documents, isLoading } = useQuery({
@@ -15,19 +18,27 @@ function DataRoom() {
     queryFn: dataRoomAPI.getAll,
   })
 
+  // Get stats
+  const { data: stats } = useQuery({
+    queryKey: ['dataroom-stats'],
+    queryFn: dataRoomAPI.getStats,
+  })
+
   // Upload mutation
   const uploadMutation = useMutation({
-    mutationFn: (data: { file: File; category?: string }) =>
-      dataRoomAPI.upload(data.file, data.category),
+    mutationFn: (data: { file: File; companyName: string; documentType: string }) =>
+      dataRoomAPI.upload(data.file, data.companyName, data.documentType),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['dataroom'] })
+      queryClient.invalidateQueries({ queryKey: ['dataroom-stats'] })
       setSelectedFile(null)
-      setUploadCategory('')
-      alert('Document uploaded successfully! Processing to extract entities...')
+      setCompanyName('')
+      setDocumentType('')
+      toast.success('Document uploaded successfully! Processing to extract entities...')
     },
     onError: (error) => {
       const apiError = handleApiError(error)
-      alert(`Upload failed: ${apiError.message}`)
+      toast.error(`Upload failed: ${apiError.message}`)
     },
   })
 
@@ -36,10 +47,12 @@ function DataRoom() {
     mutationFn: (id: string) => dataRoomAPI.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['dataroom'] })
+      queryClient.invalidateQueries({ queryKey: ['dataroom-stats'] })
+      toast.success('Document deleted successfully')
     },
     onError: (error) => {
       const apiError = handleApiError(error)
-      alert(`Delete failed: ${apiError.message}`)
+      toast.error(`Delete failed: ${apiError.message}`)
     },
   })
 
@@ -47,11 +60,11 @@ function DataRoom() {
     const file = e.target.files?.[0]
     if (file) {
       if (file.type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
-        alert('Please select a .docx file')
+        toast.error('Please select a .docx file')
         return
       }
       if (file.size > 10 * 1024 * 1024) {
-        alert('File size must be less than 10MB')
+        toast.error('File size must be less than 10MB')
         return
       }
       setSelectedFile(file)
@@ -59,10 +72,11 @@ function DataRoom() {
   }
 
   const handleUpload = () => {
-    if (selectedFile) {
+    if (selectedFile && companyName && documentType) {
       uploadMutation.mutate({
         file: selectedFile,
-        category: uploadCategory || undefined,
+        companyName,
+        documentType,
       })
     }
   }
@@ -73,11 +87,7 @@ function DataRoom() {
     }
   }
 
-  const formatFileSize = (bytes: number) => {
-    if (bytes < 1024) return bytes + ' B'
-    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB'
-    return (bytes / (1024 * 1024)).toFixed(2) + ' MB'
-  }
+
 
   return (
     <div className="space-y-8">
@@ -134,13 +144,26 @@ function DataRoom() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Category (Optional)
+              Company Name *
             </label>
             <input
               type="text"
-              value={uploadCategory}
-              onChange={(e) => setUploadCategory(e.target.value)}
-              placeholder="e.g., Contracts, Financial, Legal"
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+              placeholder="e.g., Acme Corp"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Document Type *
+            </label>
+            <input
+              type="text"
+              value={documentType}
+              onChange={(e) => setDocumentType(e.target.value)}
+              placeholder="e.g., Articles of Incorporation, Bylaws, Contract"
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
             />
           </div>
@@ -149,7 +172,7 @@ function DataRoom() {
             <Button
               className="bg-black hover:bg-gray-800 text-white disabled:bg-gray-400 hover-scale"
               onClick={handleUpload}
-              disabled={!selectedFile}
+              disabled={!selectedFile || !companyName || !documentType}
               isLoading={uploadMutation.isPending}
             >
               <span>⬆️</span> Upload & Process Document
@@ -183,7 +206,10 @@ function DataRoom() {
 
         {isLoading ? (
           <Card>
-            <p className="text-gray-500 text-center py-8">Loading documents...</p>
+            <div className="flex justify-center py-8">
+              <Spinner size="lg" />
+            </div>
+            <p className="text-gray-500 text-center mt-2">Loading documents...</p>
           </Card>
         ) : !documents || documents.length === 0 ? (
           <Card>
@@ -205,19 +231,19 @@ function DataRoom() {
                       📄
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-medium text-gray-900">{doc.originalName}</h3>
+                      <h3 className="font-medium text-gray-900">{doc.companyName} - {doc.documentType}</h3>
                       <div className="flex items-center space-x-3 mt-1 text-sm text-gray-500">
-                        <span>{formatFileSize(doc.fileSize)}</span>
-                        {doc.category && (
+                        <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded text-xs capitalize">
+                          {doc.processingStatus}
+                        </span>
+                        <span>•</span>
+                        <span>{new Date(doc.uploadDate).toLocaleDateString()}</span>
+                        {doc.keyEntitiesCount > 0 && (
                           <>
                             <span>•</span>
-                            <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded text-xs">
-                              {doc.category}
-                            </span>
+                            <span>{doc.keyEntitiesCount} entities</span>
                           </>
                         )}
-                        <span>•</span>
-                        <span>{new Date(doc.uploadedAt).toLocaleDateString()}</span>
                       </div>
                     </div>
                   </div>
@@ -225,7 +251,7 @@ function DataRoom() {
                     <Button
                       className="bg-gray-200 hover:bg-gray-300 text-gray-900 hover-scale"
                       size="sm"
-                      onClick={() => handleDelete(doc.id, doc.originalName)}
+                      onClick={() => handleDelete(doc.id, `${doc.companyName} - ${doc.documentType}`)}
                       isLoading={deleteMutation.isPending}
                     >
                       <span>🗑️</span> Delete
@@ -251,21 +277,21 @@ function DataRoom() {
                 Knowledge Graph Active
               </h3>
               <p className="text-gray-600 mt-1">
-                Your data room contains {documents.length} document{documents.length !== 1 ? 's' : ''}.
+                Your data room contains {stats?.totalDocuments || 0} document{stats?.totalDocuments !== 1 ? 's' : ''}.
                 Entities extracted from these documents will be used to provide intelligent auto-suggestions
                 when you fill out legal documents.
               </p>
               <div className="mt-4 grid grid-cols-3 gap-4">
                 <div className="bg-gray-100 rounded-lg p-3">
-                  <div className="text-2xl font-bold text-gray-900">{documents.length}</div>
+                  <div className="text-2xl font-bold text-gray-900">{stats?.totalDocuments || 0}</div>
                   <div className="text-sm text-gray-600">Documents</div>
                 </div>
                 <div className="bg-gray-100 rounded-lg p-3">
-                  <div className="text-2xl font-bold text-gray-900">-</div>
+                  <div className="text-2xl font-bold text-gray-900">{stats?.entitiesExtracted || 0}</div>
                   <div className="text-sm text-gray-600">Entities Extracted</div>
                 </div>
                 <div className="bg-gray-100 rounded-lg p-3">
-                  <div className="text-2xl font-bold text-gray-900">-</div>
+                  <div className="text-2xl font-bold text-gray-900">{stats?.suggestionsMade || 0}</div>
                   <div className="text-sm text-gray-600">Suggestions Made</div>
                 </div>
               </div>
