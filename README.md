@@ -73,24 +73,16 @@ Lexsy provides:
 ### Video Demonstrations
 
 #### Full Application Flow
-📹 **[Watch: Complete Application Tour](docs/videos/full_app_test_1763658658058.webp)**
-- Dashboard overview
-- Document management
-- Data Room functionality
-- Document detail view
+![Full Application Tour](docs/videos/full_app_test_1763658658058.webp)
+*Complete tour of the dashboard, document management, and data room features*
 
 #### AI Conversation Feature
-📹 **[Watch: AI-Powered Document Filling](docs/videos/test_conversation_fixed_1763658193899.webp)**
-- Starting a conversation
-- AI providing contextual examples
-- Real-time completion tracking
-- Document completion flow
+![AI-Powered Document Filling](docs/videos/test_conversation_fixed_1763658193899.webp)
+*Natural dialogue flow with contextual examples and real-time progress tracking*
 
 #### Data Room Management
-📹 **[Watch: Data Room Upload & Management](docs/videos/verify_dataroom_fixed_1763656284264.webp)**
-- Uploading company documents
-- Entity extraction
-- Knowledge graph building
+![Data Room Upload & Management](docs/videos/verify_dataroom_fixed_1763656284264.webp)
+*Uploading company documents and building the knowledge graph*
 
 ---
 
