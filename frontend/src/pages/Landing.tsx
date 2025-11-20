@@ -56,29 +56,29 @@ export default function Landing() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                 </span>
-                <span className="text-indigo-200 font-medium">Powered by 11 AI Agents</span>
+                <span className="text-indigo-200 font-medium">Trusted by Legal Professionals</span>
               </div>
 
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight mb-8 animate-fade-in-delay-1">
-                Legal Intelligence, <br />
+                Your Legal Documents, <br />
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-blue-400">
-                  Reimagined.
+                  Done in Minutes.
                 </span>
               </h1>
 
               <p className="text-xl text-slate-400 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed animate-fade-in-delay-2">
-                Transform static documents into intelligent data. Lexsy combines advanced AI with legal precision to automate your workflow instantly.
+                Stop spending hours on manual data entry. Lexsy ensures your contracts, NDAs, and agreements are filled accurately and consistently, every single time.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-fade-in-delay-3">
                 <Link to="/register" className="w-full sm:w-auto">
                   <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white px-8 py-6 text-lg font-semibold shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all hover:scale-105 border-0">
-                    Start Automating →
+                    Start Free Trial →
                   </Button>
                 </Link>
                 <Link to="/login" className="w-full sm:w-auto">
                   <Button size="lg" variant="outline" className="w-full sm:w-auto border-slate-700 text-slate-300 hover:bg-white/5 hover:text-white px-8 py-6 text-lg backdrop-blur-sm">
-                    View Demo
+                    See How It Works
                   </Button>
                 </Link>
               </div>
@@ -86,11 +86,11 @@ export default function Landing() {
               <div className="mt-10 flex items-center justify-center lg:justify-start gap-6 text-sm text-slate-500 animate-fade-in-delay-3">
                 <div className="flex items-center gap-2">
                   <svg className="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                  <span>SOC2 Compliant</span>
+                  <span>Bank-Grade Security</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <svg className="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                  <span>99.9% Accuracy</span>
+                  <span>Zero Data Retention</span>
                 </div>
               </div>
             </div>
@@ -104,19 +104,19 @@ export default function Landing() {
                 {/* Floating Cards */}
                 <div className="absolute top-1/4 left-1/4 right-8 p-6 rounded-xl border border-white/10 bg-slate-800/80 backdrop-blur-md shadow-xl transform transition-transform duration-500 group-hover:-translate-y-2">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="h-10 w-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">🤖</div>
+                    <div className="h-10 w-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-2xl text-indigo-400">📄</div>
                     <div>
-                      <div className="h-2 w-24 bg-slate-600 rounded mb-2"></div>
-                      <div className="h-2 w-16 bg-slate-700 rounded"></div>
+                      <div className="text-white font-medium">Non-Disclosure Agreement</div>
+                      <div className="text-slate-400 text-sm">Ready for review</div>
                     </div>
                   </div>
                   <div className="space-y-3">
                     <div className="h-2 w-full bg-slate-700/50 rounded"></div>
                     <div className="h-2 w-5/6 bg-slate-700/50 rounded"></div>
-                    <div className="h-2 w-4/6 bg-slate-700/50 rounded"></div>
                   </div>
-                  <div className="mt-6 flex gap-2">
-                    <div className="h-8 w-20 bg-indigo-600/20 rounded border border-indigo-500/30"></div>
+                  <div className="mt-4 flex items-center gap-2 text-green-400 text-sm">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                    <span>100% Compliant</span>
                   </div>
                 </div>
 
@@ -124,10 +124,10 @@ export default function Landing() {
                 <div className="absolute bottom-1/4 left-8 right-1/4 p-4 rounded-xl border border-white/10 bg-slate-800/90 backdrop-blur-md shadow-xl transform transition-transform duration-500 delay-100 group-hover:translate-y-2">
                   <div className="flex gap-3">
                     <div className="flex-1">
-                      <p className="text-sm text-slate-300">I found 3 missing clauses in the NDA. Shall I add them?</p>
+                      <p className="text-sm text-slate-300">I've filled in the client details from your previous documents. Everything looks correct.</p>
                     </div>
-                    <div className="h-6 w-6 rounded-full bg-green-500/20 flex items-center justify-center">
-                      <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                    <div className="h-6 w-6 rounded-full bg-indigo-500/20 flex items-center justify-center">
+                      <div className="h-2 w-2 rounded-full bg-indigo-500"></div>
                     </div>
                   </div>
                 </div>
@@ -146,30 +146,30 @@ export default function Landing() {
           <div className="text-center mb-20">
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-                Intelligence at every step
+                Designed for efficiency
               </span>
             </h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              Our multi-agent system handles the complexity, so you can focus on the strategy.
+              We handle the tedious parts of legal work so you can focus on your clients.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: "🧠",
-                title: "Neural Analysis",
-                desc: "Advanced NLP models understand the context, intent, and nuances of every legal document you upload."
+                icon: "⚡",
+                title: "Instant Analysis",
+                desc: "Upload any document and get a clear summary of what needs to be filled. No more manual scanning."
               },
               {
-                icon: "💬",
-                title: "Conversational Filling",
-                desc: "Forget static forms. Interact with your documents naturally. AI guides you through every placeholder."
+                icon: "✨",
+                title: "Guided Completion",
+                desc: "A simple, step-by-step process ensures you never miss a field or make a mistake."
               },
               {
-                icon: "🔐",
-                title: "Secure Data Room",
-                desc: "Enterprise-grade security for your sensitive data. Build a knowledge graph that gets smarter with every upload."
+                icon: "📚",
+                title: "Smart Knowledge Base",
+                desc: "Your data is securely stored and reused. Never type the same company address twice."
               }
             ].map((feature, i) => (
               <div key={i} className="group p-8 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm">

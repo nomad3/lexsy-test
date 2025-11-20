@@ -73,8 +73,8 @@ Lexsy provides:
 ### Video Demonstrations
 
 #### Landing Page Redesign
-![Landing Page Redesign](docs/videos/landing_page_redesign.webp)
-*Modern, dark-themed landing page with glassmorphism and animations*
+![Landing Page Redesign](docs/videos/landing_page_value_focus.webp)
+*Value-driven landing page focusing on service and outcomes*
 
 #### Full Application Flow
 ![Full Application Tour](docs/videos/full_app_test_1763658658058.webp)
