@@ -466,13 +466,71 @@ npm test
 
 ---
 
+
 ## 🚢 Deployment
 
-### Using Docker Compose
+Lexsy supports multiple deployment options: local development, Docker Compose, and production deployment to GCP VM with automatic SSL certificates.
+
+### 🚀 Quick Deploy to GCP VM (Recommended for Production)
+
+The easiest way to deploy Lexsy to production is using our automated deployment script:
+
+**1. Setup your GCP VM:**
+```bash
+# SSH into your GCP VM
+ssh user@your-vm-ip
+
+# Run the setup script (installs Docker, Nginx, Certbot, etc.)
+curl -fsSL https://raw.githubusercontent.com/yourusername/lexsy-test/main/setup-vm.sh | bash
+
+# Log out and back in for Docker group changes
+exit
+ssh user@your-vm-ip
+```
+
+**2. Clone and configure:**
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/lexsy-test.git
+cd lexsy-test
+
+# Configure your domain and email
+nano deploy.sh
+# Update: DOMAIN="lexsy.yourdomain.com"
+#         EMAIL="your-email@example.com"
+
+# Set environment variables
+cp .env.example .env
+nano .env
+# Set: OPENAI_API_KEY=sk-your-key
+#      JWT_SECRET=your-secure-secret
+```
+
+**3. Deploy:**
+```bash
+./deploy.sh
+```
+
+The script will automatically:
+- ✅ Validate prerequisites and environment
+- ✅ Build and start Docker containers
+- ✅ Configure Nginx reverse proxy
+- ✅ Request SSL certificate from Let's Encrypt
+- ✅ Set up automatic HTTPS redirect
+- ✅ Verify deployment health
+
+Your application will be available at `https://lexsy.yourdomain.com`
+
+### 🐳 Using Docker Compose (Development)
+
+For local development with Docker:
 
 ```bash
-# Build and start all services
+# Development mode (with hot reload)
 docker-compose up -d
+
+# Production mode (optimized builds)
+docker-compose -f docker-compose.prod.yml up -d
 
 # View logs
 docker-compose logs -f
@@ -481,31 +539,103 @@ docker-compose logs -f
 docker-compose down
 ```
 
-### Manual Deployment
+### 📦 Manual Deployment
 
-1. Build the frontend:
+For custom deployment scenarios:
+
+1. **Build the frontend:**
 ```bash
 cd frontend
+npm install
 npm run build
 ```
 
-2. Build the backend:
+2. **Build the backend:**
 ```bash
 cd backend
+npm install
 npm run build
 ```
 
-3. Run migrations on production database:
+3. **Run migrations:**
 ```bash
 cd backend
 NODE_ENV=production npm run migrate:latest
 ```
 
-4. Start the production server:
+4. **Start the production server:**
 ```bash
 cd backend
 NODE_ENV=production npm start
 ```
+
+### 📚 Deployment Documentation
+
+For detailed deployment instructions, troubleshooting, and maintenance:
+
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Complete deployment guide
+- **[DEPLOY-REFERENCE.md](DEPLOY-REFERENCE.md)** - Quick command reference
+- **[setup-vm.sh](setup-vm.sh)** - GCP VM setup script
+- **[deploy.sh](deploy.sh)** - Automated deployment script
+
+### 🔧 Deployment Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `setup-vm.sh` | Install prerequisites on GCP VM (Docker, Nginx, Certbot) |
+| `deploy.sh` | Automated deployment with SSL certificates |
+| `docker-compose.yml` | Development environment |
+| `docker-compose.prod.yml` | Production environment |
+
+### 🌐 Environment Configuration
+
+Required environment variables in `.env`:
+
+```env
+# Required
+OPENAI_API_KEY=sk-your-openai-api-key
+JWT_SECRET=your-secure-jwt-secret-32-chars-minimum
+
+# Optional (with defaults)
+POSTGRES_USER=lexsy_user
+POSTGRES_PASSWORD=lexsy_password
+POSTGRES_DB=lexsy
+FRONTEND_PORT=5175
+BACKEND_PORT=5001
+```
+
+### 🔒 Security Checklist
+
+Before deploying to production:
+
+- [ ] Update `DOMAIN` and `EMAIL` in `deploy.sh`
+- [ ] Set strong `JWT_SECRET` (32+ characters)
+- [ ] Set strong `POSTGRES_PASSWORD`
+- [ ] Configure GCP firewall (ports 22, 80, 443)
+- [ ] Verify SSL certificate auto-renewal
+- [ ] Change demo user password
+- [ ] Set up automated backups
+- [ ] Configure monitoring and alerts
+
+### 📊 Post-Deployment
+
+After successful deployment:
+
+```bash
+# Check service health
+curl https://lexsy.yourdomain.com/health
+
+# View logs
+docker-compose -f docker-compose.prod.yml logs -f
+
+# Monitor resources
+docker stats
+
+# Backup database
+docker exec lexsy-postgres pg_dump -U lexsy_user lexsy > backup.sql
+```
+
+
 
 ---
 
