@@ -47,8 +47,8 @@ function Login() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-primary-100 px-4">
       <Card className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-primary-600 mb-2">Lexsy</h1>
-          <p className="text-gray-600">AI-Powered Legal Document Automation</p>
+          <h1 className="text-3xl font-bold text-primary-600 mb-2">SmartDocs</h1>
+          <p className="text-gray-600">Intelligent Legal Document Automation</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -99,7 +99,7 @@ function Login() {
           </div>
 
           <div className="mt-4 bg-gray-50 rounded-md p-4 text-sm">
-            <p className="font-medium text-gray-700 mb-2">Try Lexsy with demo account:</p>
+            <p className="font-medium text-gray-700 mb-2">Try SmartDocs with demo account:</p>
             <p className="text-gray-600">
               <span className="font-mono">demo@lexsy.com</span> / <span className="font-mono">Demo123!</span>
             </p>

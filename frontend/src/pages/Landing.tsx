@@ -28,9 +28,9 @@ export default function Landing() {
         <div className="container mx-auto flex items-center justify-between px-6">
           <Link to="/" className="flex items-center space-x-2 group">
             <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-all duration-300">
-              <span className="text-white font-bold text-xl">L</span>
+              <span className="text-white font-bold text-xl">S</span>
             </div>
-            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">Lexsy</span>
+            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">SmartDocs</span>
           </Link>
           <div className="flex items-center gap-4">
             <Link to="/login">
@@ -69,7 +69,7 @@ export default function Landing() {
               </h1>
 
               <p className="text-xl text-slate-400 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed animate-fade-in-delay-2">
-                Stop spending hours on manual data entry. Lexsy ensures your contracts, NDAs, and agreements are filled accurately and consistently, every single time.
+                Stop spending hours on manual data entry. SmartDocs intelligently identifies placeholders in your .docx templates and guides you through filling them via a natural conversation.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-fade-in-delay-3">
@@ -148,7 +148,7 @@ export default function Landing() {
           <div className="text-center mb-24">
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-                See Lexsy in Action
+                See SmartDocs in Action
               </span>
             </h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
@@ -168,7 +168,7 @@ export default function Landing() {
                   <span className="text-indigo-400">chatting with a colleague.</span>
                 </h3>
                 <p className="text-slate-400 text-lg leading-relaxed">
-                  Forget complex forms. Lexsy's AI guides you through every field with natural questions. It provides contextual examples and validates your answers in real-time, ensuring 100% accuracy.
+                  Forget complex forms. SmartDocs automatically distinguishes between template text and dynamic placeholders, then guides you through every field with natural questions.
                 </p>
                 <ul className="space-y-4 text-slate-300">
                   <li className="flex items-center gap-3">
@@ -208,7 +208,7 @@ export default function Landing() {
                   <span className="text-purple-400">client details twice.</span>
                 </h3>
                 <p className="text-slate-400 text-lg leading-relaxed">
-                  Upload your past documents to the Data Room. Lexsy automatically extracts entities like company names, addresses, and dates, building a secure knowledge graph for future use.
+                  Upload your company documents to the Data Room. SmartDocs automatically extracts entities like company names and addresses to auto-populate fields in future documents.
                 </p>
                 <ul className="space-y-4 text-slate-300">
                   <li className="flex items-center gap-3">
@@ -309,7 +309,7 @@ export default function Landing() {
             Ready to modernize your practice?
           </h2>
           <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
-            Join the next generation of legal professionals using Lexsy to automate their workflow.
+            Join the next generation of legal professionals using SmartDocs to automate their workflow.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <Link to="/register">
@@ -327,12 +327,12 @@ export default function Landing() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center space-x-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 text-white font-bold">
-                L
+                S
               </div>
-              <span className="text-xl font-bold text-slate-200">Lexsy</span>
+              <span className="text-xl font-bold text-slate-200">SmartDocs</span>
             </div>
             <div className="text-slate-500 text-sm">
-              © 2025 Lexsy. All rights reserved.
+              © 2025 SmartDocs. All rights reserved.
             </div>
           </div>
         </div>

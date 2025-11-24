@@ -1,12 +1,12 @@
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
-import { authAPI, handleApiError } from '../lib/api'
-import { useAuthStore } from '../stores/authStore'
-import { UserRole } from '../lib/types'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
-import Input from '../components/ui/Input'
 import Card from '../components/ui/Card'
+import Input from '../components/ui/Input'
+import { authAPI, handleApiError } from '../lib/api'
+import { UserRole } from '../lib/types'
+import { useAuthStore } from '../stores/authStore'
 
 function Register() {
   const navigate = useNavigate()
@@ -69,7 +69,7 @@ function Register() {
       <Card className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-primary-600 mb-2">Create Account</h1>
-          <p className="text-gray-600">Join Lexsy to automate your legal documents</p>
+          <p className="text-gray-600">Join SmartDocs to automate your legal documents</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">

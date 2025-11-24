@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import { useAuthStore } from '../stores/authStore'
 import Button from './ui/Button'
 
@@ -23,9 +23,9 @@ function Layout() {
             {/* Logo */}
             <Link to="/dashboard" className="flex items-center space-x-2 group">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black transform group-hover:scale-105 transition-transform">
-                <span className="text-white font-bold text-sm">L</span>
+                <span className="text-white font-bold text-sm">S</span>
               </div>
-              <span className="text-xl font-bold text-gray-900">Lexsy</span>
+              <span className="text-xl font-bold text-gray-900">SmartDocs</span>
             </Link>
 
             {/* Navigation */}
@@ -34,11 +34,10 @@ function Layout() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                    isActive(item.path)
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${isActive(item.path)
                       ? 'bg-gray-900 text-white'
                       : 'text-gray-700 hover:bg-gray-100'
-                  }`}
+                    }`}
                 >
                   {item.name}
                 </Link>

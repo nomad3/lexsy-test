@@ -20,7 +20,7 @@ function Conversation() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   // Get document details
-  const { data: document, isLoading: docLoading, refetch: refetchDocument } = useQuery({
+  const { data: document, isLoading: docLoading } = useQuery({
     queryKey: ['document', documentId],
     queryFn: () => documentsAPI.getById(documentId!),
     enabled: !!documentId,
