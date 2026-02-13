@@ -101,7 +101,7 @@ function Login() {
           <div className="mt-4 bg-gray-50 rounded-md p-4 text-sm">
             <p className="font-medium text-gray-700 mb-2">Try SmartDocs with demo account:</p>
             <p className="text-gray-600">
-              <span className="font-mono">demo@lexsy.com</span> / <span className="font-mono">Demo123!</span>
+              <span className="font-mono">demo@smartdocs.com</span> / <span className="font-mono">Demo123!</span>
             </p>
           </div>
         </div>

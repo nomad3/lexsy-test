@@ -2,7 +2,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { openai, calculateCost } from '../config/openai';
 import { query } from '../config/database';
-import { AgentType, TaskType, TaskStatus, AITask } from '@lexsy/common';
+import { AgentType, TaskType, TaskStatus, AITask } from '@smartdocs/common';
 
 export abstract class BaseAgent {
   public readonly name: string;

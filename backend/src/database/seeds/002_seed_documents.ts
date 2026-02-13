@@ -2,7 +2,7 @@ import { Knex } from 'knex';
 
 export async function seed(knex: Knex): Promise<void> {
   // Get demo user
-  const user = await knex('users').where({ email: 'demo@lexsy.com' }).first();
+  const user = await knex('users').where({ email: 'demo@smartdocs.com' }).first();
 
   if (!user) {
     console.log('Demo user not found, skipping document seed');
@@ -45,7 +45,7 @@ export async function seed(knex: Knex): Promise<void> {
       field_type: 'organization',
       position: 2,
       original_text: '[Disclosing Party]',
-      ai_suggested_value: 'Lexsy Inc.',
+      ai_suggested_value: 'SmartDocs Inc.',
       suggestion_source: 'User Profile',
       confidence: 0.90,
     },

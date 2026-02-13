@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Lexsy End-to-End Test Suite
+# SmartDocs End-to-End Test Suite
 # Tests all 5 must-have features
 
-echo "🧪 LEXSY END-TO-END TEST SUITE"
+echo "🧪 SMARTDOCS END-TO-END TEST SUITE"
 echo "================================"
 echo ""
 
@@ -36,7 +36,7 @@ warn() {
 echo "📊 Test 1: Database Layer"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-TABLE_COUNT=$(docker exec lexsy-postgres psql -U lexsy_user -d lexsy -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public' AND table_type = 'BASE TABLE';" 2>/dev/null | tr -d ' ')
+TABLE_COUNT=$(docker exec smartdocs-postgres psql -U smartdocs_user -d smartdocs -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public' AND table_type = 'BASE TABLE';" 2>/dev/null | tr -d ' ')
 
 if [ "$TABLE_COUNT" -ge "19" ]; then
   pass "Database has $TABLE_COUNT tables (expected 19+)"
@@ -44,7 +44,7 @@ else
   fail "Database has only $TABLE_COUNT tables"
 fi
 
-USER_EXISTS=$(docker exec lexsy-postgres psql -U lexsy_user -d lexsy -t -c "SELECT COUNT(*) FROM users WHERE email = 'demo@lexsy.com';" 2>/dev/null | tr -d ' ')
+USER_EXISTS=$(docker exec smartdocs-postgres psql -U smartdocs_user -d smartdocs -t -c "SELECT COUNT(*) FROM users WHERE email = 'demo@smartdocs.com';" 2>/dev/null | tr -d ' ')
 
 if [ "$USER_EXISTS" = "1" ]; then
   pass "Demo user exists in database"
@@ -73,7 +73,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 
 LOGIN_RESPONSE=$(curl -s -X POST http://localhost:5000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"demo@lexsy.com","password":"Demo123!"}')
+  -d '{"email":"demo@smartdocs.com","password":"Demo123!"}')
 
 if echo "$LOGIN_RESPONSE" | grep -q "token"; then
   pass "Login endpoint returns JWT token"
@@ -119,7 +119,7 @@ echo "🎨 Test 5: Frontend"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 FRONTEND_RESPONSE=$(curl -s http://localhost:5174)
-if echo "$FRONTEND_RESPONSE" | grep -q "Lexsy"; then
+if echo "$FRONTEND_RESPONSE" | grep -q "SmartDocs"; then
   pass "Frontend is serving content"
 else
   fail "Frontend not responding"
@@ -153,7 +153,7 @@ echo ""
 echo "🤖 Test 7: AI Agents"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-AGENT_COUNT=$(docker exec lexsy-postgres psql -U lexsy_user -d lexsy -t -c "SELECT COUNT(*) FROM ai_agents;" 2>/dev/null | tr -d ' ')
+AGENT_COUNT=$(docker exec smartdocs-postgres psql -U smartdocs_user -d smartdocs -t -c "SELECT COUNT(*) FROM ai_agents;" 2>/dev/null | tr -d ' ')
 
 if [ "$AGENT_COUNT" -ge "0" ]; then
   pass "AI agents table exists (agents: $AGENT_COUNT)"
@@ -161,7 +161,7 @@ else
   fail "AI agents table not found"
 fi
 
-TASK_COUNT=$(docker exec lexsy-postgres psql -U lexsy_user -d lexsy -t -c "SELECT COUNT(*) FROM ai_tasks;" 2>/dev/null | tr -d ' ')
+TASK_COUNT=$(docker exec smartdocs-postgres psql -U smartdocs_user -d smartdocs -t -c "SELECT COUNT(*) FROM ai_tasks;" 2>/dev/null | tr -d ' ')
 pass "AI tasks table exists (tasks logged: $TASK_COUNT)"
 
 echo ""

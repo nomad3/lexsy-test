@@ -1,4 +1,4 @@
-# Lexsy - AI-Powered Legal Document Automation Platform
+# SmartDocs - AI-Powered Legal Document Automation Platform
 
 <div align="center">
 
@@ -35,7 +35,7 @@
 
 ## 🌟 Overview
 
-**Lexsy** is a next-generation legal document automation platform that leverages artificial intelligence to streamline the document creation and filling process for legal professionals. Unlike traditional template-based systems, Lexsy uses a sophisticated multi-agent AI architecture to intelligently understand, process, and complete legal documents.
+**SmartDocs** is a next-generation legal document automation platform that leverages artificial intelligence to streamline the document creation and filling process for legal professionals. Unlike traditional template-based systems, SmartDocs uses a sophisticated multi-agent AI architecture to intelligently understand, process, and complete legal documents.
 
 ### The Problem
 
@@ -48,7 +48,7 @@ Legal professionals spend countless hours:
 
 ### The Solution
 
-Lexsy provides:
+SmartDocs provides:
 - **Intelligent Placeholder Detection**: AI automatically identifies fillable fields
 - **Conversational Document Filling**: Natural dialogue-based completion with contextual examples
 - **Cross-Document Intelligence**: Automatic value synchronization across related documents
@@ -183,12 +183,12 @@ Lexsy provides:
 
 ### 🐳 Quick Start with Docker (Recommended)
 
-The easiest way to run Lexsy is using Docker Compose:
+The easiest way to run SmartDocs is using Docker Compose:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/lexsy-test.git
-   cd lexsy-test
+   git clone https://github.com/yourusername/smartdocs.git
+   cd smartdocs
    ```
 
 2. **Configure environment**
@@ -211,17 +211,17 @@ The easiest way to run Lexsy is using Docker Compose:
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/lexsy-test.git
-cd lexsy-test
+git clone https://github.com/yourusername/smartdocs.git
+cd smartdocs
 ```
 
 2. **Set up the database**
 ```bash
 # Create PostgreSQL database
-createdb lexsy_test
+createdb smartdocs_test
 
 # Or using psql
-psql -U postgres -c "CREATE DATABASE lexsy_test;"
+psql -U postgres -c "CREATE DATABASE smartdocs_test;"
 ```
 
 3. **Configure environment variables**
@@ -230,7 +230,7 @@ Backend (`.env` in `/backend`):
 ```env
 PORT=5000
 NODE_ENV=development
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/lexsy_test
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/smartdocs_test
 JWT_SECRET=your_jwt_secret_key_change_in_production
 OPENAI_API_KEY=sk-your-openai-api-key
 FRONTEND_URL=http://localhost:5173,http://localhost:5174
@@ -267,7 +267,7 @@ npm run dev
 6. **Access the application**
 - Frontend: http://localhost:5173 (or 5174 if 5173 is in use)
 - Backend API: http://localhost:5000
-- Demo credentials: `demo@lexsy.com` / `Demo123!`
+- Demo credentials: `demo@smartdocs.com` / `Demo123!`
 
 ---
 
@@ -469,11 +469,11 @@ npm test
 
 ## 🚢 Deployment
 
-Lexsy supports multiple deployment options: local development, Docker Compose, and production deployment to GCP VM with automatic SSL certificates.
+SmartDocs supports multiple deployment options: local development, Docker Compose, and production deployment to GCP VM with automatic SSL certificates.
 
 ### 🚀 Quick Deploy to GCP VM (Recommended for Production)
 
-The easiest way to deploy Lexsy to production is using our automated deployment script:
+The easiest way to deploy SmartDocs to production is using our automated deployment script:
 
 **1. Setup your GCP VM:**
 ```bash
@@ -481,7 +481,7 @@ The easiest way to deploy Lexsy to production is using our automated deployment 
 ssh user@your-vm-ip
 
 # Run the setup script (installs Docker, Nginx, Certbot, etc.)
-curl -fsSL https://raw.githubusercontent.com/yourusername/lexsy-test/main/setup-vm.sh | bash
+curl -fsSL https://raw.githubusercontent.com/yourusername/smartdocs/main/setup-vm.sh | bash
 
 # Log out and back in for Docker group changes
 exit
@@ -491,12 +491,12 @@ ssh user@your-vm-ip
 **2. Clone and configure:**
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/lexsy-test.git
-cd lexsy-test
+git clone https://github.com/yourusername/smartdocs.git
+cd smartdocs
 
 # Configure your domain and email
 nano deploy.sh
-# Update: DOMAIN="lexsy.yourdomain.com"
+# Update: DOMAIN="smartdocs.yourdomain.com"
 #         EMAIL="your-email@example.com"
 
 # Set environment variables
@@ -519,7 +519,7 @@ The script will automatically:
 - ✅ Set up automatic HTTPS redirect
 - ✅ Verify deployment health
 
-Your application will be available at `https://lexsy.yourdomain.com`
+Your application will be available at `https://smartdocs.yourdomain.com`
 
 ### 🐳 Using Docker Compose (Development)
 
@@ -597,9 +597,9 @@ OPENAI_API_KEY=sk-your-openai-api-key
 JWT_SECRET=your-secure-jwt-secret-32-chars-minimum
 
 # Optional (with defaults)
-POSTGRES_USER=lexsy_user
-POSTGRES_PASSWORD=lexsy_password
-POSTGRES_DB=lexsy
+POSTGRES_USER=smartdocs_user
+POSTGRES_PASSWORD=smartdocs_password
+POSTGRES_DB=smartdocs
 FRONTEND_PORT=5175
 BACKEND_PORT=5001
 ```
@@ -623,7 +623,7 @@ After successful deployment:
 
 ```bash
 # Check service health
-curl https://lexsy.yourdomain.com/health
+curl https://smartdocs.yourdomain.com/health
 
 # View logs
 docker-compose -f docker-compose.prod.yml logs -f
@@ -632,7 +632,7 @@ docker-compose -f docker-compose.prod.yml logs -f
 docker stats
 
 # Backup database
-docker exec lexsy-postgres pg_dump -U lexsy_user lexsy > backup.sql
+docker exec smartdocs-postgres pg_dump -U smartdocs_user smartdocs > backup.sql
 ```
 
 
@@ -692,8 +692,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**Built with ❤️ by the Lexsy Team**
+**Built with ❤️ by the SmartDocs Team**
 
-[Report Bug](https://github.com/yourusername/lexsy-test/issues) • [Request Feature](https://github.com/yourusername/lexsy-test/issues)
+[Report Bug](https://github.com/yourusername/smartdocs/issues) • [Request Feature](https://github.com/yourusername/smartdocs/issues)
 
 </div>

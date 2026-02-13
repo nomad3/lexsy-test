@@ -91,7 +91,7 @@ info "Building and starting services"
 docker-compose -f "$COMPOSE_FILE" up --build -d
 
 info "Docker services running. Current status:"
-docker ps --filter "name=lexsy" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+docker ps --filter "name=smartdocs" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
 # --- 6. Wait for services to be healthy ---
 info "Waiting for services to be healthy..."
@@ -103,7 +103,7 @@ RETRY_COUNT=0
 DB_HEALTHY=false
 
 while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
-  if docker exec lexsy-postgres pg_isready -U lexsy_user >/dev/null 2>&1; then
+  if docker exec smartdocs-postgres pg_isready -U smartdocs_user >/dev/null 2>&1; then
     DB_HEALTHY=true
     info "✓ Database is healthy"
     break
@@ -397,7 +397,7 @@ fi
 # --- 11. Post-deployment summary ---
 echo ""
 echo "==========================================="
-echo "✓ Lexsy Deployment Complete!"
+echo "✓ SmartDocs Deployment Complete!"
 echo "==========================================="
 info "Site available at https://$DOMAIN"
 echo ""
@@ -407,7 +407,7 @@ echo "  - Backend API: https://$DOMAIN/api"
 echo "  - Health Check: https://$DOMAIN/health"
 echo ""
 echo "Demo Credentials:"
-echo "  - Email: demo@lexsy.com"
+echo "  - Email: demo@smartdocs.com"
 echo "  - Password: Demo123!"
 echo ""
 echo "Useful Commands:"
@@ -424,8 +424,8 @@ echo "  - Renew SSL certificate: sudo certbot renew"
 echo "  - Check service status: docker-compose ps"
 echo ""
 echo "Database Access:"
-echo "  - Connect: docker exec -it lexsy-postgres psql -U lexsy_user -d lexsy"
-echo "  - Backup: docker exec lexsy-postgres pg_dump -U lexsy_user lexsy > backup.sql"
+echo "  - Connect: docker exec -it smartdocs-postgres psql -U smartdocs_user -d smartdocs"
+echo "  - Backup: docker exec smartdocs-postgres pg_dump -U smartdocs_user smartdocs > backup.sql"
 echo ""
 echo "To redeploy after making changes:"
 echo "  1. Make your changes to the source code"

@@ -1,6 +1,6 @@
 // backend/tests/agents/PlaceholderExtractor.test.ts
 import { PlaceholderExtractor } from '../../src/agents/PlaceholderExtractor';
-import { AgentType, PlaceholderFieldType } from '@lexsy/common';
+import { AgentType, PlaceholderFieldType } from '@smartdocs/common';
 import { MODELS } from '../../src/config/openai';
 
 // Mock OpenAI

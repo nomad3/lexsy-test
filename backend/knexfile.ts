@@ -11,9 +11,9 @@ const config: { [key: string]: Knex.Config } = {
     connection: process.env.DATABASE_URL || {
       host: 'localhost',
       port: 5432,
-      user: 'lexsy_user',
-      password: 'lexsy_password',
-      database: 'lexsy',
+      user: 'smartdocs_user',
+      password: 'smartdocs_password',
+      database: 'smartdocs',
     },
     pool: {
       min: 2,
@@ -34,9 +34,9 @@ const config: { [key: string]: Knex.Config } = {
     connection: process.env.DATABASE_URL || {
       host: 'localhost',
       port: 5432,
-      user: 'lexsy_user',
-      password: 'lexsy_password',
-      database: 'lexsy_test',
+      user: 'smartdocs_user',
+      password: 'smartdocs_password',
+      database: 'smartdocs_test',
     },
     pool: {
       min: 2,

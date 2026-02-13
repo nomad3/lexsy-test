@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Lexsy Real Workflow End-to-End Test
+# SmartDocs Real Workflow End-to-End Test
 # Tests the complete user journey with real API calls and data
 
 # Don't exit on error for individual tests
 # set -e
 
-echo "🧪 LEXSY REAL WORKFLOW E2E TEST"
+echo "🧪 SMARTDOCS REAL WORKFLOW E2E TEST"
 echo "========================================"
 echo ""
 
@@ -20,7 +20,7 @@ NC='\033[0m' # No Color
 # Configuration
 API_URL="http://localhost:5000"
 FRONTEND_URL="http://localhost:5174"
-TEST_EMAIL="e2e-test-$(date +%s)@lexsy.com"
+TEST_EMAIL="e2e-test-$(date +%s)@smartdocs.com"
 TEST_PASSWORD="TestPassword123!"
 TEST_USER_NAME="E2E Test User"
 
@@ -73,12 +73,12 @@ fi
 
 # Check frontend
 FRONTEND_CHECK=$(curl -s "${FRONTEND_URL}" 2>&1)
-if echo "$FRONTEND_CHECK" | grep -q "Lexsy\|root"; then
+if echo "$FRONTEND_CHECK" | grep -q "SmartDocs\|root"; then
   pass "Frontend is running on ${FRONTEND_URL}"
 else
   log_info "Frontend may be on different port, trying 5173..."
   FRONTEND_URL="http://localhost:5173"
-  if curl -s "${FRONTEND_URL}" | grep -q "Lexsy\|root"; then
+  if curl -s "${FRONTEND_URL}" | grep -q "SmartDocs\|root"; then
     pass "Frontend is running on ${FRONTEND_URL}"
   else
     fail "Frontend not responding"
@@ -86,7 +86,7 @@ else
 fi
 
 # Check database
-DB_TABLES=$(docker exec lexsy-postgres psql -U lexsy_user -d lexsy -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';" 2>/dev/null | tr -d ' ')
+DB_TABLES=$(docker exec smartdocs-postgres psql -U smartdocs_user -d smartdocs -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';" 2>/dev/null | tr -d ' ')
 if [ "$DB_TABLES" -ge "19" ]; then
   pass "Database has $DB_TABLES tables"
 else

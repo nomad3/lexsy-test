@@ -1,0 +1,38 @@
+SmartDocs has been deployed!
+
+{{- if .Values.ingress.enabled }}
+
+Application URL:
+{{- if .Values.ingress.tls.enabled }}
+  https://{{ .Values.ingress.host }}
+{{- else }}
+  http://{{ .Values.ingress.host }}
+{{- end }}
+
+API endpoint:
+{{- if .Values.ingress.tls.enabled }}
+  https://{{ .Values.ingress.host }}/api
+{{- else }}
+  http://{{ .Values.ingress.host }}/api
+{{- end }}
+
+Health check:
+{{- if .Values.ingress.tls.enabled }}
+  https://{{ .Values.ingress.host }}/health
+{{- else }}
+  http://{{ .Values.ingress.host }}/health
+{{- end }}
+{{- end }}
+
+Demo credentials:
+  Email:    demo@smartdocs.com
+  Password: Demo123!
+
+To check deployment status:
+  kubectl get pods -l app.kubernetes.io/instance={{ .Release.Name }}
+
+To view backend logs:
+  kubectl logs -l app.kubernetes.io/component=backend,app.kubernetes.io/instance={{ .Release.Name }} -f
+
+To connect to the database:
+  kubectl exec -it {{ include "smartdocs.fullname" . }}-postgres-0 -- psql -U {{ .Values.postgres.auth.username }} -d {{ .Values.postgres.auth.database }}

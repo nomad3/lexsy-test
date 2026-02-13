@@ -1,6 +1,6 @@
 // backend/src/agents/ComplianceValidator.ts
 import { BaseAgent } from './BaseAgent';
-import { AgentType } from '@lexsy/common';
+import { AgentType } from '@smartdocs/common';
 import { MODELS } from '../config/openai';
 
 interface ComplianceValidatorInput {

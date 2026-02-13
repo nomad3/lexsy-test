@@ -1,6 +1,6 @@
 // backend/src/agents/TemplateAnalyzer.ts
 import { BaseAgent } from './BaseAgent';
-import { AgentType, PlaceholderFieldType } from '@lexsy/common';
+import { AgentType, PlaceholderFieldType } from '@smartdocs/common';
 import { MODELS } from '../config/openai';
 
 interface TemplateAnalyzerInput {

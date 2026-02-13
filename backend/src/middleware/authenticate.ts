@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { config } from '../config/app';
 import { query } from '../config/database';
-import { UserRole } from '@lexsy/common';
+import { UserRole } from '@smartdocs/common';
 
 export interface AuthUser {
   id: string;

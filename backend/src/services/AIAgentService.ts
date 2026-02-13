@@ -1,6 +1,6 @@
 import { DocumentAnalyzer } from '../agents/DocumentAnalyzer';
 import { PlaceholderExtractor } from '../agents/PlaceholderExtractor';
-import { AITask, TaskType } from '@lexsy/common';
+import { AITask, TaskType } from '@smartdocs/common';
 
 /**
  * AIAgentService

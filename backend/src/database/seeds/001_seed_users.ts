@@ -11,11 +11,11 @@ export async function seed(knex: Knex): Promise<void> {
   // Insert demo user
   await knex('users').insert([
     {
-      email: 'demo@lexsy.com',
+      email: 'demo@smartdocs.com',
       password_hash: passwordHash,
       full_name: 'Demo User',
       role: 'lawyer',
-      organization: 'Lexsy Demo',
+      organization: 'SmartDocs Demo',
       is_active: true,
     },
   ]).onConflict('email').ignore(); // Don't insert if email already exists

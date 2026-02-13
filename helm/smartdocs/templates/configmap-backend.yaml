@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "smartdocs.fullname" . }}-backend-config
+  labels:
+    {{- include "smartdocs.labels" . | nindent 4 }}
+data:
+  NODE_ENV: {{ .Values.backend.env.nodeEnv | quote }}
+  PORT: {{ .Values.backend.service.port | quote }}
+  JWT_EXPIRES_IN: {{ .Values.backend.env.jwtExpiresIn | quote }}
+  FILE_UPLOAD_PATH: {{ .Values.backend.env.fileUploadPath | quote }}
+  MAX_FILE_SIZE: {{ .Values.backend.env.maxFileSize | quote }}
+  RATE_LIMIT_WINDOW_MS: {{ .Values.backend.env.rateLimitWindowMs | quote }}
+  RATE_LIMIT_MAX_REQUESTS: {{ .Values.backend.env.rateLimitMaxRequests | quote }}
+  FRONTEND_URL: "https://{{ .Values.ingress.host }}"
+  POSTGRES_DB: {{ .Values.postgres.auth.database | quote }}
+  POSTGRES_USER: {{ .Values.postgres.auth.username | quote }}

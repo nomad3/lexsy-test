@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { db } from '../config/knex';
 import { config } from '../config/app';
-import { UserRole } from '@lexsy/common';
+import { UserRole } from '@smartdocs/common';
 import { v4 as uuidv4 } from 'uuid';
 import { logger } from '../utils/logger';
 import { asyncHandler, createError } from '../middleware/errorHandler';

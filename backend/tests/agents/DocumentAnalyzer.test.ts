@@ -1,6 +1,6 @@
 // backend/tests/agents/DocumentAnalyzer.test.ts
 import { DocumentAnalyzer } from '../../src/agents/DocumentAnalyzer';
-import { AgentType, TaskType } from '@lexsy/common';
+import { AgentType, TaskType } from '@smartdocs/common';
 import { MODELS } from '../../src/config/openai';
 
 // Mock OpenAI

@@ -4,33 +4,33 @@ services:
   # PostgreSQL Database
   database:
     image: postgres:16-alpine
-    container_name: lexsy-postgres
+    container_name: smartdocs-postgres
     environment:
-      POSTGRES_USER: lexsy_user
-      POSTGRES_PASSWORD: lexsy_password
-      POSTGRES_DB: lexsy
+      POSTGRES_USER: smartdocs_user
+      POSTGRES_PASSWORD: smartdocs_password
+      POSTGRES_DB: smartdocs
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U lexsy_user"]
+      test: ["CMD-SHELL", "pg_isready -U smartdocs_user"]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
-      - lexsy-network
+      - smartdocs-network
 
   # Backend API Server
   backend:
     build:
       context: .
       dockerfile: backend/Dockerfile
-    container_name: lexsy-backend
+    container_name: smartdocs-backend
     environment:
       NODE_ENV: production
       PORT: 5000
-      DATABASE_URL: postgresql://lexsy_user:lexsy_password@database:5432/lexsy
+      DATABASE_URL: postgresql://smartdocs_user:smartdocs_password@database:5432/smartdocs
       OPENAI_API_KEY: ${OPENAI_API_KEY:-your-api-key-here}
       JWT_SECRET: ${JWT_SECRET:-your-secret-key-here}
       JWT_EXPIRES_IN: 24h
@@ -48,7 +48,7 @@ services:
       database:
         condition: service_healthy
     networks:
-      - lexsy-network
+      - smartdocs-network
     command: sh -c "npm run migrate:prod && npm start"
     restart: unless-stopped
 
@@ -57,7 +57,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
-    container_name: lexsy-frontend
+    container_name: smartdocs-frontend
     environment:
       - VITE_API_URL=http://localhost:5001/api
     ports:
@@ -68,7 +68,7 @@ services:
     depends_on:
       - backend
     networks:
-      - lexsy-network
+      - smartdocs-network
     command: npm run dev -- --host 0.0.0.0
     restart: unless-stopped
 
@@ -81,5 +81,5 @@ volumes:
     driver: local
 
 networks:
-  lexsy-network:
+  smartdocs-network:
     driver: bridge

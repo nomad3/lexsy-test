@@ -1,6 +1,6 @@
 // backend/tests/agents/BaseAgent.test.ts
 import { BaseAgent } from '../../src/agents/BaseAgent';
-import { AgentType, TaskType, TaskStatus } from '@lexsy/common';
+import { AgentType, TaskType, TaskStatus } from '@smartdocs/common';
 
 // Mock OpenAI
 jest.mock('openai');

@@ -1,7 +1,7 @@
 import { DocumentService } from '../../src/services/DocumentService';
 import { AIAgentService } from '../../src/services/AIAgentService';
 import { parseDocx } from '../../src/utils/docxParser';
-import { DocumentStatus, TaskStatus, TaskType, ValidationStatus } from '@lexsy/common';
+import { DocumentStatus, TaskStatus, TaskType, ValidationStatus } from '@smartdocs/common';
 import * as fs from 'fs';
 import * as path from 'path';
 

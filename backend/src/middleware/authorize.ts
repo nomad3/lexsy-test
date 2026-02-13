@@ -1,6 +1,6 @@
 // backend/src/middleware/authorize.ts
 import { Request, Response, NextFunction } from 'express';
-import { UserRole } from '@lexsy/common';
+import { UserRole } from '@smartdocs/common';
 
 export function authorize(allowedRoles: UserRole[]) {
   return (req: Request, res: Response, next: NextFunction): void => {

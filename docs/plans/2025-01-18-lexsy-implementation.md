@@ -1,4 +1,4 @@
-# Lexsy Implementation Plan
+# SmartDocs Implementation Plan
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
@@ -31,7 +31,7 @@ npm init -y
 
 ```json
 {
-  "name": "lexsy",
+  "name": "smartdocs",
   "version": "1.0.0",
   "private": true,
   "workspaces": [
@@ -139,7 +139,7 @@ git commit -m "feat: initialize monorepo structure with workspaces"
 
 ```json
 {
-  "name": "@lexsy/common",
+  "name": "@smartdocs/common",
   "version": "1.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -359,7 +359,7 @@ git commit -m "feat: add shared TypeScript types for common package"
 
 ```json
 {
-  "name": "@lexsy/backend",
+  "name": "@smartdocs/backend",
   "version": "1.0.0",
   "main": "dist/server.js",
   "scripts": {
@@ -374,7 +374,7 @@ git commit -m "feat: add shared TypeScript types for common package"
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@lexsy/common": "^1.0.0",
+    "@smartdocs/common": "^1.0.0",
     "express": "^4.18.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -442,7 +442,7 @@ NODE_ENV=development
 PORT=5000
 
 # Database
-DATABASE_URL=postgresql://lexsy_user:lexsy_password@localhost:5432/lexsy
+DATABASE_URL=postgresql://smartdocs_user:smartdocs_password@localhost:5432/smartdocs
 
 # OpenAI
 OPENAI_API_KEY=your_openai_api_key_here
@@ -957,7 +957,7 @@ git commit -m "feat: add database schema and migration system"
 ```typescript
 // backend/tests/agents/BaseAgent.test.ts
 import { BaseAgent } from '../../src/agents/BaseAgent';
-import { AgentType, TaskType, TaskStatus } from '@lexsy/common';
+import { AgentType, TaskType, TaskStatus } from '@smartdocs/common';
 
 // Mock OpenAI
 jest.mock('openai');
@@ -1012,7 +1012,7 @@ Expected: FAIL with "Cannot find module '../../src/agents/BaseAgent'"
 import { v4 as uuidv4 } from 'uuid';
 import { openai, calculateCost } from '../config/openai';
 import { query } from '../config/database';
-import { AgentType, TaskType, TaskStatus, AITask } from '@lexsy/common';
+import { AgentType, TaskType, TaskStatus, AITask } from '@smartdocs/common';
 
 export abstract class BaseAgent {
   public readonly name: string;
@@ -1383,7 +1383,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { config } from '../config/app';
 import { query } from '../config/database';
-import { UserRole } from '@lexsy/common';
+import { UserRole } from '@smartdocs/common';
 
 export interface AuthUser {
   id: string;
@@ -1480,7 +1480,7 @@ export async function authenticate(req: Request, res: Response, next: NextFuncti
 ```typescript
 // backend/src/middleware/authorize.ts
 import { Request, Response, NextFunction } from 'express';
-import { UserRole } from '@lexsy/common';
+import { UserRole } from '@smartdocs/common';
 
 export function authorize(allowedRoles: UserRole[]) {
   return (req: Request, res: Response, next: NextFunction): void => {

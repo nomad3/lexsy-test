@@ -42,5 +42,5 @@ coverage/
 
 # Deployment
 *.sql
-lexsy-backups/
+smartdocs-backups/
 backup_*.sql

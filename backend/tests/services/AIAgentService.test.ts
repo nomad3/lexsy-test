@@ -1,7 +1,7 @@
 import { AIAgentService } from '../../src/services/AIAgentService';
 import { DocumentAnalyzer } from '../../src/agents/DocumentAnalyzer';
 import { PlaceholderExtractor } from '../../src/agents/PlaceholderExtractor';
-import { TaskType, TaskStatus } from '@lexsy/common';
+import { TaskType, TaskStatus } from '@smartdocs/common';
 
 // Mock the agents
 jest.mock('../../src/agents/DocumentAnalyzer');

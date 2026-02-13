@@ -1,4 +1,4 @@
-import { Document, DocumentStatus, Placeholder, PlaceholderFieldType, ValidationStatus } from '@lexsy/common';
+import { Document, DocumentStatus, Placeholder, PlaceholderFieldType, ValidationStatus } from '@smartdocs/common';
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '../config/knex';
 import { parseDocx } from '../utils/docxParser';

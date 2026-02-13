@@ -1,0 +1,77 @@
+imageRegistry:
+  url: ""  # e.g. gcr.io/my-project or us-docker.pkg.dev/my-project/repo
+
+ingress:
+  enabled: true
+  host: smartdocs.servicetsunami.com
+  className: nginx
+  tls:
+    enabled: true
+    clusterIssuer: letsencrypt-prod  # cert-manager ClusterIssuer name
+
+backend:
+  replicaCount: 2
+  image:
+    name: smartdocs-backend
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    port: 5000
+  env:
+    nodeEnv: production
+    jwtExpiresIn: "24h"
+    fileUploadPath: /app/uploads
+    maxFileSize: "10485760"
+    rateLimitWindowMs: "900000"
+    rateLimitMaxRequests: "100"
+  secrets:
+    openaiApiKey: ""
+    jwtSecret: ""
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: "2"
+      memory: 4Gi
+
+frontend:
+  replicaCount: 2
+  image:
+    name: smartdocs-frontend
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    port: 80
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+postgres:
+  replicaCount: 1
+  image:
+    repository: postgres
+    tag: "16-alpine"
+    pullPolicy: IfNotPresent
+  auth:
+    database: smartdocs
+    username: smartdocs_user
+    password: ""  # required: pass via --set postgres.auth.password=xxx
+  storage:
+    size: 10Gi
+    storageClass: ""  # uses cluster default if empty
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: "2"
+      memory: 4Gi
+
+migration:
+  enabled: true
+  backoffLimit: 3
