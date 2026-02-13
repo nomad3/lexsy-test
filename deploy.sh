@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Deployment Configuration
 DOMAIN="smartdocs.agentprovision.com"
-EMAIL="saguilera1608@gmail.com"
+EMAIL="${CERTBOT_EMAIL:-your-email@example.com}"
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 COMPOSE_FILE="$PROJECT_ROOT/docker-compose.prod.yml"
 FRONTEND_PORT=${FRONTEND_PORT:-5175}
